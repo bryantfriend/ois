@@ -1,36 +1,62 @@
-# Oxford
+# Oxford Classroom Games
 
-A fresh classroom game library for teachers. Independent of GP_Games.
+A standalone teacher-facing game library for Oxford International School. The official logo is used unchanged from https://oxford.kg/wp-content/uploads/2024/09/logo.png. Red, indigo, and white guide the interface.
 
 ## Run locally
-Requires Node.js. No installation or third-party dependencies are needed.
+
+Node.js is required. No application dependencies or build step are needed.
 
     npm run dev
 
-Open http://127.0.0.1:4173. Run syntax checks with npm run check.
+Open http://127.0.0.1:4174. A different port can be passed to `node scripts/serve.mjs 4180`.
 
-## First release
-- Responsive library with grade 1–12 and subject filters, combined filtering, and reset.
-- Six clearly labeled game concepts with learning-focus dialogs.
-- Keyboard-accessible controls, native modal dialogs, and empty states.
-- No playable games, accounts, or saved teacher content yet.
+    npm run check
 
-## Structure
-- dist/index.html: teacher home screen.
-- dist/styles.css: shared visual styles and responsive layouts.
-- dist/catalog.js: subject taxonomy and game metadata.
-- dist/app.js: filtering and concept details.
-- scripts/serve.mjs: dependency-free local preview server.
-- .openai/hosting.json: private Sites hosting identity when registered.
+## What is included
 
-The dist directory is authored source and must remain tracked.
+- 40 prepared lessons: 10 English and 10 Mathematics lessons for each of grades 7 and 8; 240 prepared questions/pairs/sequences.
+- 10 playable formats: Quiz Sprint, Tug of War, Relay Race, Sort It Out, Match Pairs, Sequence Builder, Challenge Board, Confidence Quest, Three-Life Challenge, and Clue Detective.
+- Separate Russian and Kyrgyz sections, plus the existing subject categories. Language lesson banks have not yet been authored, but custom lessons can be assigned to these subjects.
+- Grade, subject and text filters; direct play; a shared teacher editor; editable team names; optional shuffled question order.
+- Editable questions, answers, distractors, hints, and explanations. Spreadsheet paste can append questions or replace the deck.
+- Browser-local saved copies and versioned JSON downloads/imports. No accounts, server database, or student records.
+- Accessible HTML game controls with a canvas showing progress, team tracks, or tug-of-war position. Classroom presentation/fullscreen mode and result reviews.
 
-## Next phases
-1. Agree on grade coverage, subjects, and the first game to build.
-2. Build a game with a separate activity page and a clear return to the library.
-3. Extend catalog entries with playable routes and ready status; update the card renderer to distinguish playable games from concepts.
-4. Design a reusable game configuration schema: questions, answers, timing, and team settings.
-5. Decide how teacher-created content is stored and shared before adding accounts or persistence.
+The 40 entries are distinct grade/subject lesson packs across 10 reusable game formats, not 40 independently implemented engines. Grade placement is an initial proposal, not a verified mapping to a specific curriculum or Oxford textbook edition.
 
-Concepts and grade ranges are initial proposals, not claims of curriculum alignment.
-Customization is intentionally a later phase. Do not store student information in this shell.
+## Teacher workflow
+
+1. Select grade and subject. Choose **Edit & play** on a game, or use the play button for its prepared questions.
+2. Change the title, topic, or questions. For multiple-choice formats, add wrong choices one per line. Without wrong choices, the teacher marks spoken answers.
+3. For matching, each answer must be unique. For sorting, supply another category as a wrong choice. For sequences, use `|` between steps in the correct order.
+4. Paste tab-separated rows from a spreadsheet: question, answer, optional semicolon-separated wrong choices, optional hint. Review before play.
+5. **Save to My lessons** saves to this browser only. **Download lesson file** creates a portable backup. **Open a lesson file** restores a downloaded lesson into the editor.
+6. Play, discuss feedback, and review missed questions at the end. Custom copies never mutate prepared lessons.
+
+Lesson files contain a `schemaVersion: 1` envelope and a validated `lesson` object. Limit: 2–40 questions per lesson and 100 browser-local saved copies. Browser data is not synced or guaranteed to survive clearing browser storage; the UI explains this and offers downloads.
+
+## Source
+
+- `dist/index.html`: library, editor and classroom surfaces.
+- `dist/catalog.js`: subject taxonomy, format rules and prepared content.
+- `dist/app.js`: validation, teacher workflow, persistence, import/export and game state.
+- `dist/styles.css`: Oxford colors, responsive layouts, projector-friendly controls.
+- `dist/assets/oxford-logo.png`: official school logo.
+- `scripts/serve.mjs`: local preview.
+- `scripts/qa.mjs`: Playwright functional and responsive regression checks.
+
+`dist` contains authored source and must stay tracked. `.openai/hosting.json` retains the existing Sites identity. This update is a local working revision until explicitly published; the prior published preview is separate.
+
+## QA
+
+The browser QA runner requires the `playwright` package and a Chromium browser. Install it in a development environment or set `OXFORD_PLAYWRIGHT_MODULE` to an existing installation's `index.mjs`. Set `OXFORD_TEST_URL` to test another local preview URL. Then run `node scripts/qa.mjs`.
+
+The runner completes all 40 prepared lessons, tests incorrect-answer paths and game-specific rules, exercises teacher edit/paste/save/reload/import/export, checks invalid data, and captures desktop/mobile screenshots under ignored `output/qa/`. `window.render_game_to_text()` exposes the current visible game state; `window.advanceTime(ms)` redraws deterministic progress (these games have no real-time timer).
+
+## Inspiration and next work
+
+Reviewed https://github.com/bryantfriend/GP_Games and its tug-of-war, paraphrase relay, question sorting, and team-board ideas. Oxford implements its own shared engine and editor rather than embedding pages with hard-coded lesson data.
+
+Next: review the content against the school's grade 7/8 curriculum, expand question banks, and author Russian/Kyrgyz lessons. Cross-device accounts or collaborative lesson storage require a separately designed backend.
+
+Additional focused checks: `node scripts/qa-teacher.mjs` exercises paste replacement, unsaved work prompts, fullscreen transitions, custom spoken answers, validation, keyboard focus and the structured-filter contract in a simulated WebMCP context. Native in-app WebMCP verification was not repeated for this revision.

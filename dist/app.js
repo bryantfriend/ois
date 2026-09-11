@@ -43,7 +43,7 @@ function renderLibrary(){
  $('#grades').innerHTML=['all',7,8].map(n=>`<button class="grade ${ui.grade===n?'active':''}" data-grade="${n}" aria-pressed="${ui.grade===n}">${n==='all'?'All grades':`Grade ${n}`}</button>`).join('');
  $('#other-grade').value=[7,8,'all'].includes(ui.grade)?'':String(ui.grade);
  const source=ui.collection==='saved'?saved:GAMES;
- const filtered=source.filter(g=>(ui.grade==='all'||g.grade===ui.grade)&&(ui.subject==='all'||g.subject===ui.subject)&&`${g.title} ${g.topic} ${FORMATS[g.format].name}`.toLowerCase().includes(ui.search.toLowerCase()));
+ const filtered=source.filter(g=>(ui.grade==='all'||g.grade===ui.grade)&&(ui.subject==='all'||g.subject===ui.subject)&&`${g.title} ${g.topic} ${FORMATS[g.format].name} ${window.OXFORD_WORLDS?.[g.format]?.name||""}`.toLowerCase().includes(ui.search.toLowerCase()));
  $('#library-title').textContent=ui.collection==='saved'?'My lessons':ui.subject==='all'?'Your game library':SUBJECTS.find(s=>s.id===ui.subject).name;
  $('#collection-label').textContent=ui.collection==='saved'?'SAVED ON THIS DEVICE':'READY TO TEACH';
  $('#results').textContent=`${filtered.length} lesson${filtered.length===1?'':'s'} · ${ui.grade==='all'?'All grades':`Grade ${ui.grade}`}`;

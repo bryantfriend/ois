@@ -60,3 +60,13 @@ Reviewed https://github.com/bryantfriend/GP_Games and its tug-of-war, paraphrase
 Next: review the content against the school's grade 7/8 curriculum, expand question banks, and author Russian/Kyrgyz lessons. Cross-device accounts or collaborative lesson storage require a separately designed backend.
 
 Additional focused checks: `node scripts/qa-teacher.mjs` exercises paste replacement, unsaved work prompts, fullscreen transitions, custom spoken answers, validation, keyboard focus and the structured-filter contract in a simulated WebMCP context. Native in-app WebMCP verification was not repeated for this revision.
+
+## Animated game worlds
+
+The student-facing experience now uses ten animated canvas worlds: Rocket Rally, Hamster Tug of War, Hamster Dash, Ocean Rescue, Potion Partners, Bridge Builders, Treasure Quest, Lava Leap, Robot Rescue, and Midnight Mysteries. All 40 lesson packs use these scenes, with their existing learning and scoring rules.
+
+`dist/arcade.js` reacts to the actual game state: moving hamsters and rope, rocket progress, animated sea life, potion filling, bridge planks, treasure chests, lava-platform movement, robot energy/shields, and illuminated city windows. It adds success/miss reactions, confetti, optional synthesized sound, and a motion control that respects the OS reduced-motion preference. Sound starts off. Sorting supports HTML drag-and-drop as well as existing click/touch/keyboard controls. `dist/arcade.css` styles the student play areas and colorful library thumbnails. The teacher editor retains the simpler school branding.
+
+Inspiration reviewed in detail: GP_Games/hamsterruner.html (running characters and answer-driven travel), GP_Games/kareemboozled.html (bright team boards, animated reveals, synth sound), and GP_Games/oceancleaner.html (octopus animation, bubbles, and collection feedback). Procedural art is implemented locally; the page does not depend on those source pages or external assets.
+
+Run `node scripts/qa-arcade.mjs` with the same Playwright setup to check ten animated scenes, automatic movement, particles/expiry, eased rope motion, sound and motion toggles, dragging, reduced motion, new-name search, and mobile layouts. Test-only `advanceTime(ms)` switches the scene to manual stepping for deterministic capture; ordinary play runs through requestAnimationFrame.

@@ -8,9 +8,9 @@ await fs.mkdir('output/qa',{recursive:true});
 const context=vm.createContext({});
 vm.runInContext(await fs.readFile('dist/catalog.js','utf8')+';globalThis.catalog=GAMES;',context);
 const catalog=JSON.parse(JSON.stringify(context.catalog));
-assert.equal(catalog.length,52);
-for(const subject of ['english','math'])for(const grade of [7,8])assert.equal(catalog.filter(x=>x.subject===subject&&x.grade===grade).length,13);
-assert.equal(new Set(catalog.map(x=>x.id)).size,52);
+assert.equal(catalog.length,56);
+for(const subject of ['english','math'])for(const grade of [7,8])assert.equal(catalog.filter(x=>x.subject===subject&&x.grade===grade).length,14);
+assert.equal(new Set(catalog.map(x=>x.id)).size,56);
 const browser=await chromium.launch({headless:true});
 const ctx=await browser.newContext({viewport:{width:1440,height:1050},acceptDownloads:true});
 const page=await ctx.newPage();
@@ -20,6 +20,7 @@ const state=()=>page.evaluate(()=>JSON.parse(window.render_game_to_text()));
 async function open(id){await page.goto(`${base}/?game=${id}`);await page.locator('#start-game').click();assert.equal((await state()).view,'playing');}
 async function answerRound(lesson,correct=true){
  const s=await state();
+ if(lesson.format==='boozled'){await page.locator('[data-mode-action="boozled-pick"]:not([disabled])').first().click();if(await page.locator('[data-mode-action="boozled-reveal"]').count()){await page.locator('[data-mode-action="boozled-reveal"]').click();await page.locator('[data-correct="true"]').click();}else await page.locator('[data-mode-action="boozled-apply"]').click();await page.locator('[data-mode-action="boozled-next"]').click();return;}
  if(['kingdom','corners','earth'].includes(lesson.format)){
   const choice=await page.evaluate(()=>game.choices.indexOf(current().answer));
   if(lesson.format==='kingdom'){for(let i=0;i<s.session.groups.length;i++){await page.locator('#answer-group-'+i).selectOption(String(choice));await page.locator('[data-mode-action="lock"][data-group="'+i+'"]').click();}await page.locator('[data-mode-action="reveal"]').click();for(let i=0;i<s.session.groups.length;i++)await page.locator('[data-investment="save"][data-group="'+i+'"]').click();}
@@ -48,13 +49,13 @@ async function answerRound(lesson,correct=true){
 }
 try{
  await page.goto(base);
- assert.equal(await page.locator('.game-card').count(),26);
+ assert.equal(await page.locator('.game-card').count(),28);
  assert.equal(await page.locator('.brand img').evaluate(img=>img.complete&&img.naturalWidth>0),true);
  await page.screenshot({path:'output/qa/library-desktop.png',fullPage:false});
- await page.locator('[data-subject="english"]').click();assert.equal(await page.locator('.game-card').count(),13);
- await page.locator('[data-grade="8"]').click();assert.equal(await page.locator('.game-card').count(),13);
+ await page.locator('[data-subject="english"]').click();assert.equal(await page.locator('.game-card').count(),14);
+ await page.locator('[data-grade="8"]').click();assert.equal(await page.locator('.game-card').count(),14);
  await page.locator('#search').fill('Paragraph');assert.equal(await page.locator('.game-card').count(),1);
- await page.locator('#reset').click();assert.equal(await page.locator('.game-card').count(),52);
+ await page.locator('#reset').click();assert.equal(await page.locator('.game-card').count(),56);
  await page.locator('[data-subject="russian"]').click();assert.equal(await page.locator('#empty').isVisible(),true);
  await page.locator('[data-subject="kyrgyz"]').click();assert.equal(await page.locator('#empty').isVisible(),true);
  const summary=[];
@@ -109,5 +110,5 @@ try{
  await page.goto(`${base}/?game=english-8-order`);await page.screenshot({path:'output/qa/editor-mobile.png',fullPage:false});await page.locator('#start-game').click();assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=document.documentElement.clientWidth),true);await page.screenshot({path:'output/qa/order-mobile.png',fullPage:false});
  await page.setViewportSize({width:1440,height:1050});await open('math-8-tug');await page.screenshot({path:'output/qa/tug-desktop.png',fullPage:false});
  await open('english-8-match');await page.screenshot({path:'output/qa/match-desktop.png',fullPage:false});
- assert.deepEqual(errors,[]);await fs.writeFile('output/qa/results.json',JSON.stringify({passed:true,lessons:summary,consoleErrors:errors},null,2));console.log('PASS: all 52 lessons completed; failure paths, custom edit/save/reload/import/export, and responsive checks passed.');
+ assert.deepEqual(errors,[]);await fs.writeFile('output/qa/results.json',JSON.stringify({passed:true,lessons:summary,consoleErrors:errors},null,2));console.log('PASS: all 56 lessons completed; failure paths, custom edit/save/reload/import/export, and responsive checks passed.');
 }finally{await browser.close();}

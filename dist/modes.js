@@ -4,19 +4,22 @@ const INVESTMENTS={farm:{name:'Farm',cost:[2,0,1],help:'+1 wood on each later co
 function setupModeEditor(){
  const mode=GAME_MODES[FORMATS[draft.format].mode],host=$('#mode-setup');
  host.innerHTML=`<div class="mode-explainer"><strong>${mode.label}</strong><p>${mode.description}</p><small>${mode.control} · ${mode.objective}</small></div>`;
- if(draft.format!=='kingdom')return;
+ if(!['kingdom','boozled'].includes(draft.format))return;
  const count=draft.settings.teamCount||4,names=draft.settings.teamNames||['Red','Blue','Green','Yellow','Purple','Orange'];
  host.innerHTML+=`<label>Number of teams<select id="team-count">${[2,3,4,5,6].map(n=>`<option ${n===count?'selected':''}>${n}</option>`).join('')}</select></label><div id="group-names">${Array.from({length:count},(_,i)=>`<label>Team ${i+1}<input data-group-name="${i}" maxlength="30" value="${esc(names[i]||'Team '+(i+1))}"></label>`).join('')}</div><p class="mode-help">Assign a captain, researcher and strategist in each group. Rotate these roles each round. Teams discuss away from the screen, then the teacher records their agreed choices.</p>`;
+ if(draft.format==='boozled')host.innerHTML+=`<label>Surprise tiles<select id="boozled-power-count">${[0,2,4,8].map(n=>`<option value="${n}" ${n===(draft.settings.boozledPowerCount??4)?'selected':''}>${n}${n===0?' · questions only':''}</option>`).join('')}</select></label><p class="mode-help">The team chooses a tile and agrees its answer. The teacher reveals and marks it. Surprise tiles are mixed randomly into the board.</p>`;
  $('#team-count').onchange=()=>{draft.settings={...draft.settings,...readModeSettings()};dirty=true;setupModeEditor();};
 }
-function readModeSettings(){if(draft?.format!=='kingdom'||!$('#team-count'))return {};return {teamCount:Number($('#team-count').value),teamNames:[...document.querySelectorAll('[data-group-name]')].map(n=>n.value)};}
+function readModeSettings(){if(!['kingdom','boozled'].includes(draft?.format)||!$('#team-count'))return {};return {boozledPowerCount:Number($('#boozled-power-count')?.value??draft.settings.boozledPowerCount??4),teamCount:Number($('#team-count').value),teamNames:[...document.querySelectorAll('[data-group-name]')].map(n=>n.value)};}
 function initModeGame(){
+ if(game.lesson.format==='boozled'){initBoozled();return;}
  game.session={phase:'discuss',health:60,choice:null,votes:[],roundVotes:[],groups:[]};
  if(game.lesson.format==='kingdom')game.session.groups=game.lesson.settings.teamNames.map((name,i)=>({name,color:TEAM_COLORS[i],resources:[3,3,2],farms:0,quarries:0,prestige:0,answer:null,pick:null,invested:false}));
 }
 function modeChoices(){return `<div class="class-options">${game.choices.map((a,i)=>`<div style="--choice:${TEAM_COLORS[i]}"><b>${String.fromCharCode(65+i)}</b><span>${esc(a)}</span></div>`).join('')}</div>`;}
 function groupPoints(g){return g.prestige+Math.floor(g.resources.reduce((a,b)=>a+b,0)/3);}
 function renderModeGame(){
+ if(game.lesson.format==='boozled'){renderBoozled();return;}
  const f=game.lesson.format,s=game.session,mode=GAME_MODES[FORMATS[f].mode];
  $('#play-title').textContent=game.lesson.title;$('#play-format').textContent=FORMATS[f].name;$('#play-subtitle').textContent=`${mode.label} · ${mode.control}`;
  $('.player-bottom > span').textContent=f==='kingdom'?'Rotate roles each round. Agree as a group before choosing.':'Teacher-led · discuss, decide, reveal together.';
@@ -44,6 +47,7 @@ function renderModeResult(){
  $('#arena').innerHTML=`<div class="result"><div class="result-icon">${f==='kingdom'?'🏰':f==='earth'?'🌍':'🧭'}</div><h2>${esc(title)}</h2>${detail}<div class="result-actions"><button class="button primary" data-replay>Play again</button><button class="button secondary" data-edit-result>Edit this lesson</button></div></div>`;
 }
 function handleModeAction(button){
+ if(game.lesson.format==='boozled'){handleBoozled(button);return;}
  if(game.done||ui.view!=='player')return;
  const s=game.session,f=game.lesson.format,action=button.dataset.modeAction;
  if(action==='lock'&&f==='kingdom'&&s.phase==='discuss'){const i=Number(button.dataset.group),g=s.groups[i];if(!g||g.answer!==null||g.pick===null)return;g.answer=g.pick;}
@@ -71,6 +75,7 @@ function handleModeAction(button){
  $('#arena').querySelector('[data-mode-action]:not([disabled]),[data-replay]')?.focus({preventScroll:true});
 }
 function drawModeWorld(){
+ if(game.lesson.format==='boozled'){drawBoozledWorld();return;}
  const f=game.lesson.format,s=game.session;if(!s)return;
  if(f==='kingdom'){
   box(0,230,1100,70,0,'#60a47c');s.groups.forEach((g,i)=>{const x=110+i*880/Math.max(1,s.groups.length-1),h=Math.min(150,65+g.prestige*3);box(x-40,230-h,80,h,4,g.color);for(let k=0;k<3;k++)box(x-40+k*30,215-h,20,25,2,g.color);box(x-10,205,20,25,5,'#ffd785');star(x,190-h,9,'#ffdc6b',arcade.time*.5);label(g.name,x,266,17,'#193d41');label(groupPoints(g)+' pts',x,289,15,'#193d41');});

@@ -2,7 +2,7 @@
 
 Live: https://bryantfriend.github.io/ois/ · Source: https://github.com/bryantfriend/ois
 
-A teacher-facing library for Oxford International School, using its official logo and red/indigo branding. The library contains 370 editable lesson packs across 186 formats, including Grades 1–6 maths, logic, physics and computing alongside Grades 7–8 English and Mathematics. The new group/class packs reuse the prepared quiz question banks. Russian and Kyrgyz have separate sections; teachers can assign custom lessons to either.
+A teacher-facing library for Oxford International School, using its official logo and red/indigo branding. The library contains 374 editable lesson packs across 187 formats, including Grades 1–6 maths, logic, physics and computing alongside Grades 7–8 English and Mathematics. The new group/class packs reuse the prepared quiz question banks. Russian and Kyrgyz have separate sections; teachers can assign custom lessons to either.
 
 ## Four distinct modes
 
@@ -148,3 +148,9 @@ Chess uses chess.js 1.4.0 under its BSD-2-Clause license, included in `dist/vend
 Validation: `qa-lab.mjs` completes the number/logic packs; `qa-lab-path.mjs` covers route and traditional games; `qa-lab-collection.mjs` covers the remaining engines; `qa-lab-edges.mjs` checks rule edges, all 10,296 seed initializations, teacher files and simultaneous touch; `qa-lab-layout.mjs` checks all 104 starter screens at 1366×768. Initialization checks do not claim every generated puzzle was solved.
 
 Whack-a-Mole uses a nine-hole animated garden. Each question’s answer choices appear in distinct random holes, rise, hold for reading, and duck down before the next wave. Only visible raised moles accept hits. Tap, use keys 1–9, or freeze the moles for more reading time; wrong hits cost hearts. Teacher-authored question pools are preserved. Focused coverage: `scripts/qa-mole.mjs`.
+
+## Picture Vocabulary
+
+A solo picture-to-word game with large illustrated clues, two to four answer choices, feedback, points and progress. Four starter packs cover everyday English (Grade 2), scientific English (Grade 7), science vocabulary (Grade 5) and ICT equipment (Grade 7). Teachers can change the grade and subject, edit the words, select one of fourteen original illustrations, or upload a picture for each question. Uploaded pictures are compressed and included in saved/downloaded lessons. The optional Listen button uses browser speech synthesis and available device voices.
+
+`scripts/qa-picture-vocab.mjs` checks all four packs, scoring, replay, keyboard input, layouts, picture editing, uploads, save/export/import and validation.

@@ -2,7 +2,7 @@
 
 Live: https://bryantfriend.github.io/ois/ · Source: https://github.com/bryantfriend/ois
 
-A teacher-facing library for Oxford International School, using its official logo and red/indigo branding. The library contains 106 editable lesson packs across 32 formats for English and Mathematics, grades 7 and 8. The new group/class packs reuse the prepared quiz question banks. Russian and Kyrgyz have separate sections; teachers can assign custom lessons to either.
+A teacher-facing library for Oxford International School, using its official logo and red/indigo branding. The library contains 176 editable lesson packs across 54 formats for English and Mathematics, grades 7 and 8. The new group/class packs reuse the prepared quiz question banks. Russian and Kyrgyz have separate sections; teachers can assign custom lessons to either.
 
 ## Four distinct modes
 
@@ -96,3 +96,21 @@ Kingdom Clash uses a compact investment selector with costs, effect and confirma
 ## Subject navigation
 
 Expandable groups organize Language (English, Russian, Kyrgyz), Science (Chemistry, Biology, Physics, General Science), and Computer (ICT, Computer Science). Mathematics, Humanities and Global Perspectives remain direct choices. The lesson editor uses the same groups; new subject IDs are valid in saved and imported lessons. Existing science lessons retain their ID under General Science. New subject shelves accept teacher-authored content; no new question banks were added with this navigation change.
+
+## Activity collection
+
+Twenty-two additional formats contribute 70 editable Grade 7–8 starter packs, bringing the library to 176 packs / 54 formats.
+
+- **Teams:** Gameshow Quiz (turns, streaks, one 50:50 per team), Win or Lose Quiz (25/50/100-point stakes). Both use the shared 2–6-team setup.
+- **Whole Class:** Flip Tiles (reveal and revisit), Labelled Diagram (place labels on an animal cell), Watch and Memorize (recall a sequence).
+- **Solo:** Type the Answer, Wordsearch, Spell the Word, Hangman, Crossword, Maze Chase, True or False, Flying Fruit, Pair or No Pair, Balloon Pop, Airplane, Image Quiz, Whack-a-mole, Rank Order, Speed Sorting, Maths Generator, Word Magnets.
+
+English word puzzles use grade-specific vocabulary; sentence magnets use word-level sentence construction. Math packs cover arithmetic, comparisons and geometry. Labelled Diagram starts in Biology with cell structures/functions. Most question-driven formats have both English and Math banks; teachers can reassign custom content to any supported subject.
+
+Image Quiz supports an image upload for every question. Labelled Diagram supports one image plus up to twelve tap-positioned markers. Browser uploads accept PNG/JPEG/WebP up to 8 MB and compress them to at most 300,000 data-URL characters each; all image content stays in the lesson file or local browser storage. Total activity lesson payload is limited to 5 MB; import accepts files up to 6 MB. Default geometry and cell art is local SVG markup, with no external image service.
+
+Wordsearch and Crossword accept 2–12 distinct words of 2–14 letters. Crosswords connect words when possible and can include disconnected entries for word sets with no shared letters. Wordsearch supports reversed and diagonal words. Hangman uses a kite illustration and six misses per word. Maze answers occupy separate dead ends; the chaser starts behind the player and moves every second step. Airplane crosses answer gates after ten active seconds; Speed Sorting runs for sixty active seconds. Hidden tabs and the editor pause activity time. Motion-off stops decorative animations while preserving required gameplay movement.
+
+Maths Generator stores operation, maximum factor/operand and 2–40-question settings. Each run generates a new bank; division constructs whole-number answers and may use a dividend larger than the factor limit. Word Magnets supports both tapping and HTML drag/drop; keyboard-accessible taps are available for every magnet. Rank Order uses explicit up/down controls.
+
+New implementation: `dist/activities-catalog.js`, `dist/activities.js`, `dist/activities.css`. Verification: `scripts/qa-activities.mjs` (all packs and each format), `scripts/qa-activity-edges.mjs` (image/marker persistence, generator settings, failure and scoring guards), and `scripts/qa-activity-layout.mjs` (all 70 starts plus crossword entry and diagram alignment at 1366×768).

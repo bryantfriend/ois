@@ -55,3 +55,9 @@ Kareem-Boozled: read the user's original source, preserved its +15 questions and
 2026-09-12 — Grouped subject navigation.
 - Added expandable Language, Science and Computer groups, with grouped lesson-editor choices. Existing science IDs stay valid as General Science. New subjects support save, export/import and play.
 - Browser checks cover keyboard expansion, filters, mobile group containment, grouped editor options, existing science and custom Physics lesson persistence. Screenshots inspected and mobile summary sizing corrected.
+
+2026-09-12 — Added the requested 22 classroom activity formats.
+- Added 70 editable grade 7–8 lesson packs across English, Math and Biology; library now contains 176 packs / 54 formats. Each format uses its appropriate Solo, Teams or Whole Class mode, including shared 2–6 team setup.
+- Implemented distinct puzzle, typing, spelling, ordering, memory, timed sorting, maze, flight, moving-target and risk/reward mechanics. Teachers can upload quiz/diagram images, place diagram markers, edit words and sequences, and configure generated arithmetic. Settings and images survive saved lessons and JSON round-trips.
+- Verified complete playthroughs and replay/mobile views for all 22 formats; all 70 opening screens fit a 1366x768 smartboard, including six-team games. Fixed diagram aspect-ratio alignment, crossword active-clue layout and maze dead-end answer placement during review.
+- Edge tests pass for image upload/import, generator replay, lifeline and duplicate-answer guards, stakes, wrong-answer lives, maze collisions, memory failure, timers, randomized puzzle retention and duplicate discoveries. Teacher, subject, mode and expansion edge regressions pass; syntax checks and git diff checks pass. Skill browser loop screenshots inspected.

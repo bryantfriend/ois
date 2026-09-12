@@ -103,7 +103,7 @@ $('#save-lesson').onclick=()=>validAction(lesson=>{
 $('#download-lesson').onclick=()=>validAction(lesson=>{const blob=new Blob([JSON.stringify({schemaVersion:1,lesson},null,2)],{type:'application/json'});const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=`oxford-${lesson.title.replace(/[^a-z0-9а-яёөңү-]/gi,'-').slice(0,70)}.json`;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);dirty=false;notify('Lesson file downloaded. Keep it as your backup.');});
 $('#import-file').onchange=async e=>{const file=e.target.files[0];if(!file)return;try{if(file.size>500000)throw Error('Choose a lesson file smaller than 500 KB.');const data=JSON.parse(await file.text());if(data.schemaVersion!==1)throw Error('This is not a supported Oxford lesson file.');const lesson=validateLesson(data.lesson);lesson.id=`custom-${crypto.randomUUID()}`;openEditor(lesson);dirty=true;notify('Lesson opened. Review it, then play or save a copy.');}catch(error){notify(error instanceof SyntaxError?'The file is not valid JSON. Choose an Oxford lesson download.':error.message);}e.target.value='';};
 window.addEventListener('beforeunload',e=>{if(dirty){e.preventDefault();e.returnValue='';}});
-function startGame(){validAction(lesson=>{draft=lesson;game={lesson:clone(lesson),items:lesson.settings.shuffle?shuffle(lesson.items):clone(lesson.items),index:0,score:lesson.format==='wager'?300:0,teams:[0,0],turn:0,rope:0,lives:3,streak:0,answered:false,revealed:false,hinted:false,wager:0,done:false,correct:0,attempts:0,history:[],used:[],selected:[],left:null,matched:[],feedback:'',feedbackGood:false};game.right=shuffle(game.items.map((_,i)=>i));prepareRound();show('player');renderGame();});}
+function startGame(){validAction(lesson=>{if(lesson.format==='tug'&&lesson.items.some(q=>!q.options.length)){notify('Add at least one wrong choice to every question for two-player Tug of War.');return;}draft=lesson;game={lesson:clone(lesson),items:lesson.settings.shuffle?shuffle(lesson.items):clone(lesson.items),index:0,score:lesson.format==='wager'?300:0,teams:[0,0],turn:0,rope:0,lives:3,streak:0,answered:false,revealed:false,hinted:false,wager:0,done:false,correct:0,attempts:0,history:[],used:[],selected:[],left:null,matched:[],feedback:'',feedbackGood:false};game.right=shuffle(game.items.map((_,i)=>i));if(lesson.format==='tug')initTug();prepareRound();show('player');renderGame();});}
 $('#start-game').onclick=startGame;
 const playBottom=document.createElement('button');playBottom.className='button primary';playBottom.id='play-bottom';playBottom.textContent='Play this lesson ▶';playBottom.onclick=startGame;$('#add-question').after(playBottom);
 $('#edit-again').onclick=()=>{const wasDirty=dirty;openEditor(draft);dirty=wasDirty;};
@@ -133,11 +133,12 @@ function nextRound(){
 function finishMatch(){game.done=true;game.correct=game.items.length;game.score=Math.max(0,game.items.length*100-(game.attempts-game.items.length)*20);renderGame();}
 function scoreText(){const f=game.lesson.format;if(['tug','relay','board'].includes(f))return `${teamName(0)} ${game.teams[0]} · ${teamName(1)} ${game.teams[1]}`;return `${game.score} points`;}
 function renderGame(){
- if(!game)return;const f=game.lesson.format,format=FORMATS[f],teamMode=['tug','relay','board'].includes(f);
+ if(!game)return;$('.player-bottom > span').textContent='Discuss together. Take turns. Explain your thinking.';const f=game.lesson.format,format=FORMATS[f],teamMode=['tug','relay','board'].includes(f);
  $('#play-title').textContent=game.lesson.title;$('#play-format').textContent=format.name;$('#play-subtitle').textContent=`Grade ${game.lesson.grade} · ${SUBJECTS.find(s=>s.id===game.lesson.subject).name}`;
- $('#scoreboard').innerHTML=teamMode?`<div class="team-score ${game.turn===0?'active-team':''}"><span>${esc(teamName(0))}</span><strong>${game.teams[0]}</strong></div><span class="turn-label">${game.done?'Final scores':`${esc(teamName(game.turn))}’s turn`}</span><div class="team-score blue ${game.turn===1?'active-team':''}"><span>${esc(teamName(1))}</span><strong>${game.teams[1]}</strong></div>`:`<div class="solo-score"><span>${f==='match'?'Pairs matched':'Score'}</span><strong>${f==='match'?`${game.matched.length} / ${game.items.length}`:game.score}</strong></div><span class="turn-label">${f==='survival'?`${'♥'.repeat(Math.max(0,game.lives))} · ${game.lives} lives`:f==='quiz'?`Streak ${game.streak}`:f==='match'?`${game.attempts} attempts`:'Think it through together'}</span>`;
+ $('#scoreboard').innerHTML=teamMode?`<div class="team-score ${(f==='tug'||game.turn===0)?'active-team':''}"><span>${esc(teamName(0))}</span><strong>${game.teams[0]}</strong></div><span class="turn-label">${game.done?'Final scores':f==='tug'?'Both players · three pulls to win':`${esc(teamName(game.turn))}’s turn`}</span><div class="team-score blue ${(f==='tug'||game.turn===1)?'active-team':''}"><span>${esc(teamName(1))}</span><strong>${game.teams[1]}</strong></div>`:`<div class="solo-score"><span>${f==='match'?'Pairs matched':'Score'}</span><strong>${f==='match'?`${game.matched.length} / ${game.items.length}`:game.score}</strong></div><span class="turn-label">${f==='survival'?`${'♥'.repeat(Math.max(0,game.lives))} · ${game.lives} lives`:f==='quiz'?`Streak ${game.streak}`:f==='match'?`${game.attempts} attempts`:'Think it through together'}</span>`;
  drawCanvas();
  if(game.done){renderResult();return;}
+ if(f==='tug'){renderTug();return;}
  if(f==='match'){renderMatch();return;}
  if(f==='board'&&game.index===-1){renderBoard();return;}
  if(f==='board'&&game.history.length===0&&game.index===0&&!game.boardOpened){game.index=-1;renderBoard();return;}
@@ -168,6 +169,7 @@ function renderResult(){
 $('#arena').onclick=e=>{
  const b=e.target.closest('button');if(!b||b.disabled||!game)return;
  if(b.hasAttribute('data-replay'))return startGame();if(b.hasAttribute('data-edit-result'))return $('#edit-again').click();if(game.done)return;
+ if(b.hasAttribute('data-tug-answer'))return answerTug(b);
  if(b.hasAttribute('data-next'))return nextRound();
  if(b.hasAttribute('data-answer'))return award(game.choices[Number(b.dataset.answer)]===current().answer);
  if(b.hasAttribute('data-mark'))return award(b.dataset.mark==='true');
@@ -183,7 +185,7 @@ $('#arena').onclick=e=>{
 };
 // Keep keyboard focus inside the current activity when its controls are redrawn.
 $('#arena').addEventListener('click',event=>{
- if(event.detail!==0)return;const button=event.target.closest('button');if(!button)return;
+ if(event.detail!==0||event.target.closest('[data-tug-answer]'))return;const button=event.target.closest('button');if(!button)return;
  queueMicrotask(()=>{
   let selector='[data-answer], [data-tile]:not([disabled]), [data-board]:not([disabled]), [data-reveal], [data-wager], [data-left]:not([disabled]), [data-replay]';
   if(game?.answered)selector='[data-next]';
@@ -206,7 +208,7 @@ function drawCanvas(){
   const count=f==='match'?game.matched.length:f==='board'?game.used.length:game.history.length;ctx.fillStyle='#e1e3ee';ctx.fillRect(85,60,930,20);ctx.fillStyle='#38396f';ctx.fillRect(85,60,930*Math.min(1,count/game.items.length),20);ctx.fillStyle='#525877';ctx.font=`600 ${canvas.clientWidth<600?38:18}px Segoe UI`;ctx.fillText(`${count} of ${game.items.length} completed`,550,110);
  }
 }
-window.render_game_to_text=()=>JSON.stringify(game&&ui.view==='player'?{view:game.done?'result':'playing',format:game.lesson.format,lesson:game.lesson.title,grade:game.lesson.grade,score:game.score,teams:game.teams,turn:game.turn,rope:game.rope,lives:game.lives,attempts:game.attempts,correct:game.correct,question:game.done?null:current()?.prompt,choices:game.answered?[]:game.choices,answered:game.answered,feedback:game.feedback,revealed:game.revealed,modelAnswer:game.revealed||game.answered?current()?.answer:null,selected:game.selected,matched:game.matched,used:game.used,wager:game.wager,coordinateSystem:'Canvas origin top-left; x right, y down. Controls are accessible HTML.'}:{view:ui.view,grade:ui.grade,subject:ui.subject});
+window.render_game_to_text=()=>JSON.stringify(game&&ui.view==='player'?{view:game.done?'result':'playing',format:game.lesson.format,lesson:game.lesson.title,grade:game.lesson.grade,score:game.score,teams:game.teams,tugPlayers:game.tug?.map((p,i)=>({team:teamName(i),question:game.items[p.question].prompt,questionIndex:p.question,choices:p.choices,locked:p.locked,feedback:p.feedback,attempts:p.attempts,deckRemaining:p.deck.length})),turn:game.tug?null:game.turn,rope:game.rope,lives:game.lives,attempts:game.attempts,correct:game.correct,question:game.done||game.tug?null:current()?.prompt,choices:game.answered||game.tug?[]:game.choices,answered:game.answered,feedback:game.feedback,revealed:game.revealed,modelAnswer:game.revealed||game.answered?current()?.answer:null,selected:game.selected,matched:game.matched,used:game.used,wager:game.wager,coordinateSystem:'Canvas origin top-left; x right, y down. Controls are accessible HTML.'}:{view:ui.view,grade:ui.grade,subject:ui.subject});
 window.advanceTime=()=>{if(game&&ui.view==='player')drawCanvas();};
 // Read-only runtime inspection hooks above support repeatable classroom-game QA.
 renderLibrary();

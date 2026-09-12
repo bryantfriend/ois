@@ -2,7 +2,7 @@
    to the same live state and never changes a teacher's lesson data. */
 const WORLDS={
  quiz:{name:'Rocket Rally',emoji:'🚀',color:'#603bcd',accent:'#ffe05a',mission:'Fuel the rocket with correct answers. Keep your streak flying!',sky:['#201052','#5741b4']},
- tug:{name:'Hamster Tug of War',emoji:'🐹',color:'#16806d',accent:'#ffe36d',mission:'Three pulls to victory. Dig in, hamsters!',sky:['#70d9ef','#def9c6']},
+ tug:{name:'Hamster Tug of War',emoji:'🐹',color:'#16806d',accent:'#ffe36d',mission:'Play together on your own side. A three-pull lead wins!',sky:['#70d9ef','#def9c6']},
  relay:{name:'Hamster Dash',emoji:'🏁',color:'#db4a38',accent:'#ffe770',mission:'Every correct answer sends your hamster racing forward.',sky:['#68ccff','#dcf9ff']},
  sort:{name:'Ocean Rescue',emoji:'🐙',color:'#087f99',accent:'#8dffe3',mission:'Sort it right to clean the ocean. Your octopus is counting on you!',sky:['#007caa','#05335d']},
  match:{name:'Potion Partners',emoji:'🧪',color:'#7e37af',accent:'#e9ff72',mission:'Connect the pairs. Brew a bubbling potion!',sky:['#251746','#694096']},

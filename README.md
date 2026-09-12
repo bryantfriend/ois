@@ -71,3 +71,9 @@ Inspiration reviewed in detail: GP_Games/hamsterruner.html (running characters a
 
 Run `node scripts/qa-arcade.mjs` with the same Playwright setup to check ten animated scenes, automatic movement, particles/expiry, eased rope motion, sound and motion toggles, dragging, reduced motion, new-name search, and mobile layouts. Test-only `advanceTime(ms)` switches the scene to manual stepping for deterministic capture; ordinary play runs through requestAnimationFrame.
 
+
+## Simultaneous Tug of War
+
+Two students play side by side on a multi-touch board. Each has an independently shuffled deck from the same teacher-edited pool; each deck uses every question before refilling. Correct answers pull one step toward that player's side, and a three-step lead wins. Wrong answers do not move the rope. Each side advances automatically after brief feedback, without interrupting the other side. Questions require at least one wrong choice for independent answering. The game supports mouse and keyboard as well as simultaneous touch input.
+
+Run `node scripts/qa-tug.mjs` for native two-pointer touch, deck cycling, opponent-panel stability, win/restart, custom-pool validation, keyboard and mobile checks.

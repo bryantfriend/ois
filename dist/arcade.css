@@ -29,3 +29,29 @@
 @media(max-width:760px){.playing .header{min-height:55px;height:55px;flex-wrap:nowrap}.playing .header .brand img{width:115px}.playing .header .product-name{font-size:12px}.playing main{padding:0 3%}.play-toolbar{gap:8px;padding:10px 0;flex-wrap:wrap}.play-toolbar>span{order:4;width:100%;text-align:center;font-size:11px}.arcade-controls{gap:5px}.arcade-controls button{font-size:10px;padding:5px 7px}.play-heading h1{font-size:23px}.play-heading .eyebrow{font-size:10px}.arcade-mission{padding:6px 10px;gap:6px;flex-wrap:wrap}.arcade-mission>strong{font-size:12px}.arcade-mission>span{font-size:19px}.arcade-mission p{font-size:10px;margin:0;text-align:left;flex-basis:100%}.team-score,.solo-score{min-width:100px;padding:7px 12px;border-radius:10px}.solo-score strong{font-size:27px}.solo-score>span{font-size:11px}.turn-label{font-size:11px}.arena{padding:16px 13px}.arena h2{font-size:21px}.answers button{font-size:17px;min-height:65px;padding:12px}.question-top{font-size:10px}.matching{gap:12px}.matching button{font-size:14px;padding:10px}.sequence-tiles button,.sequence-answer>span{font-size:14px}.feedback strong{font-size:20px}.feedback p{font-size:15px}.challenge-board button{padding:13px}.challenge-board button i{font-size:30px}.result h2{font-size:27px}.card-art,.game-card.math .card-art{height:150px}}
 @media(prefers-reduced-motion:reduce){.playing *{animation:none!important;transition:none!important}}
 .playing .header nav{display:flex}.playing .header .nav-link{font-size:12px}@media(max-width:760px){.playing .header nav{display:none}}
+
+/* Two independent, board-sized touch zones. Keep both sides visible at all widths. */
+.tug-duel{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;text-align:left}
+.tug-side{min-width:0;padding:22px;border:3px solid #e34968;border-radius:22px;background:#fff1f4}
+.tug-side[data-side="1"]{border-color:#377ee8;background:#edf5ff}
+.tug-player-heading{display:flex;justify-content:space-between;gap:8px;align-items:center;color:#a32145}
+.tug-side[data-side="1"] .tug-player-heading{color:#2056a8}
+.tug-player-heading strong{font-size:1.35rem}.tug-player-heading span{font-size:.85rem}
+#arena .tug-side h2{font-size:clamp(1.15rem,2vw,1.85rem);min-height:3em;margin:20px 0;overflow-wrap:anywhere}
+.tug-answers{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.tug-answers button{touch-action:none;user-select:none;min-height:78px;padding:16px;text-align:left;background:#fff;color:#312544;border:2px solid #efb5c3;border-radius:14px;font:inherit;font-weight:750;overflow-wrap:anywhere;box-shadow:0 4px 0 #eec4ce}
+.tug-side[data-side="1"] button{border-color:#b0cdf7;box-shadow:0 4px 0 #bfd3ee}
+.tug-answers button span{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:8px;background:#f9d7e0;margin-right:10px}
+.tug-side[data-side="1"] button span{background:#d5e6ff}
+.tug-answers button:active:not(:disabled){transform:translateY(3px);box-shadow:none}
+.tug-answers button:disabled{opacity:.55}.tug-answers button:focus-visible{outline:4px solid #352778;outline-offset:3px}
+.tug-feedback{margin-top:18px;min-height:56px;font-weight:650;font-size:.95rem;overflow-wrap:anywhere}
+.tug-feedback.good{color:#096548}.tug-feedback.miss{color:#a32145}.tug-feedback small{display:block;margin-top:4px;color:#615b70}
+body[data-world="tug"] #game-canvas{max-height:220px;object-fit:contain}
+@media(max-width:700px){.tug-duel{gap:8px}.tug-side{padding:10px;border-radius:12px}.tug-player-heading{display:block}.tug-player-heading strong{font-size:1rem}.tug-player-heading span{display:block}.tug-answers{grid-template-columns:1fr;gap:8px}.tug-answers button{padding:10px;min-height:60px}.tug-answers button span{margin-right:5px}#arena .tug-side h2{font-size:1rem;min-height:4em}}
+@media(min-width:701px){.tug-answers button{font-size:20px}#arena .tug-side h2{min-height:2.5em;margin:12px 0}.tug-side{padding:18px}.tug-feedback{margin-top:12px;min-height:46px}}
+body[data-world="tug"] #player:fullscreen .play-heading{margin:0}
+body[data-world="tug"] #player:fullscreen .play-heading h1{font-size:24px}
+body[data-world="tug"] #player:fullscreen #game-canvas{max-height:160px}
+body[data-world="tug"] #player:fullscreen .arcade-mission{padding:6px 12px}
+body[data-world="tug"] #player:fullscreen #arena{padding:12px 18px}

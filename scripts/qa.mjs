@@ -20,6 +20,7 @@ const state=()=>page.evaluate(()=>JSON.parse(window.render_game_to_text()));
 async function open(id){await page.goto(`${base}/?game=${id}`);await page.locator('#start-game').click();assert.equal((await state()).view,'playing');}
 async function answerRound(lesson,correct=true){
  const s=await state();
+ if(lesson.format==='tug'){await page.waitForFunction(()=>!game.tug[0].locked);const p=(await state()).tugPlayers[0],q=lesson.items.find(q=>q.prompt===p.question),n=p.choices.findIndex(a=>correct?a===q.answer:a!==q.answer);await page.locator(`[data-player="0"][data-tug-answer="${n}"]`).click();return;}
  if(lesson.format==='match'){
   const ids=await page.locator('[data-left]:not([disabled])').evaluateAll(nodes=>nodes.map(n=>n.dataset.left));
   for(const id of ids){await page.locator(`[data-left="${id}"]`).click();await page.locator(`[data-right="${id}"]`).click();}return;
@@ -54,7 +55,7 @@ try{
  for(const lesson of catalog){
   await open(lesson.id);let rounds=0;
   while((await state()).view!=='result'){await answerRound(lesson,true);assert.ok(++rounds<=40);}
-  const s=await state();assert.equal(s.correct,lesson.items.length,lesson.id);assert.equal(s.attempts,lesson.items.length,lesson.id);
+  const s=await state();assert.equal(s.correct,lesson.format==='tug'?3:lesson.items.length,lesson.id);assert.equal(s.attempts,lesson.format==='tug'?3:lesson.items.length,lesson.id);
   if(['quiz','sort','order','clue','survival'].includes(lesson.format))assert.ok(s.score>=600,lesson.id);
   if(lesson.format==='wager')assert.equal(s.score,900);
   summary.push({id:lesson.id,score:s.score,correct:s.correct});
@@ -63,7 +64,7 @@ try{
  const survival=catalog.find(x=>x.id==='math-7-survival');await open(survival.id);
  for(let i=0;i<3;i++)await answerRound(survival,false);assert.equal((await state()).view,'result');assert.equal((await state()).lives,0);
  // Only one scoring event is allowed per answered question.
- await open('math-7-tug');await page.locator('[data-answer]').filter({hasText:/^[A-F]12$/}).click();const first=await state();assert.equal(first.teams[0],1);assert.equal(first.rope,-1);assert.equal(await page.locator('[data-answer]').count(),0);await page.locator('[data-next]').click();assert.equal((await state()).turn,1);
+ await open('math-7-tug');await answerRound(catalog.find(x=>x.id==='math-7-tug'));const first=await state();assert.equal(first.teams[0],1);assert.equal(first.rope,-1);assert.equal(first.tugPlayers[0].locked,true);assert.equal(first.tugPlayers[1].locked,false);
  // Win by pulling three steps to one side.
  await open('math-7-tug');for(const correct of [true,false,true,false,true])await answerRound(catalog.find(x=>x.id==='math-7-tug'),correct);assert.equal((await state()).view,'result');assert.equal((await state()).rope,-3);
  // Matching error, recovery, and result.

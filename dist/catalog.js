@@ -5,7 +5,7 @@ const SUBJECTS = [
 ];
 const FORMATS = {
  quiz:{name:'Quiz Sprint',icon:'ϟ',description:'Choose an answer and build a streak.',instructions:'Correct answers earn 100 points, plus 20 for each earlier answer in your current streak. Discuss the feedback before moving on.'},
- tug:{name:'Tug of War',icon:'↔',description:'Two teams compete to pull the flag home.',instructions:'Teams alternate turns. A correct answer pulls the flag one step toward your team. Pull it three steps to win, or lead when the questions run out.'},
+ tug:{name:'Tug of War',icon:'↔',description:'Two teams compete to pull the flag home.',instructions:'Two players answer at the same time on their own side. Each gets a shuffled deck from your question pool. Correct answers pull toward your side; a three-pull lead wins. Add wrong choices to every question.'},
  relay:{name:'Relay Race',icon:'⚑',description:'Pass the challenge and race along the team tracks.',instructions:'Teams alternate turns. Each correct answer advances your team one stage. The team with the most stages at the end wins.'},
  sort:{name:'Sort It Out',icon:'⇄',description:'Send each example to the right category.',instructions:'Read the example and choose its category. Each correct sort earns 100 points. Discuss errors before continuing.'},
  match:{name:'Match Pairs',icon:'▧',description:'Connect terms, meanings, or equivalent expressions.',instructions:'Choose a card on the left, then its partner on the right. Correct pairs stay matched. Find every pair; fewer attempts gives a better result.'},

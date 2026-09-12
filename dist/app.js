@@ -43,12 +43,19 @@ try{const data=JSON.parse(localStorage.getItem(storageKey)||'[]');if(!Array.isAr
 function show(view){ui.view=view;for(const id of ['home','editor','player'])$('#'+id).hidden=id!==view;document.body.classList.toggle('playing',view==='player');window.scrollTo(0,0);}
 function leaveEditor(action){if(['editor','player'].includes(ui.view)&&dirty)confirmAction('Leave this draft?','Changes have not been saved. Stay here to save a copy, or continue to leave the draft.',()=>{dirty=false;action();});else action();}
 function library(collection='library'){leaveEditor(()=>{ui.collection=collection;if(collection==='saved'){ui.grade='all';ui.subject='all';ui.players='all';ui.search='';$('#search').value='';}show('home');renderLibrary();});}
+const openSubjectGroups=new Set();
+function subjectButton(id){const s=SUBJECTS.find(s=>s.id===id);return `<button class="subject ${ui.subject===id?'active':''}" data-subject="${id}" aria-pressed="${ui.subject===id}"><span>${s.icon}</span>${s.name}</button>`;}
+function renderSubjectMenu(){
+ $('#subjects').innerHTML=SUBJECT_MENU.map(entry=>typeof entry==='string'?subjectButton(entry):`<details class="subject-group" data-subject-group="${entry.id}" ${openSubjectGroups.has(entry.id)||entry.children.includes(ui.subject)?'open':''}><summary class="subject ${entry.children.includes(ui.subject)?'group-active':''}"><span>${entry.icon}</span>${entry.name}<b aria-hidden="true">⌄</b></summary><div class="subject-children">${entry.children.map(subjectButton).join('')}</div></details>`).join('');
+ document.querySelectorAll('[data-subject-group]').forEach(el=>el.ontoggle=()=>{if(el.open)openSubjectGroups.add(el.dataset.subjectGroup);else openSubjectGroups.delete(el.dataset.subjectGroup);});
+}
+function subjectEditorOptions(){const option=id=>{const s=SUBJECTS.find(s=>s.id===id);return `<option value="${id}">${s.name}</option>`;};return SUBJECT_MENU.filter(e=>e!=='all').map(entry=>typeof entry==='string'?option(entry):`<optgroup label="${entry.name}">${entry.children.map(option).join('')}</optgroup>`).join('');}
 function renderLibrary(){
  $('#saved-count').textContent=saved.length;$('#lesson-total').textContent=GAMES.length;$('#format-total').textContent=Object.keys(FORMATS).length;
  $('#players').value=ui.players;
  $('#mode-description').textContent=Object.values(GAME_MODES).find(m=>m.key===ui.players)?.description||'Choose who owns the challenge: a student, a pair, a team, or the whole classroom.';
  document.querySelectorAll('.header .nav-link').forEach(b=>b.classList.toggle('active',b.dataset.action===(ui.collection==='saved'?'saved':'library')));
- $('#subjects').innerHTML=SUBJECTS.map(s=>`<button class="subject ${ui.subject===s.id?'active':''}" data-subject="${s.id}" aria-pressed="${ui.subject===s.id}"><span>${s.icon}</span>${s.name}</button>`).join('');
+ renderSubjectMenu();
  $('#grades').innerHTML=['all',7,8].map(n=>`<button class="grade ${ui.grade===n?'active':''}" data-grade="${n}" aria-pressed="${ui.grade===n}">${n==='all'?'All grades':`Grade ${n}`}</button>`).join('');
  $('#other-grade').value=[7,8,'all'].includes(ui.grade)?'':String(ui.grade);
  const source=ui.collection==='saved'?saved:GAMES;
@@ -60,7 +67,7 @@ function renderLibrary(){
  $('#games').innerHTML=filtered.map(g=>`<article class="game-card ${g.subject==='math'?'math':'english'}"><div class="card-art art-${g.format}" aria-hidden="true"><span class="art-symbol">${FORMATS[g.format].icon}</span><span class="art-mini">${g.subject==='math'?'x + y':'Aa'}</span><span class="format-tag">${FORMATS[g.format].name}</span></div><div class="card-body"><div class="card-meta"><span>${esc(SUBJECTS.find(s=>s.id===g.subject).name)}</span><span>GRADE ${g.grade}</span></div><h3>${esc(g.title)}</h3><p>${esc(g.topic)}</p><div class="player-tags">${playerModes(g.format).map(mode=>`<span>${PLAYER_LABELS[mode]}</span>`).join('')}</div><div class="card-details"><span>◷ ${g.minutes} min</span><span>${g.items.length} ${g.format==='match'?'pairs':'questions'}</span></div><div class="card-actions"><button class="edit-card" data-edit="${esc(g.id)}">Edit & play <span>↗</span></button><button class="quick-play" data-play="${esc(g.id)}" aria-label="Play ${esc(g.title)} grade ${g.grade}">▶</button></div></div></article>`).join('');
  $('#empty').hidden=filtered.length!==0;
  $('#empty-title').textContent=ui.collection==='saved'?'Your lessons belong here.':'This shelf is ready to grow.';
- $('#empty-message').textContent=ui.collection==='saved'?'Save a copy from the teacher editor. Try All grades if you already saved a lesson.':ui.subject==='russian'||ui.subject==='kyrgyz'?'This language has its own section now. To make a lesson, edit any existing game and change its subject here.':'No lessons match these filters. Prepared English and Math lessons are available for grades 7 and 8.';
+ $('#empty-message').textContent=ui.collection==='saved'?'Save a copy from the teacher editor. Try All grades if you already saved a lesson.':ui.subject==='russian'||ui.subject==='kyrgyz'?'This language has its own section now. To make a lesson, edit any existing game and change its subject here.':'No lessons match these filters. To create one for this subject, edit an existing game and choose its subject in Lesson details.';
 }
 $('#other-grade').innerHTML+=[1,2,3,4,5,6,9,10,11,12].map(n=>`<option value="${n}">Grade ${n}</option>`).join('');
 $('#subjects').onclick=e=>{const b=e.target.closest('[data-subject]');if(b){ui.subject=b.dataset.subject;renderLibrary();$(`[data-subject="${ui.subject}"]`).focus();}};
@@ -77,7 +84,7 @@ function openEditor(lesson){
  draft=clone(lesson);draft.settings ||= {teamOne:'Player 1',teamTwo:'Player 2',shuffle:false};dirty=false;
  $('#lesson-title').value=draft.title;$('#lesson-topic').value=draft.topic;
  $('#lesson-grade').innerHTML=Array.from({length:12},(_,i)=>`<option value="${i+1}">${i+1}</option>`).join('');$('#lesson-grade').value=draft.grade;
- $('#lesson-subject').innerHTML=SUBJECTS.filter(s=>s.id!=='all').map(s=>`<option value="${s.id}">${s.name}</option>`).join('');$('#lesson-subject').value=draft.subject;
+ $('#lesson-subject').innerHTML=subjectEditorOptions();$('#lesson-subject').value=draft.subject;
  $('#team-one').value=draft.settings.teamOne;$('#team-two').value=draft.settings.teamTwo;$('#shuffle').checked=draft.settings.shuffle;
  $('#team-fields').hidden=!['tug','relay','board'].includes(draft.format);
  setupModeEditor();

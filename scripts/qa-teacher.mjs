@@ -17,7 +17,7 @@ try{
  await page.locator('#bulk-replace').click();await page.locator('#confirm-ok').click();assert.equal(await page.locator('[data-row]').count(),2);
  await page.locator('#lesson-title').fill('A quick warm-up');await page.locator('#play-bottom').click();assert.equal((await state()).question,'What is 3 + 3?');
  // Unsaved custom work is protected even when leaving the game screen.
- await page.locator('.header [data-action="library"]').click();assert.equal(await page.locator('#confirm').isVisible(),true);await page.locator('#confirm-cancel').click();assert.equal((await state()).view,'playing');
+ await page.locator('#edit-again').click();await page.locator('.header [data-action="library"]').click();assert.equal(await page.locator('#confirm').isVisible(),true);await page.locator('#confirm-cancel').click();assert.equal((await state()).view,'editor');await page.locator('#start-game').click();
  await page.locator('[data-answer]').filter({hasText:/^[A-F]6$/}).click();assert.equal((await state()).score,100);
  await page.locator('#restart').click();await page.locator('#confirm-cancel').click();assert.equal((await state()).score,100);
  await page.locator('#restart').click();await page.locator('#confirm-ok').click();assert.equal((await state()).score,0);

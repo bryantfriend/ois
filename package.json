@@ -5,6 +5,6 @@
   "description": "A teacher-facing classroom game library",
   "scripts": {
     "dev": "node scripts/serve.mjs",
-    "check": "node --check dist/expansion-catalog.js && node --check dist/expansion.js && node --check dist/boozled.js && node --check dist/modes.js && node --check dist/tug.js && node --check dist/catalog.js && node --check dist/app.js && node --check scripts/serve.mjs && node --check scripts/qa.mjs && node --check scripts/qa-teacher.mjs && node --check dist/arcade.js && node --check scripts/qa-arcade.mjs && node --check scripts/qa-expansion.mjs && node --check scripts/qa-expansion-edges.mjs && node --check scripts/qa-boozled-setup.mjs && node --check dist/team-setup.js && node --check dist/smartboard.js && node --check scripts/qa-smartboard.mjs"
+    "check": "node --check dist/expansion-catalog.js && node --check dist/expansion.js && node --check dist/boozled.js && node --check dist/modes.js && node --check dist/tug.js && node --check dist/catalog.js && node --check dist/app.js && node --check scripts/serve.mjs && node --check scripts/qa.mjs && node --check scripts/qa-teacher.mjs && node --check dist/arcade.js && node --check scripts/qa-arcade.mjs && node --check scripts/qa-expansion.mjs && node --check scripts/qa-expansion-edges.mjs && node --check scripts/qa-boozled-setup.mjs && node --check dist/team-setup.js && node --check dist/smartboard.js && node --check scripts/qa-smartboard.mjs && node --check scripts/qa-subjects.mjs"
   }
 }

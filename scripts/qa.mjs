@@ -52,7 +52,7 @@ try{
  assert.equal(await page.locator('.game-card').count(),53);
  assert.equal(await page.locator('.brand img').evaluate(img=>img.complete&&img.naturalWidth>0),true);
  await page.screenshot({path:'output/qa/library-desktop.png',fullPage:false});
- await page.locator('[data-subject="english"]').click();assert.equal(await page.locator('.game-card').count(),27);
+ await page.locator('[data-subject-group="language"] summary').click();await page.locator('[data-subject="english"]').click();assert.equal(await page.locator('.game-card').count(),27);
  await page.locator('[data-grade="8"]').click();assert.equal(await page.locator('.game-card').count(),27);
  await page.locator('#search').fill('Paragraph');assert.equal(await page.locator('.game-card').count(),1);
  await page.locator('#reset').click();assert.equal(await page.locator('.game-card').count(),106);

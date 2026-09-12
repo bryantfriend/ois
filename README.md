@@ -92,3 +92,7 @@ Every Teams format now uses the shared 2–6-team launch dialog, with optional c
 Landscape displays at least 1024 pixels wide automatically use the full play area. Main questions and answers use 20–32px text and touch controls are at least 48px high. Scores and teacher controls stay on screen; decorative artwork yields space when necessary. Long custom content remains scrollable inside the game area instead of being clipped. Full screen remains available from the toolbar; F does not interrupt typing in input fields.
 
 Kingdom Clash uses a compact investment selector with costs, effect and confirmation; unavailable investments stay disabled. Territory Wars places its map beside the current challenge. `dist/team-setup.js`, `dist/smartboard.css` and `dist/smartboard.js` contain the shared changes. `scripts/qa-smartboard.mjs` checks all 32 formats at 1920×1080 and 1366×768, including six-team planning screens, every team count, fullscreen and long custom content.
+
+## Subject navigation
+
+Expandable groups organize Language (English, Russian, Kyrgyz), Science (Chemistry, Biology, Physics, General Science), and Computer (ICT, Computer Science). Mathematics, Humanities and Global Perspectives remain direct choices. The lesson editor uses the same groups; new subject IDs are valid in saved and imported lessons. Existing science lessons retain their ID under General Science. New subject shelves accept teacher-authored content; no new question banks were added with this navigation change.

@@ -51,3 +51,7 @@ Kareem-Boozled: read the user's original source, preserved its +15 questions and
 - Compact Kingdom Clash investment selector preserves cost validation and one-investment rules; Territory Wars map sits beside its challenge. Fullscreen F shortcut ignores text inputs.
 - Checks: all 32 formats at 1080p and 768p, six-team question/plan views; all 2–6 team counts; saved names, mobile setup; Kingdom Clash scoring; all 12 simultaneous two-player packs including native multi-touch. Skill screenshots reviewed.
 - Final bank check: all 106 prepared lesson opening screens fit 1366×768 without game-area overflow, including six-team launches. Both smartboard viewport suites and fullscreen/typing/long-content checks passed.
+
+2026-09-12 — Grouped subject navigation.
+- Added expandable Language, Science and Computer groups, with grouped lesson-editor choices. Existing science IDs stay valid as General Science. New subjects support save, export/import and play.
+- Browser checks cover keyboard expansion, filters, mobile group containment, grouped editor options, existing science and custom Physics lesson persistence. Screenshots inspected and mobile summary sizing corrected.

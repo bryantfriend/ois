@@ -9,7 +9,7 @@ const page=await context.newPage();const errors=[];page.on('pageerror',e=>errors
 const state=()=>page.evaluate(()=>JSON.parse(window.render_game_to_text()));
 try{
  await page.goto(`${base}/?game=math-7-quiz`);
- assert.equal(await page.evaluate(()=>GAMES.map(validateLesson).length),218);
+ assert.equal(await page.evaluate(()=>GAMES.map(validateLesson).length),266);
  await page.locator('#paste-toggle').click();
  await page.locator('#bulk-input').fill('What is 3 + 3?\t6\t4; 5; 7\tAdd three.\nWhat is 4 + 4?\t8\t6; 7; 9');
  await page.locator('#bulk-replace').click();assert.equal(await page.locator('#confirm').isVisible(),true);

@@ -57,8 +57,8 @@ function renderLibrary(){
  $('#mode-description').textContent=Object.values(GAME_MODES).find(m=>m.key===ui.players)?.description||'Choose who owns the challenge: a student, a pair, a team, or the whole classroom.';
  document.querySelectorAll('.header .nav-link').forEach(b=>b.classList.toggle('active',b.dataset.action===(ui.collection==='saved'?'saved':'library')));
  renderSubjectMenu();
- $('#grades').innerHTML=['all',7,8].map(n=>`<button class="grade ${ui.grade===n?'active':''}" data-grade="${n}" aria-pressed="${ui.grade===n}">${n==='all'?'All grades':`Grade ${n}`}</button>`).join('');
- $('#other-grade').value=[7,8,'all'].includes(ui.grade)?'':String(ui.grade);
+ $('#grades').innerHTML=['all',1,2,3,7,8].map(n=>`<button class="grade ${ui.grade===n?'active':''}" data-grade="${n}" aria-pressed="${ui.grade===n}">${n==='all'?'All grades':`Grade ${n}`}</button>`).join('');
+ $('#other-grade').value=[1,2,3,7,8,'all'].includes(ui.grade)?'':String(ui.grade);
  const source=ui.collection==='saved'?saved:GAMES;
  const filtered=source.filter(g=>(ui.grade==='all'||g.grade===ui.grade)&&(ui.subject==='all'||g.subject===ui.subject)&&(ui.players==='all'||playerModes(g.format).includes(ui.players))&&`${g.title} ${g.topic} ${FORMATS[g.format].name} ${window.OXFORD_WORLDS?.[g.format]?.name||""}`.toLowerCase().includes(ui.search.toLowerCase()));
  $('#library-title').textContent=ui.collection==='saved'?'My lessons':ui.subject==='all'?'Your game library':SUBJECTS.find(s=>s.id===ui.subject).name;
@@ -70,7 +70,7 @@ function renderLibrary(){
  $('#empty-title').textContent=ui.collection==='saved'?'Your lessons belong here.':'This shelf is ready to grow.';
  $('#empty-message').textContent=ui.collection==='saved'?'Save a copy from the teacher editor. Try All grades if you already saved a lesson.':ui.subject==='russian'||ui.subject==='kyrgyz'?'This language has its own section now. To make a lesson, edit any existing game and change its subject here.':'No lessons match these filters. To create one for this subject, edit an existing game and choose its subject in Lesson details.';
 }
-$('#other-grade').innerHTML+=[1,2,3,4,5,6,9,10,11,12].map(n=>`<option value="${n}">Grade ${n}</option>`).join('');
+$('#other-grade').innerHTML+=[4,5,6,9,10,11,12].map(n=>`<option value="${n}">Grade ${n}</option>`).join('');
 $('#subjects').onclick=e=>{const b=e.target.closest('[data-subject]');if(b){ui.subject=b.dataset.subject;renderLibrary();$(`[data-subject="${ui.subject}"]`).focus();}};
 $('#grades').onclick=e=>{const b=e.target.closest('[data-grade]');if(b){ui.grade=b.dataset.grade==='all'?'all':Number(b.dataset.grade);renderLibrary();$(`[data-grade="${ui.grade}"]`).focus();}};
 $('#other-grade').onchange=e=>{if(e.target.value){ui.grade=Number(e.target.value);renderLibrary();}};

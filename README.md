@@ -2,7 +2,7 @@
 
 Live: https://bryantfriend.github.io/ois/ · Source: https://github.com/bryantfriend/ois
 
-A teacher-facing library for Oxford International School, using its official logo and red/indigo branding. The library contains 218 editable lesson packs across 66 formats for English and Mathematics, grades 7 and 8. The new group/class packs reuse the prepared quiz question banks. Russian and Kyrgyz have separate sections; teachers can assign custom lessons to either.
+A teacher-facing library for Oxford International School, using its official logo and red/indigo branding. The library contains 266 editable lesson packs across 82 formats, including primary Grades 1–3 and Grades 7–8 English and Mathematics. The new group/class packs reuse the prepared quiz question banks. Russian and Kyrgyz have separate sections; teachers can assign custom lessons to either.
 
 ## Four distinct modes
 
@@ -124,3 +124,13 @@ Speaking Cards, Spin the Wheel and Open the Box use Whole Class mode. The other 
 Teachers use the existing Edit & play, paste, save and lesson-file controls. Matching lessons support up to 12 unique pairs; Group Sort supports up to six categories. Complete the Sentence uses exactly one ___ blank per prompt. Anagram answers use 2–14 letters; Unjumble accepts 2–12 words separated with |.
 
 Implementation: dist/templates.js and dist/templates.css. Browser QA: scripts/qa-templates.mjs and scripts/qa-template-edges.mjs.
+
+## Early-primary visual games
+
+Interpreted the sixteen distinct activity types in the teacher’s unlabelled image: Block Builder, Shape Detective, Picture Sudoku, Picture Analogies, Follow the Path, Count and Match, Number Tracing, Missing Picture Piece, Feelings Faces, Picture Maths Grid, Symmetry Drawing, Picture Strip Puzzle, Picture Addition, Turn the Tiles, Direction Patterns and Letter Tracing. Cropped repeated tiles were not duplicated.
+
+Each has three Grade 1–3 starter packs (48 total), placed in English for feelings, pre-writing and letter formation, and Math for counting, number formation and spatial/logic puzzles. Grade shortcuts now include 1, 2 and 3. These are foundational practice packs; teachers can change their grade placement.
+
+The editor provides ready-made variation selectors plus editable prompts, puzzle setups and explanations. Format instructions describe each setup: counts, picture sets, shape names, block heights, tile rotations or symmetry points. Tracing supports all capital letters A–Z and digits 0–9, uses ordered strokes, and checks pointer progress along the path. Paths are stylized block letter guides. Picture artwork is native SVG; no external image downloads are needed.
+
+Tests: scripts/qa-primary.mjs covers all 48 launches, all sixteen complete games/replays/mobile widths and real pointer tracing. scripts/qa-primary-edges.mjs covers retries, fixed clues, reverse symmetry paths, undo/drag, tracing boundaries after resize, grade navigation and all sixteen preset/save/reopen workflows with a lesson-file round-trip.

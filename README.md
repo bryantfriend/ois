@@ -45,7 +45,7 @@ Lesson files contain a `schemaVersion: 1` envelope and a validated `lesson` obje
 - `scripts/serve.mjs`: local preview.
 - `scripts/qa.mjs`: Playwright functional and responsive regression checks.
 
-`dist` contains authored source and must stay tracked. `.openai/hosting.json` retains the existing Sites identity. This update is a local working revision until explicitly published; the prior published preview is separate.
+`dist` contains authored source and must stay tracked. The live site is https://bryantfriend.github.io/ois/ and its repository is https://github.com/bryantfriend/ois. GitHub Actions checks JavaScript and publishes `dist` to GitHub Pages whenever `main` is updated. The Pages workflow can also be run manually from the Actions tab. Teacher lesson copies are saved per browser and website; use Download lesson file and Open a lesson file to transfer copies from the local preview to the hosted site.
 
 ## QA
 
@@ -70,3 +70,4 @@ The student-facing experience now uses ten animated canvas worlds: Rocket Rally,
 Inspiration reviewed in detail: GP_Games/hamsterruner.html (running characters and answer-driven travel), GP_Games/kareemboozled.html (bright team boards, animated reveals, synth sound), and GP_Games/oceancleaner.html (octopus animation, bubbles, and collection feedback). Procedural art is implemented locally; the page does not depend on those source pages or external assets.
 
 Run `node scripts/qa-arcade.mjs` with the same Playwright setup to check ten animated scenes, automatic movement, particles/expiry, eased rope motion, sound and motion toggles, dragging, reduced motion, new-name search, and mobile layouts. Test-only `advanceTime(ms)` switches the scene to manual stepping for deterministic capture; ordinary play runs through requestAnimationFrame.
+

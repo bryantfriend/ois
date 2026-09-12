@@ -17,7 +17,7 @@ const page=await ctx.newPage();
 const errors=[];page.on('pageerror',e=>errors.push(e.message));
 page.on('dialog',d=>d.accept());
 const state=()=>page.evaluate(()=>JSON.parse(window.render_game_to_text()));
-async function open(id){await page.goto(`${base}/?game=${id}`);await page.locator('#start-game').click();assert.equal((await state()).view,'playing');}
+async function open(id){await page.goto(`${base}/?game=${id}`);if(id.endsWith('-boozled'))await page.locator('#boozled-edit-questions').click();await page.locator('#start-game').click();assert.equal((await state()).view,'playing');}
 async function answerRound(lesson,correct=true){
  const s=await state();
  if(lesson.format==='boozled'){await page.locator('[data-mode-action="boozled-pick"]:not([disabled])').first().click();if(await page.locator('[data-mode-action="boozled-reveal"]').count()){await page.locator('[data-mode-action="boozled-reveal"]').click();await page.locator('[data-correct="true"]').click();}else await page.locator('[data-mode-action="boozled-apply"]').click();await page.locator('[data-mode-action="boozled-next"]').click();return;}

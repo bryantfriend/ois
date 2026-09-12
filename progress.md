@@ -39,3 +39,8 @@ Kareem-Boozled: read the user's original source, preserved its +15 questions and
 - Added editable participant counts, impostors and active-play timers, with persistence and validation; contextual teacher instructions and subject/grade placements documented in README.
 - Browser verification: all 50 new packs launch; all 18 new formats complete, replay and fit mobile. Edge checks pass for failure states, timers, contested capture, shield precedence, private ballot guards/role hiding, pending plans and settings import/export. Teacher and existing mode regressions pass. Skill client and screenshots inspected. Original 56-pack regression and deployment verification in progress.
 - Final verification: all 56 original lesson packs also completed successfully, including their failure paths, custom edit/save/reload/import/export and responsive checks. Expedition elimination edge cases corrected and re-tested. All JavaScript syntax checks pass.
+
+2026-09-12 — Rename Kareem-Boozled to Oxford-Boozled and add the requested team launch screen.
+- Library edit/play actions and direct links open a focused setup dialog: 2–6 teams, optional names, blank-name defaults, Continue to game, or Edit questions first.
+- Team names survive count changes and saved lesson round-trips. Escape/back returns to the library. Existing IDs retained; legacy default lesson-title prefixes migrate on validation.
+- Setup browser checks pass for every team count, custom/blank names, default launch, saved setup, both library entry points, cancel and mobile widths. Skill browser loop and screenshots inspected; full game regression verifies scores and surprises.

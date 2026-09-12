@@ -6,7 +6,7 @@ function initBoozled(){
 }
 function renderBoozled(){
  const s=game.session,g=s.groups[s.turn],card=s.active===null?null:s.deck[s.active];
- $('#play-title').textContent=game.lesson.title;$('#play-format').textContent='Kareem-Boozled';$('#play-subtitle').textContent='🔴 Teams · Teacher hosts';$('.player-bottom > span').textContent='Discuss as a group. Rotate your tile picker and spokesperson each turn.';
+ $('#play-title').textContent=game.lesson.title;$('#play-format').textContent='Oxford-Boozled';$('#play-subtitle').textContent='🔴 Teams · Teacher hosts';$('.player-bottom > span').textContent='Discuss as a group. Rotate your tile picker and spokesperson each turn.';
  $('#scoreboard').innerHTML=`<div class="kingdom-scores boozled-scores">${s.groups.map((t,i)=>`<div style="--team:${t.color}" class="${i===s.turn&&!game.done?'boozled-active':''}"><strong>${esc(t.name)}</strong><b>${t.score} points</b><small>${i===s.turn&&!game.done?'Your team’s turn':'Shared team score'}</small></div>`).join('')}</div>`;
  if(game.done){const high=Math.max(...s.groups.map(t=>t.score)),winners=s.groups.filter(t=>t.score===high);$('#arena').innerHTML=`<div class="result"><div class="result-icon">🏆</div><h2>${winners.length===1?esc(winners[0].name)+' wins!':'It’s a tie!'}</h2><p>${winners.map(t=>esc(t.name)).join(' · ')} · ${high} points</p><p>All ${s.deck.length} tiles played. ${game.correct} correct answers out of ${game.attempts} questions.</p><div class="result-actions"><button class="button primary" data-replay>Play again</button><button class="button secondary" data-edit-result>Edit lesson</button></div></div>`;return;}
  if(s.phase==='board'){$('#arena').innerHTML=`<div class="boozled-heading"><span>🎲 ${esc(g.name)}’s turn</span><strong>Which tile is calling your name?</strong><small>${s.deck.length-s.used.length} mystery tiles left · Questions + surprise twists</small></div><div class="boozled-board">${s.deck.map((_,i)=>`<button data-mode-action="boozled-pick" data-card="${i}" ${s.used.includes(i)?'disabled':''} aria-label="${s.used.includes(i)?'Used':'Choose'} tile ${i+1}"><span>${s.used.includes(i)?'✓':i+1}</span><small>${s.used.includes(i)?'PLAYED':'MYSTERY'}</small></button>`).join('')}</div>`;return;}
@@ -37,6 +37,29 @@ function drawBoozledWorld(){
  stars();const s=game.session;if(!s)return;
  const colors=['#ffcf58','#ff75bd','#72e4db','#b29aff'];for(let i=0;i<7;i++){const x=115+i*145,y=140+Math.sin(arcade.time*2+i)*12;cx.save();cx.translate(x,y);cx.rotate(Math.sin(arcade.time+i)*.1);box(-43,-52,86,104,12,colors[i%4]);label('?',0,0,48,'#3b2469');cx.restore();}
  const symbols={swap:'↔',steal:'−20 →',lose:'−20',gain50:'+50',enemyLose:'−20',correct:'+15',miss:'Oops!'};
- label(game.done?'THE FINAL TWIST':s.phase==='resolved'?symbols[s.event]||'SURPRISE!':'KAREEM-BOOZLED!',550,46,30,'#fff1a2');
+ label(game.done?'THE FINAL TWIST':s.phase==='resolved'?symbols[s.event]||'SURPRISE!':'OXFORD-BOOZLED!',550,46,30,'#fff1a2');
  label(game.done?'THANKS FOR PLAYING':s.groups[s.turn].name+' · '+(s.deck.length-s.used.length)+' TILES LEFT',550,270,22,'#fff');
+}
+
+// The launch screen keeps team configuration separate from lesson editing.
+let boozledSetup=null;
+function openBoozledSetup(){
+ boozledSetup={count:draft.settings.teamCount||2,names:[...(draft.settings.teamNames||['Red','Blue','Green','Yellow','Purple','Orange'])]};
+ renderBoozledSetup();$('#boozled-setup').showModal();$('#boozled-setup-title').focus();
+}
+function renderBoozledSetup(){
+ const s=boozledSetup;
+ $('#boozled-team-counts').innerHTML=[2,3,4,5,6].map(n=>`<button type="button" data-boozled-count="${n}" aria-pressed="${n===s.count}">${n}<small>teams</small></button>`).join('');
+ $('#boozled-team-names').innerHTML=Array.from({length:s.count},(_,i)=>`<label style="--team:${TEAM_COLORS[i]}">Team ${i+1}<input data-boozled-name="${i}" maxlength="30" value="${esc(s.names[i]||'')}" placeholder="${['Red','Blue','Green','Yellow','Purple','Orange'][i]}" autocomplete="off"></label>`).join('');
+ $('#boozled-team-counts').onclick=e=>{const b=e.target.closest('[data-boozled-count]');if(!b)return;s.count=Number(b.dataset.boozledCount);renderBoozledSetup();$('#boozled-team-counts').querySelector('[aria-pressed="true"]').focus();};
+ $('#boozled-team-names').oninput=e=>{if(e.target.hasAttribute('data-boozled-name'))s.names[Number(e.target.dataset.boozledName)]=e.target.value;};
+ $('#boozled-continue').onclick=()=>applyBoozledSetup(true);
+ $('#boozled-edit-questions').onclick=()=>applyBoozledSetup(false);
+ const cancel=()=>{$('#boozled-setup').close();show('home');renderLibrary();document.querySelector('[data-edit="'+CSS.escape(draft.id)+'"]')?.focus();};
+ $('#boozled-setup-back').onclick=cancel;$('#boozled-setup').oncancel=e=>{e.preventDefault();cancel();};
+}
+function applyBoozledSetup(play){
+ const s=boozledSetup,defaults=['Red','Blue','Green','Yellow','Purple','Orange'];
+ draft.settings={...draft.settings,teamCount:s.count,teamNames:Array.from({length:s.count},(_,i)=>s.names[i]?.trim()||defaults[i])};
+ setupModeEditor();dirty=true;$('#boozled-setup').close();if(play)startGame();else $('#editor-title').focus();
 }

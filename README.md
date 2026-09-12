@@ -10,7 +10,7 @@ Every format has an explicit `SOLO`, `DUEL`, `TEAM`, or `CLASS` specification in
 
 - **Solo:** Rocket Rally, Ocean Rescue, Potion Partners, Bridge Builders, Lava Leap, Robot Rescue. One student owns the challenge and progress.
 - **2 Player:** Hamster Tug of War, Hamster Dash, Treasure Quest. Two independent simultaneous touch panels, randomized question decks, and direct competition. Tug wins at a three-pull lead; Dash races to the pool size in correct answers; Treasure compares points after both decks finish.
-- **Teams:** Kingdom Clash and Kareem-Boozled. Kingdom Clash: Two to six named groups share resources, roles, and investments. All captains lock their decisions before reveal. Correct answers earn wood, stone and gold. Farms/quarries improve later income; monuments earn prestige. One investment per group per round. Highest prestige plus one point per three leftover resources wins. Discuss away from the board; the teacher records agreed answers and decisions. Rotate captain, researcher and strategist each round.
+- **Teams:** Kingdom Clash and Oxford-Boozled. Kingdom Clash: Two to six named groups share resources, roles, and investments. All captains lock their decisions before reveal. Correct answers earn wood, stone and gold. Farms/quarries improve later income; monuments earn prestige. One investment per group per round. Highest prestige plus one point per three leftover resources wins. Discuss away from the board; the teacher records agreed answers and decisions. Rotate captain, researcher and strategist each round.
 - **Whole Class:** Four Corners, Save the World, and teacher-guided Midnight Mysteries. Four Corners uses movement, pointing or seated letter responses, optional teacher-entered vote counts, reveal and discussion, without individual winners. Save the World shares one health meter: start at 60, gain 10 for correct class decisions (cap 100), lose 15 for mistakes, and finish with health remaining to succeed together.
 
 These are shared-screen activities. No student-device joining, networked sessions, accounts or backend are implemented. Polls use concealed, anonymous choices on one passed device; private roles also require passing that device while everyone else looks away. Group membership/role assignment happens in the room; team names and group count are saved in lesson settings.
@@ -51,9 +51,9 @@ Browser runners require Playwright and Chromium. Set `OXFORD_PLAYWRIGHT_MODULE` 
 
 `render_game_to_text()` includes mode and group/class session state. `advanceTime(ms)` steps visual animation deterministically; ordinary play uses requestAnimationFrame. Question feedback delays use real timers.
 
-GP_Games inspiration includes the user's hamster runner, Kareem-Boozled and ocean-cleaner games. Next content priorities: curriculum alignment, more question banks, and authored Russian/Kyrgyz packs.
+GP_Games inspiration includes the user's hamster runner, Oxford-Boozled and ocean-cleaner games. Next content priorities: curriculum alignment, more question banks, and authored Russian/Kyrgyz packs.
 
-## Kareem-Boozled
+## Oxford-Boozled
 
 Adapted from https://bryantfriend.github.io/GP_Games/kareemboozled.html. A shuffled hidden tile board mixes editable lesson questions with 0, 2, 4 or 8 surprise tiles. The original reward (+15) and five effects are preserved: score swap, steal up to 20, lose up to 20, gain 50, and a rival loses up to 20. Expanded to 2–6 named teams; targeted effects let the active group choose a rival. Teacher reveals and marks spoken answers, then advances the turn. No negative scores or repeated effects. All tiles must be used before the winner/tie is announced. Four prepared English/Math grade 7/8 packs reuse existing quiz banks; custom questions and team/surprise settings save and export normally. Visuals, sound and reduced-motion behavior use the Oxford engine; no external page embedding or runtime dependencies.
 
@@ -82,3 +82,5 @@ Teacher settings include 2–6 named teams; 4–40 participants for private poll
 - `dist/expansion.js`: private information, strategic team rounds, cooperative branches, timers and animated progress displays.
 - `scripts/qa-expansion.mjs`: launch all 50 new packs; complete every new format; check replay and mobile widths.
 - `scripts/qa-expansion-edges.mjs`: failure paths, timer penalties, contested territory, crystal defenses, pending-plan persistence, concealed ballots/roles, custom settings and numeric validation.
+
+Oxford-Boozled opens with a team setup dialog from either library action or a direct game link. Choose 2–6 teams (two by default), optionally rename them, and continue to play or edit questions. Blank names fall back to Red, Blue, Green, Yellow, Purple and Orange. Saved team settings populate the dialog; existing boozled lesson IDs and downloads remain compatible. `scripts/qa-boozled-setup.mjs` covers setup, defaults, saved names, cancel and mobile behavior.

@@ -13,7 +13,7 @@ const WORLDS={
  clue:{name:'Midnight Mysteries',emoji:'🔎',color:'#4950af',accent:'#ffe582',mission:'Crack each case. Light up the city, one clue at a time.',sky:['#111b48','#514b8e']}
 };
 Object.assign(WORLDS,{
-boozled:{name:'Kareem-Boozled',emoji:'🎲',color:'#b52b93',accent:'#ffe363',mission:'Pick a tile. Think together. Expect a twist!',sky:['#322179','#9a329c']},
+boozled:{name:'Oxford-Boozled',emoji:'🎲',color:'#b52b93',accent:'#ffe363',mission:'Pick a tile. Think together. Expect a twist!',sky:['#322179','#9a329c']},
 kingdom:{name:'Kingdom Builders',emoji:'🏰',color:'#7c4daf',accent:'#ffdb71',mission:'Discuss together. Invest together. Build your kingdom.',sky:['#a6dcec','#e9e1f8']},
 corners:{name:'Four Corners',emoji:'🧭',color:'#235eb0',accent:'#ffdb71',mission:'Move, point, or show your choice. Everyone joins in.',sky:['#c7e9ff','#f3f4ff']},
 earth:{name:'Save Our Earth',emoji:'🌍',color:'#187a63',accent:'#c7ff91',mission:'One class. One planet. Succeed together.',sky:['#163a63','#246e78']}

@@ -14,7 +14,7 @@ $('#confirm-ok').onclick=()=>{const action=decision;$('#confirm').close();decisi
 function textField(value,name,max=1500){if(typeof value!=='string'||!value.trim()||value.length>max)throw Error(`${name} is required (maximum ${max} characters).`);return value.trim();}
 function validateLesson(raw){
  if(!raw||typeof raw!=='object')throw Error('Choose a valid Oxford lesson file.');
- const title=textField(raw.title,'Lesson title',120),topic=textField(raw.topic||'Custom lesson','Topic',120);
+ const title=textField(raw.title,'Lesson title',120).replace(/^Kareem-Boozled(?=:|$)/,'Oxford-Boozled'),topic=textField(raw.topic||'Custom lesson','Topic',120);
  if(!SUBJECTS.some(s=>s.id===raw.subject&&s.id!=='all'))throw Error('Choose a valid subject.');
  if(!Number.isInteger(raw.grade)||raw.grade<1||raw.grade>12)throw Error('Choose a grade from 1 to 12.');
  if(!Object.hasOwn(FORMATS,raw.format))throw Error('This game format is not supported.');
@@ -72,7 +72,7 @@ function resetFilters(){ui.grade='all';ui.subject='all';ui.players='all';ui.sear
 $('#reset').onclick=resetFilters;
 document.addEventListener('click',e=>{const b=e.target.closest('[data-action]');if(!b)return;if(b.dataset.action==='library')library();if(b.dataset.action==='saved')library('saved');if(b.dataset.action==='reset'){ui.collection='library';resetFilters();}if(b.dataset.action==='import')leaveEditor(()=>$('#import-file').click());});
 function findLesson(id){return [...saved,...GAMES].find(g=>g.id===id);}
-$('#games').onclick=e=>{const b=e.target.closest('[data-edit],[data-play]');if(!b)return;const lesson=findLesson(b.dataset.edit||b.dataset.play);if(!lesson)return;openEditor(lesson);if(b.dataset.play)startGame();};
+$('#games').onclick=e=>{const b=e.target.closest('[data-edit],[data-play]');if(!b)return;const lesson=findLesson(b.dataset.edit||b.dataset.play);if(!lesson)return;openEditor(lesson);if(lesson.format==='boozled')openBoozledSetup();else if(b.dataset.play)startGame();};
 function openEditor(lesson){
  draft=clone(lesson);draft.settings ||= {teamOne:'Player 1',teamTwo:'Player 2',shuffle:false};dirty=false;
  $('#lesson-title').value=draft.title;$('#lesson-topic').value=draft.topic;
@@ -224,5 +224,5 @@ window.render_game_to_text=()=>JSON.stringify(game&&ui.view==='player'?{view:gam
 window.advanceTime=()=>{if(game&&ui.view==='player')drawCanvas();};
 // Read-only runtime inspection hooks above support repeatable classroom-game QA.
 renderLibrary();
-const requested=new URLSearchParams(location.search).get('game');if(requested){const lesson=findLesson(requested);if(lesson)openEditor(lesson);else notify('That lesson is unavailable. Choose one from the library.');}
+const requested=new URLSearchParams(location.search).get('game');if(requested){const lesson=findLesson(requested);if(lesson){openEditor(lesson);if(lesson.format==='boozled')openBoozledSetup();}else notify('That lesson is unavailable. Choose one from the library.');}
 if(document.modelContext?.registerTool){const lifecycle=new AbortController();try{Promise.resolve(document.modelContext.registerTool({name:'filter_classroom_games',description:'Filter the Oxford game library by grade, subject, and players. Does not launch a lesson or overwrite teacher work.',inputSchema:{type:'object',properties:{grade:{enum:['all',1,2,3,4,5,6,7,8,9,10,11,12]},subject:{enum:SUBJECTS.map(s=>s.id)},players:{enum:Object.keys(PLAYER_LABELS)}},required:['grade','subject'],additionalProperties:false},annotations:{readOnlyHint:false,untrustedContentHint:false},execute(input){if(!input||!['all',1,2,3,4,5,6,7,8,9,10,11,12].includes(input.grade)||!SUBJECTS.some(s=>s.id===input.subject)||(input.players!==undefined&&!Object.hasOwn(PLAYER_LABELS,input.players))||Object.keys(input).some(k=>!['grade','subject','players'].includes(k)))throw Error('Choose a valid grade and subject.');if(ui.view!=='home')throw Error('Return to the library before filtering.');ui.grade=input.grade;ui.subject=input.subject;ui.players=input.players??'all';renderLibrary();return {summary:$('#results').textContent};}},{signal:lifecycle.signal})).catch(()=>{});}catch{}window.addEventListener('pagehide',()=>lifecycle.abort(),{once:true});}

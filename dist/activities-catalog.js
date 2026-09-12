@@ -15,7 +15,7 @@ const ACTIVITIES={
  balloon:{name:'Balloon Pop',icon:'🎈',input:'choice',subjects:['english','math'],rule:'Pop the balloon carrying the correct answer. Wrong balloons cost a heart; finish before all three hearts are gone.'},
  airplane:{name:'Airplane',icon:'✈️',input:'choice',subjects:['english','math'],rule:'Steer up or down into the correct answer lane before the gates reach your plane. Arrow buttons and keyboard arrows both work. Three crashes end the flight.'},
  imagequiz:{name:'Image Quiz',icon:'🖼️',input:'image',subjects:['math'],rule:'Study the picture and choose the answer. Teachers can upload an image for each question.'},
- mole:{name:'Whack-a-mole',icon:'🔨',input:'choice',subjects:['english','math'],rule:'Wait for the correct answer mole to appear, then tap it. Moles rotate between holes. Wrong hits cost a heart.'},
+ mole:{name:'Whack-a-mole',icon:'🔨',input:'choice',subjects:['english','math'],rule:'Watch nine holes for answer moles that pop up and duck down. Tap the correct answer or press its hole number (1–9). Wrong hits cost a heart. Freeze the moles for more reading time.'},
  rank:{name:'Rank Order',icon:'🏅',input:'order',subjects:['math'],rule:'Move the entries up or down until they are in the requested order, then check the ranking.'},
  speedsort:{name:'Speed Sorting',icon:'⚡',input:'choice',subjects:['english','math'],rule:'Sort each prompt into the right category before 60 seconds expire. The next item appears automatically; correct answers earn a time bonus.'},
  memory:{name:'Watch and Memorize',icon:'👀',mode:'CLASS',input:'text',subjects:['english','math'],rule:'Watch the sequence together, then reproduce it by tapping the cards in order. Three mistakes end the challenge.'},

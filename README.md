@@ -146,3 +146,5 @@ Teachers can change the title, instructions, grade, subject and challenge number
 Chess uses chess.js 1.4.0 under its BSD-2-Clause license, included in `dist/vendor/chess.js`. Other new engines have no external runtime dependencies.
 
 Validation: `qa-lab.mjs` completes the number/logic packs; `qa-lab-path.mjs` covers route and traditional games; `qa-lab-collection.mjs` covers the remaining engines; `qa-lab-edges.mjs` checks rule edges, all 10,296 seed initializations, teacher files and simultaneous touch; `qa-lab-layout.mjs` checks all 104 starter screens at 1366×768. Initialization checks do not claim every generated puzzle was solved.
+
+Whack-a-Mole uses a nine-hole animated garden. Each question’s answer choices appear in distinct random holes, rise, hold for reading, and duck down before the next wave. Only visible raised moles accept hits. Tap, use keys 1–9, or freeze the moles for more reading time; wrong hits cost hearts. Teacher-authored question pools are preserved. Focused coverage: `scripts/qa-mole.mjs`.

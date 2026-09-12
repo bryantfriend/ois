@@ -23,3 +23,5 @@ Final validation: all 40 lesson regression passed, including teacher edit/save/i
 
 Reference update: applied compact side-by-side question panels to all two-player formats (tug, relay, board), with independent randomized decks and touch controls. Relay first to pool-size correct wins. Treasure both decks finish once, highest points wins; added authored editable distractors for all 24 prepared treasure questions and separate treasure progress visuals.
 Validation: all 12 two-player packs passed native simultaneous touches, independent DOM/feedback, completion, replay, and board/mobile layouts. Teacher customization and all ten animation checks passed. Reviewed screenshots; narrow phones use one answer column per player for readable long text while keeping players side by side.
+
+Added Players library filter and card labels with overlapping format-based categories. Works with grade, subject, search, saved lessons, reset and the structured filter tool. Syntax and browser checks passed for category counts, combined filters, empty state, reset, saved collection, and mobile. Reviewed desktop screenshot.

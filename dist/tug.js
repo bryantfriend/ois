@@ -40,6 +40,7 @@ function answerTug(button){
  const f=game.lesson.format,points=f==='board'?(p.question%5+1)*100:100;
  p.feedback=good?(f==='tug'?'Correct! One pull your way.':f==='relay'?'Correct! Your hamster advances.':`Treasure found! +${points} points`):`Answer: ${q.answer}`;
  game.feedbackGood=good;
+ if(f==='relay'&&!good)p.reaction={kind:HAMSTER_REACTIONS[Math.floor(Math.random()*HAMSTER_REACTIONS.length)],age:0};
  if(good){p.treasures++;game.correct++;game.score+=points;game.teams[side]+=f==='board'?points:1;if(f==='tug')game.rope+=side===0?-1:1;if(f==='board'&&!game.used.includes(p.question))game.used.push(p.question);}
  game.history.push({prompt:q.prompt,answer:q.answer,correct:good});
  if(f==='tug'&&Math.abs(game.rope)>=3||f==='relay'&&game.teams[side]>=game.items.length||f==='board'&&game.tug.every(p=>p.attempts>=game.items.length))game.done=true;

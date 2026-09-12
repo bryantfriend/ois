@@ -8,9 +8,9 @@ await fs.mkdir('output/qa',{recursive:true});
 const context=vm.createContext({});
 vm.runInContext(await fs.readFile('dist/catalog.js','utf8')+';globalThis.catalog=GAMES;',context);
 const catalog=JSON.parse(JSON.stringify(context.catalog));
-assert.equal(catalog.length,40);
-for(const subject of ['english','math'])for(const grade of [7,8])assert.equal(catalog.filter(x=>x.subject===subject&&x.grade===grade).length,10);
-assert.equal(new Set(catalog.map(x=>x.id)).size,40);
+assert.equal(catalog.length,52);
+for(const subject of ['english','math'])for(const grade of [7,8])assert.equal(catalog.filter(x=>x.subject===subject&&x.grade===grade).length,13);
+assert.equal(new Set(catalog.map(x=>x.id)).size,52);
 const browser=await chromium.launch({headless:true});
 const ctx=await browser.newContext({viewport:{width:1440,height:1050},acceptDownloads:true});
 const page=await ctx.newPage();
@@ -20,6 +20,12 @@ const state=()=>page.evaluate(()=>JSON.parse(window.render_game_to_text()));
 async function open(id){await page.goto(`${base}/?game=${id}`);await page.locator('#start-game').click();assert.equal((await state()).view,'playing');}
 async function answerRound(lesson,correct=true){
  const s=await state();
+ if(['kingdom','corners','earth'].includes(lesson.format)){
+  const choice=await page.evaluate(()=>game.choices.indexOf(current().answer));
+  if(lesson.format==='kingdom'){for(let i=0;i<s.session.groups.length;i++){await page.locator('#answer-group-'+i).selectOption(String(choice));await page.locator('[data-mode-action="lock"][data-group="'+i+'"]').click();}await page.locator('[data-mode-action="reveal"]').click();for(let i=0;i<s.session.groups.length;i++)await page.locator('[data-investment="save"][data-group="'+i+'"]').click();}
+  else {if(lesson.format==='earth')await page.locator('[data-mode-action="choose"][data-choice="'+choice+'"]').click();await page.locator('[data-mode-action="reveal"]').click();}
+  await page.locator('[data-mode-action="next"]').click();return;
+ }
  if(['tug','relay','board'].includes(lesson.format)){const side=lesson.format==='board'&&s.tugPlayers[0].attempts>=lesson.items.length?1:0;await page.waitForFunction(i=>!game.tug[i].locked,side);const p=(await state()).tugPlayers[side],q=lesson.items.find(q=>q.prompt===p.question),n=p.choices.findIndex(a=>correct?a===q.answer:a!==q.answer);await page.locator(`[data-player="${side}"][data-tug-answer="${n}"]`).click();return;}
  if(lesson.format==='match'){
   const ids=await page.locator('[data-left]:not([disabled])').evaluateAll(nodes=>nodes.map(n=>n.dataset.left));
@@ -42,20 +48,20 @@ async function answerRound(lesson,correct=true){
 }
 try{
  await page.goto(base);
- assert.equal(await page.locator('.game-card').count(),20);
+ assert.equal(await page.locator('.game-card').count(),26);
  assert.equal(await page.locator('.brand img').evaluate(img=>img.complete&&img.naturalWidth>0),true);
  await page.screenshot({path:'output/qa/library-desktop.png',fullPage:false});
- await page.locator('[data-subject="english"]').click();assert.equal(await page.locator('.game-card').count(),10);
- await page.locator('[data-grade="8"]').click();assert.equal(await page.locator('.game-card').count(),10);
+ await page.locator('[data-subject="english"]').click();assert.equal(await page.locator('.game-card').count(),13);
+ await page.locator('[data-grade="8"]').click();assert.equal(await page.locator('.game-card').count(),13);
  await page.locator('#search').fill('Paragraph');assert.equal(await page.locator('.game-card').count(),1);
- await page.locator('#reset').click();assert.equal(await page.locator('.game-card').count(),40);
+ await page.locator('#reset').click();assert.equal(await page.locator('.game-card').count(),52);
  await page.locator('[data-subject="russian"]').click();assert.equal(await page.locator('#empty').isVisible(),true);
  await page.locator('[data-subject="kyrgyz"]').click();assert.equal(await page.locator('#empty').isVisible(),true);
  const summary=[];
  for(const lesson of catalog){
   await open(lesson.id);let rounds=0;
   while((await state()).view!=='result'){await answerRound(lesson,true);assert.ok(++rounds<=40);}
-  const s=await state();assert.equal(s.correct,lesson.format==='tug'?3:lesson.format==='board'?lesson.items.length*2:lesson.items.length,lesson.id);assert.equal(s.attempts,lesson.format==='tug'?3:lesson.format==='board'?lesson.items.length*2:lesson.items.length,lesson.id);
+  const s=await state();assert.equal(s.correct,lesson.format==='corners'?0:lesson.format==='kingdom'?lesson.items.length*4:lesson.format==='tug'?3:lesson.format==='board'?lesson.items.length*2:lesson.items.length,lesson.id);assert.equal(s.attempts,lesson.format==='kingdom'?lesson.items.length*4:lesson.format==='tug'?3:lesson.format==='board'?lesson.items.length*2:lesson.items.length,lesson.id);
   if(['quiz','sort','order','clue','survival'].includes(lesson.format))assert.ok(s.score>=600,lesson.id);
   if(lesson.format==='wager')assert.equal(s.score,900);
   summary.push({id:lesson.id,score:s.score,correct:s.correct});
@@ -103,5 +109,5 @@ try{
  await page.goto(`${base}/?game=english-8-order`);await page.screenshot({path:'output/qa/editor-mobile.png',fullPage:false});await page.locator('#start-game').click();assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=document.documentElement.clientWidth),true);await page.screenshot({path:'output/qa/order-mobile.png',fullPage:false});
  await page.setViewportSize({width:1440,height:1050});await open('math-8-tug');await page.screenshot({path:'output/qa/tug-desktop.png',fullPage:false});
  await open('english-8-match');await page.screenshot({path:'output/qa/match-desktop.png',fullPage:false});
- assert.deepEqual(errors,[]);await fs.writeFile('output/qa/results.json',JSON.stringify({passed:true,lessons:summary,consoleErrors:errors},null,2));console.log('PASS: all 40 lessons completed; failure paths, custom edit/save/reload/import/export, and responsive checks passed.');
+ assert.deepEqual(errors,[]);await fs.writeFile('output/qa/results.json',JSON.stringify({passed:true,lessons:summary,consoleErrors:errors},null,2));console.log('PASS: all 52 lessons completed; failure paths, custom edit/save/reload/import/export, and responsive checks passed.');
 }finally{await browser.close();}

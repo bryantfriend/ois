@@ -1,85 +1,54 @@
 # Oxford Classroom Games
 
-A standalone teacher-facing game library for Oxford International School. The official logo is used unchanged from https://oxford.kg/wp-content/uploads/2024/09/logo.png. Red, indigo, and white guide the interface.
+Live: https://bryantfriend.github.io/ois/ · Source: https://github.com/bryantfriend/ois
 
-## Run locally
+A teacher-facing library for Oxford International School, using its official logo and red/indigo branding. The library contains 52 editable lesson packs across 13 formats for English and Mathematics, grades 7 and 8. The new group/class packs reuse the prepared quiz question banks. Russian and Kyrgyz have separate sections; teachers can assign custom lessons to either.
 
-Node.js is required. No application dependencies or build step are needed.
+## Four distinct modes
 
-    npm run dev
+Every format has an explicit `SOLO`, `DUEL`, `TEAM`, or `CLASS` specification in `FORMATS`. A lesson's mode is derived from its format, including older saved/imported lessons. The library filter and card labels reflect that single mode.
 
-Open http://127.0.0.1:4174. A different port can be passed to `node scripts/serve.mjs 4180`.
+- **Solo:** Rocket Rally, Ocean Rescue, Potion Partners, Bridge Builders, Lava Leap, Robot Rescue. One student owns the challenge and progress.
+- **2 Player:** Hamster Tug of War, Hamster Dash, Treasure Quest. Two independent simultaneous touch panels, randomized question decks, and direct competition. Tug wins at a three-pull lead; Dash races to the pool size in correct answers; Treasure compares points after both decks finish.
+- **Teams:** Kingdom Builders. Two to six named groups share resources, roles, and investments. All captains lock their decisions before reveal. Correct answers earn wood, stone and gold. Farms/quarries improve later income; monuments earn prestige. One investment per group per round. Highest prestige plus one point per three leftover resources wins. Discuss away from the board; the teacher records agreed answers and decisions. Rotate captain, researcher and strategist each round.
+- **Whole Class:** Four Corners, Save Our Earth, and teacher-guided Midnight Mysteries. Four Corners uses movement, pointing or seated letter responses, optional teacher-entered vote counts, reveal and discussion, without individual winners. Save Our Earth shares one health meter: start at 60, gain 10 for correct class decisions (cap 100), lose 15 for mistakes, and finish with health remaining to succeed together.
 
-    npm run check
-
-## What is included
-
-- 40 prepared lessons: 10 English and 10 Mathematics lessons for each of grades 7 and 8; 240 prepared questions/pairs/sequences.
-- 10 playable formats: Quiz Sprint, Tug of War, Relay Race, Sort It Out, Match Pairs, Sequence Builder, Challenge Board, Confidence Quest, Three-Life Challenge, and Clue Detective.
-- Separate Russian and Kyrgyz sections, plus the existing subject categories. Language lesson banks have not yet been authored, but custom lessons can be assigned to these subjects.
-- Grade, subject and text filters; direct play; a shared teacher editor; editable team names; optional shuffled question order.
-- Editable questions, answers, distractors, hints, and explanations. Spreadsheet paste can append questions or replace the deck.
-- Browser-local saved copies and versioned JSON downloads/imports. No accounts, server database, or student records.
-- Accessible HTML game controls with a canvas showing progress, team tracks, or tug-of-war position. Classroom presentation/fullscreen mode and result reviews.
-
-The 40 entries are distinct grade/subject lesson packs across 10 reusable game formats, not 40 independently implemented engines. Grade placement is an initial proposal, not a verified mapping to a specific curriculum or Oxford textbook edition.
+These are shared-screen activities. No student-device joining, networked sessions, anonymous electronic submissions, accounts or backend are implemented. Group membership/role assignment happens in the room; team names and group count are saved in lesson settings.
 
 ## Teacher workflow
 
-1. Select grade and subject. Choose **Edit & play** on a game, or use the play button for its prepared questions.
-2. Change the title, topic, or questions. For multiple-choice formats, add wrong choices one per line. Without wrong choices, the teacher marks spoken answers.
-3. For matching, each answer must be unique. For sorting, supply another category as a wrong choice. For sequences, use `|` between steps in the correct order.
-4. Paste tab-separated rows from a spreadsheet: question, answer, optional semicolon-separated wrong choices, optional hint. Review before play.
-5. **Save to My lessons** saves to this browser only. **Download lesson file** creates a portable backup. **Open a lesson file** restores a downloaded lesson into the editor.
-6. Play, discuss feedback, and review missed questions at the end. Custom copies never mutate prepared lessons.
+Filter by grade, subject, game mode or topic. Choose **Edit & play**, edit questions and answer choices, then launch. New Team/Class templates require 1–3 wrong choices (2–4 answers total). Simultaneous duel formats also require wrong choices. Matching requires unique answers; sequences use `|` between steps.
 
-Lesson files contain a `schemaVersion: 1` envelope and a validated `lesson` object. Limit: 2–40 questions per lesson and 100 browser-local saved copies. Browser data is not synced or guaranteed to survive clearing browser storage; the UI explains this and offers downloads.
+Paste tab-separated spreadsheet rows: question, answer, optional semicolon-separated wrong choices, optional hint. Save browser-local copies or download versioned JSON lesson files to transfer between devices/sites. Limits: 2–40 questions per lesson and 100 saved copies per browser. No student records are collected. The content is a starting point for teacher review, not a verified mapping to a particular Oxford textbook edition.
 
-## Source
+## Local development and deployment
 
-- `dist/index.html`: library, editor and classroom surfaces.
-- `dist/catalog.js`: subject taxonomy, format rules and prepared content.
-- `dist/app.js`: validation, teacher workflow, persistence, import/export and game state.
-- `dist/styles.css`: Oxford colors, responsive layouts, projector-friendly controls.
-- `dist/assets/oxford-logo.png`: official school logo.
-- `scripts/serve.mjs`: local preview.
-- `scripts/qa.mjs`: Playwright functional and responsive regression checks.
+Node.js required; no dependencies or build step for the application.
 
-`dist` contains authored source and must stay tracked. The live site is https://bryantfriend.github.io/ois/ and its repository is https://github.com/bryantfriend/ois. GitHub Actions checks JavaScript and publishes `dist` to GitHub Pages whenever `main` is updated. The Pages workflow can also be run manually from the Actions tab. Teacher lesson copies are saved per browser and website; use Download lesson file and Open a lesson file to transfer copies from the local preview to the hosted site.
+    npm run dev
+    npm run check
 
-## QA
+Preview: http://127.0.0.1:4174. `dist` contains authored, tracked source. GitHub Actions checks syntax and publishes `dist` whenever `main` changes. `.openai/hosting.json` is historical metadata from the initial preview; GitHub Pages is the current host.
 
-The browser QA runner requires the `playwright` package and a Chromium browser. Install it in a development environment or set `OXFORD_PLAYWRIGHT_MODULE` to an existing installation's `index.mjs`. Set `OXFORD_TEST_URL` to test another local preview URL. Then run `node scripts/qa.mjs`.
+- `dist/catalog.js`: prepared data, format/mode specifications.
+- `dist/app.js`: library, validation, lesson editing/persistence, original game engines.
+- `dist/tug.js`: independent two-player decks and touch controls.
+- `dist/modes.js`: team strategy, classroom voting, shared class objective, and setup.
+- `dist/arcade.js`, `dist/arcade.css`: procedural animation, effects, optional sound and reduced-motion support.
+- `dist/assets/oxford-logo.png`: original logo from https://oxford.kg/wp-content/uploads/2024/09/logo.png.
 
-The runner completes all 40 prepared lessons, tests incorrect-answer paths and game-specific rules, exercises teacher edit/paste/save/reload/import/export, checks invalid data, and captures desktop/mobile screenshots under ignored `output/qa/`. `window.render_game_to_text()` exposes the current visible game state; `window.advanceTime(ms)` redraws deterministic progress (these games have no real-time timer).
+Hamster Dash's markings wrap continuously; wrong answers randomly trigger a tumble, sneeze, dizzy wobble, hop or squash on that player's hamster. Motion-off uses static cues. All artwork/animation is local; no external game pages are embedded.
 
-## Inspiration and next work
+## Verification
 
-Reviewed https://github.com/bryantfriend/GP_Games and its tug-of-war, paraphrase relay, question sorting, and team-board ideas. Oxford implements its own shared engine and editor rather than embedding pages with hard-coded lesson data.
+Browser runners require Playwright and Chromium. Set `OXFORD_PLAYWRIGHT_MODULE` to its `index.mjs` if needed, and `OXFORD_TEST_URL` to change the preview URL. Screenshots go into ignored `output/`.
 
-Next: review the content against the school's grade 7/8 curriculum, expand question banks, and author Russian/Kyrgyz lessons. Cross-device accounts or collaborative lesson storage require a separately designed backend.
+- `scripts/qa.mjs`: complete all lesson packs and verify original gameplay/edit/import/export flows.
+- `scripts/qa-modes.mjs`: exclusive mode filters; new templates; team setup/save/export; lock/reveal rules; investments/income; class vote counts; shared success/failure; replay and mobile.
+- `scripts/qa-duel.mjs`, `scripts/qa-tug.mjs`: simultaneous native browser touch, independent decks, scoring, restarts and layouts.
+- `scripts/qa-hamster.mjs`: five reactions, player isolation, expiry and track visibility through an hour.
+- `scripts/qa-arcade.mjs`, `scripts/qa-teacher.mjs`: animation and focused teacher/keyboard/fullscreen checks.
 
-Additional focused checks: `node scripts/qa-teacher.mjs` exercises paste replacement, unsaved work prompts, fullscreen transitions, custom spoken answers, validation, keyboard focus and the structured-filter contract in a simulated WebMCP context. Native in-app WebMCP verification was not repeated for this revision.
+`render_game_to_text()` includes mode and group/class session state. `advanceTime(ms)` steps visual animation deterministically; ordinary play uses requestAnimationFrame. Question feedback delays use real timers.
 
-## Animated game worlds
-
-The student-facing experience now uses ten animated canvas worlds: Rocket Rally, Hamster Tug of War, Hamster Dash, Ocean Rescue, Potion Partners, Bridge Builders, Treasure Quest, Lava Leap, Robot Rescue, and Midnight Mysteries. All 40 lesson packs use these scenes, with their existing learning and scoring rules.
-
-`dist/arcade.js` reacts to the actual game state: moving hamsters and rope, rocket progress, animated sea life, potion filling, bridge planks, treasure chests, lava-platform movement, robot energy/shields, and illuminated city windows. It adds success/miss reactions, confetti, optional synthesized sound, and a motion control that respects the OS reduced-motion preference. Sound starts off. Sorting supports HTML drag-and-drop as well as existing click/touch/keyboard controls. `dist/arcade.css` styles the student play areas and colorful library thumbnails. The teacher editor retains the simpler school branding.
-
-Inspiration reviewed in detail: GP_Games/hamsterruner.html (running characters and answer-driven travel), GP_Games/kareemboozled.html (bright team boards, animated reveals, synth sound), and GP_Games/oceancleaner.html (octopus animation, bubbles, and collection feedback). Procedural art is implemented locally; the page does not depend on those source pages or external assets.
-
-Run `node scripts/qa-arcade.mjs` with the same Playwright setup to check ten animated scenes, automatic movement, particles/expiry, eased rope motion, sound and motion toggles, dragging, reduced motion, new-name search, and mobile layouts. Test-only `advanceTime(ms)` switches the scene to manual stepping for deterministic capture; ordinary play runs through requestAnimationFrame.
-
-
-## Simultaneous Tug of War
-
-Two students play side by side on a multi-touch board. Each has an independently shuffled deck from the same teacher-edited pool; each deck uses every question before refilling. Correct answers pull one step toward that player's side, and a three-step lead wins. Wrong answers do not move the rope. Each side advances automatically after brief feedback, without interrupting the other side. Questions require at least one wrong choice for independent answering. The game supports mouse and keyboard as well as simultaneous touch input.
-
-Run `node scripts/qa-tug.mjs` for native two-pointer touch, deck cycling, opponent-panel stability, win/restart, custom-pool validation, keyboard and mobile checks.
-
-All two-player formats now use simultaneous question panels: Tug of War, Hamster Dash (first to the pool size in correct answers), and Treasure Quest (each player answers the full deck once; highest points wins). Each side has independent shuffled questions and touch controls. Treasure questions include teacher-editable distractors and fixed per-question points shared by both players. Existing custom lessons without distractors need wrong choices added before playing. `scripts/qa-duel.mjs` checks all 12 two-player packs with actual simultaneous browser touch events, independent feedback, completion, replay, and responsive layouts.
-
-The Players filter supports 1 player, 2 players, Teams, and Whole class. Categories overlap: duel formats support two players or two teams; solo formats can be used individually or as a shared class activity; Clue Detective is teacher-led whole-class play. Categories are derived from each lesson's format, including saved lessons.
-
-Hamster Dash keeps track markings visible throughout play. Wrong answers randomly trigger one of five short hamster reactions on that player's lane; motion-off uses static cues. Run scripts/qa-hamster.mjs to check effects and long-duration track visibility.
+GP_Games inspiration includes the user's hamster runner, Kareem-Boozled and ocean-cleaner games. Next content priorities: curriculum alignment, more question banks, and authored Russian/Kyrgyz packs.

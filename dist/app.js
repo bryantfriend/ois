@@ -2,8 +2,8 @@ const $ = selector => document.querySelector(selector);
 const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const clone = value => JSON.parse(JSON.stringify(value));
 const shuffle = values => { const a=[...values]; for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; };
-const PLAYER_LABELS={all:'All players',one:'1 player',two:'2 players',teams:'Teams',class:'Whole class'};
-function playerModes(format){return ['tug','relay','board'].includes(format)?['two','teams']:format==='clue'?['class']:['one','class'];}
+const PLAYER_LABELS={all:'All modes',...Object.fromEntries(Object.values(GAME_MODES).map(m=>[m.key,m.label]))};
+function playerModes(format){return [GAME_MODES[FORMATS[format].mode].key];}
 const ui={grade:7,subject:'all',players:'all',search:'',collection:'library',view:'home'};
 let draft=null, dirty=false, game=null, saved=[], toastTimer, decision=null;
 const storageKey='oxford.lessons.v1';
@@ -25,14 +25,16 @@ function validateLesson(raw){
   if(!Array.isArray(item.options)||item.options.length>5||item.options.some(x=>typeof x!=='string'||x.length>500))throw Error(`Question ${i+1}: use up to five short wrong choices.`);
   const options=item.options.map(x=>x.trim()).filter(Boolean);
   if(new Set([answer,...options].map(x=>x.toLocaleLowerCase())).size!==options.length+1)throw Error(`Question ${i+1}: answer choices must be different.`);
+  if(['kingdom','corners','earth'].includes(raw.format)&&(!options.length||options.length>3))throw Error(`Question ${i+1}: use 1–3 wrong choices for this activity.`);
   if(raw.format==='sort'&&!options.length)throw Error(`Question ${i+1}: add at least one other category.`);
   if(raw.format==='order'){const tokens=answer.split('|').map(x=>x.trim());if(tokens.length<2||tokens.length>10||tokens.some(x=>!x))throw Error(`Question ${i+1}: use 2–10 steps separated by |.`);}
   if(typeof (item.hint??'')!=='string'||(item.hint||'').length>1500||typeof (item.explanation??'')!=='string'||(item.explanation||'').length>1500)throw Error(`Question ${i+1}: hint and explanation must be short text.`);
   return {prompt,answer,options,hint:item.hint||'',explanation:item.explanation||''};
  });
  if(raw.format==='match' && new Set(items.map(x=>x.answer.toLocaleLowerCase())).size!==items.length)throw Error('Matching games need a different answer for each pair.');
- const settings={teamOne:String(raw.settings?.teamOne||'Team Red').slice(0,30),teamTwo:String(raw.settings?.teamTwo||'Team Blue').slice(0,30),shuffle:raw.settings?.shuffle===true};
- return {id:typeof raw.id==='string'?raw.id.slice(0,100):'',title,topic,subject:raw.subject,grade:raw.grade,format:raw.format,minutes:raw.format==='board'?'15–20':'8–12',items,settings};
+ const settings={teamOne:String(raw.settings?.teamOne||'Player 1').slice(0,30),teamTwo:String(raw.settings?.teamTwo||'Player 2').slice(0,30),shuffle:raw.settings?.shuffle===true};
+ const count=raw.settings?.teamCount??4;if(!Number.isInteger(count)||count<2||count>6)throw Error('Choose 2–6 teams.');settings.teamCount=count;settings.teamNames=Array.from({length:count},(_,i)=>String(raw.settings?.teamNames?.[i]||['Red','Blue','Green','Yellow','Purple','Orange'][i]).trim().slice(0,30));
+ return {mode:FORMATS[raw.format].mode,id:typeof raw.id==='string'?raw.id.slice(0,100):'',title,topic,subject:raw.subject,grade:raw.grade,format:raw.format,minutes:raw.format==='board'?'15–20':'8–12',items,settings};
 }
 try{const data=JSON.parse(localStorage.getItem(storageKey)||'[]');if(!Array.isArray(data))throw Error();saved=data.slice(0,100).map(validateLesson);}catch{saved=[];notify('Saved lessons could not be read. You can still open a downloaded lesson file.');}
 function show(view){ui.view=view;for(const id of ['home','editor','player'])$('#'+id).hidden=id!==view;document.body.classList.toggle('playing',view==='player');window.scrollTo(0,0);}
@@ -41,6 +43,7 @@ function library(collection='library'){leaveEditor(()=>{ui.collection=collection
 function renderLibrary(){
  $('#saved-count').textContent=saved.length;
  $('#players').value=ui.players;
+ $('#mode-description').textContent=Object.values(GAME_MODES).find(m=>m.key===ui.players)?.description||'Choose who owns the challenge: a student, a pair, a team, or the whole classroom.';
  document.querySelectorAll('.header .nav-link').forEach(b=>b.classList.toggle('active',b.dataset.action===(ui.collection==='saved'?'saved':'library')));
  $('#subjects').innerHTML=SUBJECTS.map(s=>`<button class="subject ${ui.subject===s.id?'active':''}" data-subject="${s.id}" aria-pressed="${ui.subject===s.id}"><span>${s.icon}</span>${s.name}</button>`).join('');
  $('#grades').innerHTML=['all',7,8].map(n=>`<button class="grade ${ui.grade===n?'active':''}" data-grade="${n}" aria-pressed="${ui.grade===n}">${n==='all'?'All grades':`Grade ${n}`}</button>`).join('');
@@ -68,19 +71,20 @@ document.addEventListener('click',e=>{const b=e.target.closest('[data-action]');
 function findLesson(id){return [...saved,...GAMES].find(g=>g.id===id);}
 $('#games').onclick=e=>{const b=e.target.closest('[data-edit],[data-play]');if(!b)return;const lesson=findLesson(b.dataset.edit||b.dataset.play);if(!lesson)return;openEditor(lesson);if(b.dataset.play)startGame();};
 function openEditor(lesson){
- draft=clone(lesson);draft.settings ||= {teamOne:'Team Red',teamTwo:'Team Blue',shuffle:false};dirty=false;
+ draft=clone(lesson);draft.settings ||= {teamOne:'Player 1',teamTwo:'Player 2',shuffle:false};dirty=false;
  $('#lesson-title').value=draft.title;$('#lesson-topic').value=draft.topic;
  $('#lesson-grade').innerHTML=Array.from({length:12},(_,i)=>`<option value="${i+1}">${i+1}</option>`).join('');$('#lesson-grade').value=draft.grade;
  $('#lesson-subject').innerHTML=SUBJECTS.filter(s=>s.id!=='all').map(s=>`<option value="${s.id}">${s.name}</option>`).join('');$('#lesson-subject').value=draft.subject;
  $('#team-one').value=draft.settings.teamOne;$('#team-two').value=draft.settings.teamTwo;$('#shuffle').checked=draft.settings.shuffle;
  $('#team-fields').hidden=!['tug','relay','board'].includes(draft.format);
+ setupModeEditor();
  $('#format-icon').textContent=FORMATS[draft.format].icon;$('#format-name').textContent=FORMATS[draft.format].name;$('#format-instructions').textContent=FORMATS[draft.format].instructions;
- $('#format-help').textContent=draft.format==='order'?'Write the answer in its correct order, with | between each step. The game will mix the tiles for you.':draft.format==='match'?'Each row is a pair. Use a unique answer for every pair. The right-hand cards will be shuffled.':draft.format==='sort'?'Write the correct category as the answer. Put the other categories under Wrong choices.':draft.format==='clue'?'Give each mystery a question, an answer, and an optional hint. The teacher marks spoken answers.':['board'].includes(draft.format)?'Model answers guide the teacher. Students answer aloud; the teacher awards the points.':'Add wrong choices for automatic scoring. Leave them empty for spoken answers that the teacher marks.';
+ $('#format-help').textContent=draft.format==='order'?'Write the answer in its correct order, with | between each step. The game will mix the tiles for you.':draft.format==='match'?'Each row is a pair. Use a unique answer for every pair. The right-hand cards will be shuffled.':draft.format==='sort'?'Write the correct category as the answer. Put the other categories under Wrong choices.':draft.format==='clue'?'Give each mystery a question, an answer, and an optional hint. The teacher marks spoken answers.':['tug','relay','board','kingdom','corners','earth'].includes(draft.format)?'Add wrong choices for students to choose from. Team and whole-class templates use up to four answer choices.':'Add wrong choices for automatic scoring. Leave them empty for spoken answers that the teacher marks.';
  $('#paste-panel').hidden=true;$('#bulk-input').value='';renderRows();show('editor');$('#editor-title').focus();
 }
 function renderRows(){
  $('#question-count').textContent=draft.items.length;
- $('#question-rows').innerHTML=draft.items.map((q,i)=>`<div class="question-row" data-row="${i}"><div class="row-heading"><strong>${draft.format==='match'?'Pair':'Question'} ${i+1}</strong><button class="remove-row" data-remove="${i}" aria-label="Remove question ${i+1}">Remove</button></div><label>${draft.format==='match'?'Left card':'Question / prompt'}<textarea data-field="prompt" rows="2" maxlength="1500">${esc(q.prompt)}</textarea></label><label>${draft.format==='order'?'Correct sequence · separate steps with |':draft.format==='match'?'Matching right card':'Correct / model answer'}<textarea data-field="answer" rows="2" maxlength="1500">${esc(q.answer)}</textarea></label>${['quiz','tug','relay','board','sort','wager','survival'].includes(draft.format)?`<label>Wrong choices${draft.format==='sort'?' / other categories':''} <span class="quiet">· one per line</span><textarea data-field="options" rows="2">${esc(q.options.join('\n'))}</textarea></label>`:''}<details ${draft.format==='clue'?'open':''}><summary>${draft.format==='clue'?'Hint':'Add a hint or explanation'}</summary><label>Hint<textarea data-field="hint" rows="2" maxlength="1500">${esc(q.hint)}</textarea></label><label>Explanation after answering<textarea data-field="explanation" rows="2" maxlength="1500">${esc(q.explanation)}</textarea></label></details></div>`).join('');
+ $('#question-rows').innerHTML=draft.items.map((q,i)=>`<div class="question-row" data-row="${i}"><div class="row-heading"><strong>${draft.format==='match'?'Pair':'Question'} ${i+1}</strong><button class="remove-row" data-remove="${i}" aria-label="Remove question ${i+1}">Remove</button></div><label>${draft.format==='match'?'Left card':'Question / prompt'}<textarea data-field="prompt" rows="2" maxlength="1500">${esc(q.prompt)}</textarea></label><label>${draft.format==='order'?'Correct sequence · separate steps with |':draft.format==='match'?'Matching right card':'Correct / model answer'}<textarea data-field="answer" rows="2" maxlength="1500">${esc(q.answer)}</textarea></label>${['quiz','tug','relay','board','sort','wager','survival','kingdom','corners','earth'].includes(draft.format)?`<label>Wrong choices${draft.format==='sort'?' / other categories':''} <span class="quiet">· one per line</span><textarea data-field="options" rows="2">${esc(q.options.join('\n'))}</textarea></label>`:''}<details ${draft.format==='clue'?'open':''}><summary>${draft.format==='clue'?'Hint':'Add a hint or explanation'}</summary><label>Hint<textarea data-field="hint" rows="2" maxlength="1500">${esc(q.hint)}</textarea></label><label>Explanation after answering<textarea data-field="explanation" rows="2" maxlength="1500">${esc(q.explanation)}</textarea></label></details></div>`).join('');
 }
 $('#editor').addEventListener('input',e=>{dirty=true;const field=e.target.dataset.field;if(field){const i=Number(e.target.closest('[data-row]').dataset.row);draft.items[i][field]=field==='options'?e.target.value.split('\n').map(s=>s.trim()).filter(Boolean):e.target.value;}});
 $('#question-rows').onclick=e=>{const b=e.target.closest('[data-remove]');if(!b)return;const i=Number(b.dataset.remove);confirmAction('Remove this question?',draft.items[i].prompt||'This row will be removed from the draft.',()=>{draft.items.splice(i,1);dirty=true;renderRows();});};
@@ -97,7 +101,7 @@ function pasteQuestions(replace=false){
 }
 $('#bulk-add').onclick=()=>pasteQuestions();
 const replaceList=document.createElement('button');replaceList.id='bulk-replace';replaceList.className='button secondary';replaceList.textContent='Replace with my questions';replaceList.onclick=()=>pasteQuestions(true);$('#bulk-add').after(replaceList);
-function readDraft(){return validateLesson({...draft,title:$('#lesson-title').value,topic:$('#lesson-topic').value,grade:Number($('#lesson-grade').value),subject:$('#lesson-subject').value,settings:{teamOne:$('#team-one').value,teamTwo:$('#team-two').value,shuffle:$('#shuffle').checked}});}
+function readDraft(){return validateLesson({...draft,title:$('#lesson-title').value,topic:$('#lesson-topic').value,grade:Number($('#lesson-grade').value),subject:$('#lesson-subject').value,settings:{...draft.settings,...readModeSettings(),teamOne:$('#team-one').value,teamTwo:$('#team-two').value,shuffle:$('#shuffle').checked}});}
 function validAction(action){try{const lesson=readDraft();action(lesson);}catch(error){notify(error.message);}}
 $('#save-lesson').onclick=()=>validAction(lesson=>{
  const id=lesson.id.startsWith('custom-')?lesson.id:`custom-${crypto.randomUUID()}`;const copy={...lesson,id};const next=[copy,...saved.filter(s=>s.id!==id)];
@@ -107,7 +111,7 @@ $('#save-lesson').onclick=()=>validAction(lesson=>{
 $('#download-lesson').onclick=()=>validAction(lesson=>{const blob=new Blob([JSON.stringify({schemaVersion:1,lesson},null,2)],{type:'application/json'});const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=`oxford-${lesson.title.replace(/[^a-z0-9а-яёөңү-]/gi,'-').slice(0,70)}.json`;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);dirty=false;notify('Lesson file downloaded. Keep it as your backup.');});
 $('#import-file').onchange=async e=>{const file=e.target.files[0];if(!file)return;try{if(file.size>500000)throw Error('Choose a lesson file smaller than 500 KB.');const data=JSON.parse(await file.text());if(data.schemaVersion!==1)throw Error('This is not a supported Oxford lesson file.');const lesson=validateLesson(data.lesson);lesson.id=`custom-${crypto.randomUUID()}`;openEditor(lesson);dirty=true;notify('Lesson opened. Review it, then play or save a copy.');}catch(error){notify(error instanceof SyntaxError?'The file is not valid JSON. Choose an Oxford lesson download.':error.message);}e.target.value='';};
 window.addEventListener('beforeunload',e=>{if(dirty){e.preventDefault();e.returnValue='';}});
-function startGame(){validAction(lesson=>{if(['tug','relay','board'].includes(lesson.format)&&lesson.items.some(q=>!q.options.length)){notify('Add at least one wrong choice to every question for this two-player game.');return;}draft=lesson;game={lesson:clone(lesson),items:lesson.settings.shuffle?shuffle(lesson.items):clone(lesson.items),index:0,score:lesson.format==='wager'?300:0,teams:[0,0],turn:0,rope:0,lives:3,streak:0,answered:false,revealed:false,hinted:false,wager:0,done:false,correct:0,attempts:0,history:[],used:[],selected:[],left:null,matched:[],feedback:'',feedbackGood:false};game.right=shuffle(game.items.map((_,i)=>i));if(['tug','relay','board'].includes(lesson.format))initTug();prepareRound();show('player');renderGame();});}
+function startGame(){validAction(lesson=>{if(['tug','relay','board'].includes(lesson.format)&&lesson.items.some(q=>!q.options.length)){notify('Add at least one wrong choice to every question for this two-player game.');return;}draft=lesson;game={lesson:clone(lesson),items:lesson.settings.shuffle?shuffle(lesson.items):clone(lesson.items),index:0,score:lesson.format==='wager'?300:0,teams:[0,0],turn:0,rope:0,lives:3,streak:0,answered:false,revealed:false,hinted:false,wager:0,done:false,correct:0,attempts:0,history:[],used:[],selected:[],left:null,matched:[],feedback:'',feedbackGood:false};game.right=shuffle(game.items.map((_,i)=>i));if(['tug','relay','board'].includes(lesson.format))initTug();prepareRound();if(['kingdom','corners','earth'].includes(lesson.format))initModeGame();show('player');renderGame();});}
 $('#start-game').onclick=startGame;
 const playBottom=document.createElement('button');playBottom.className='button primary';playBottom.id='play-bottom';playBottom.textContent='Play this lesson ▶';playBottom.onclick=startGame;$('#add-question').after(playBottom);
 $('#edit-again').onclick=()=>{const wasDirty=dirty;openEditor(draft);dirty=wasDirty;};
@@ -137,7 +141,7 @@ function nextRound(){
 function finishMatch(){game.done=true;game.correct=game.items.length;game.score=Math.max(0,game.items.length*100-(game.attempts-game.items.length)*20);renderGame();}
 function scoreText(){const f=game.lesson.format;if(['tug','relay','board'].includes(f))return `${teamName(0)} ${game.teams[0]} · ${teamName(1)} ${game.teams[1]}`;return `${game.score} points`;}
 function renderGame(){
- if(!game)return;$('.player-bottom > span').textContent='Discuss together. Take turns. Explain your thinking.';const f=game.lesson.format,format=FORMATS[f],teamMode=['tug','relay','board'].includes(f);
+ if(!game)return;if(game.session){renderModeGame();return;}$('.player-bottom > span').textContent='Discuss together. Take turns. Explain your thinking.';const f=game.lesson.format,format=FORMATS[f],teamMode=['tug','relay','board'].includes(f);
  $('#play-title').textContent=game.lesson.title;$('#play-format').textContent=format.name;$('#play-subtitle').textContent=`Grade ${game.lesson.grade} · ${SUBJECTS.find(s=>s.id===game.lesson.subject).name}`;
  $('#scoreboard').innerHTML=teamMode?`<div class="team-score ${(game.tug||game.turn===0)?'active-team':''}"><span>${esc(teamName(0))}</span><strong>${game.teams[0]}</strong></div><span class="turn-label">${game.done?'Final scores':game.tug?duelRule():`${esc(teamName(game.turn))}’s turn`}</span><div class="team-score blue ${(game.tug||game.turn===1)?'active-team':''}"><span>${esc(teamName(1))}</span><strong>${game.teams[1]}</strong></div>`:`<div class="solo-score"><span>${f==='match'?'Pairs matched':'Score'}</span><strong>${f==='match'?`${game.matched.length} / ${game.items.length}`:game.score}</strong></div><span class="turn-label">${f==='survival'?`${'♥'.repeat(Math.max(0,game.lives))} · ${game.lives} lives`:f==='quiz'?`Streak ${game.streak}`:f==='match'?`${game.attempts} attempts`:'Think it through together'}</span>`;
  drawCanvas();
@@ -172,6 +176,7 @@ function renderResult(){
 }
 $('#arena').onclick=e=>{
  const b=e.target.closest('button');if(!b||b.disabled||!game)return;
+ if(game.session&&b.hasAttribute('data-mode-action'))return handleModeAction(b);
  if(b.hasAttribute('data-replay'))return startGame();if(b.hasAttribute('data-edit-result'))return $('#edit-again').click();if(game.done)return;
  if(b.hasAttribute('data-tug-answer'))return answerTug(b);
  if(b.hasAttribute('data-next'))return nextRound();
@@ -189,7 +194,7 @@ $('#arena').onclick=e=>{
 };
 // Keep keyboard focus inside the current activity when its controls are redrawn.
 $('#arena').addEventListener('click',event=>{
- if(event.detail!==0||event.target.closest('[data-tug-answer]'))return;const button=event.target.closest('button');if(!button)return;
+ if(event.detail!==0||event.target.closest('[data-tug-answer],[data-mode-action]'))return;const button=event.target.closest('button');if(!button)return;
  queueMicrotask(()=>{
   let selector='[data-answer], [data-tile]:not([disabled]), [data-board]:not([disabled]), [data-reveal], [data-wager], [data-left]:not([disabled]), [data-replay]';
   if(game?.answered)selector='[data-next]';
@@ -212,7 +217,7 @@ function drawCanvas(){
   const count=f==='match'?game.matched.length:f==='board'?game.used.length:game.history.length;ctx.fillStyle='#e1e3ee';ctx.fillRect(85,60,930,20);ctx.fillStyle='#38396f';ctx.fillRect(85,60,930*Math.min(1,count/game.items.length),20);ctx.fillStyle='#525877';ctx.font=`600 ${canvas.clientWidth<600?38:18}px Segoe UI`;ctx.fillText(`${count} of ${game.items.length} completed`,550,110);
  }
 }
-window.render_game_to_text=()=>JSON.stringify(game&&ui.view==='player'?{view:game.done?'result':'playing',format:game.lesson.format,lesson:game.lesson.title,grade:game.lesson.grade,score:game.score,teams:game.teams,tugPlayers:game.tug?.map((p,i)=>({team:teamName(i),question:game.items[p.question].prompt,questionIndex:p.question,choices:p.choices,locked:p.locked,feedback:p.feedback,attempts:p.attempts,deckRemaining:p.deck.length})),turn:game.tug?null:game.turn,rope:game.rope,lives:game.lives,attempts:game.attempts,correct:game.correct,question:game.done||game.tug?null:current()?.prompt,choices:game.answered||game.tug?[]:game.choices,answered:game.answered,feedback:game.feedback,revealed:game.revealed,modelAnswer:game.revealed||game.answered?current()?.answer:null,selected:game.selected,matched:game.matched,used:game.used,wager:game.wager,coordinateSystem:'Canvas origin top-left; x right, y down. Controls are accessible HTML.'}:{view:ui.view,grade:ui.grade,subject:ui.subject,players:ui.players});
+window.render_game_to_text=()=>JSON.stringify(game&&ui.view==='player'?{view:game.done?'result':'playing',format:game.lesson.format,mode:FORMATS[game.lesson.format].mode,session:game.session,lesson:game.lesson.title,grade:game.lesson.grade,score:game.score,teams:game.teams,tugPlayers:game.tug?.map((p,i)=>({team:teamName(i),question:game.items[p.question].prompt,questionIndex:p.question,choices:p.choices,locked:p.locked,feedback:p.feedback,attempts:p.attempts,deckRemaining:p.deck.length})),turn:game.tug?null:game.turn,rope:game.rope,lives:game.lives,attempts:game.attempts,correct:game.correct,question:game.done||game.tug?null:current()?.prompt,choices:game.answered||game.tug?[]:game.choices,answered:game.answered,feedback:game.feedback,revealed:game.revealed,modelAnswer:game.revealed||game.answered||game.session&&game.session.phase!=='discuss'?current()?.answer:null,selected:game.selected,matched:game.matched,used:game.used,wager:game.wager,coordinateSystem:'Canvas origin top-left; x right, y down. Controls are accessible HTML.'}:{view:ui.view,grade:ui.grade,subject:ui.subject,players:ui.players});
 window.advanceTime=()=>{if(game&&ui.view==='player')drawCanvas();};
 // Read-only runtime inspection hooks above support repeatable classroom-game QA.
 renderLibrary();

@@ -1,0 +1,32 @@
+import assert from 'node:assert/strict';import fs from 'node:fs/promises';import {pathToFileURL} from 'node:url';
+const {chromium}=await import(process.env.OXFORD_PLAYWRIGHT_MODULE?pathToFileURL(process.env.OXFORD_PLAYWRIGHT_MODULE).href:'playwright');
+const b=await chromium.launch();const p=await b.newPage({viewport:{width:1440,height:1100},acceptDownloads:true});const errors=[];p.on('pageerror',e=>errors.push(e.message));const base=process.env.OXFORD_TEST_URL||'http://127.0.0.1:4174';const state=()=>p.evaluate(()=>JSON.parse(render_game_to_text()));
+async function open(format,subject='math',grade=7){await p.goto(`${base}/?game=${subject}-${grade}-${format}`);await p.locator('#start-game').click();assert.equal((await state()).view,'playing');}
+async function correctChoice(){return p.evaluate(()=>game.choices.indexOf(current().answer));}
+async function lock(i,correct=true){const n=await correctChoice();await p.locator('#answer-group-'+i).selectOption(String(correct?n:(n+1)%4));await p.locator(`[data-mode-action="lock"][data-group="${i}"]`).click();}
+try{
+ await fs.mkdir('output/modes',{recursive:true});await p.goto(base);await p.locator('#reset').click();assert.equal(await p.locator('.game-card').count(),52);
+ for(const [key,count]of [['one',24],['two',12],['teams',4],['class',12]]){await p.locator('#players').selectOption(key);assert.equal(await p.locator('.game-card').count(),count);}
+ await p.screenshot({path:'output/modes/library.png',fullPage:true});
+ // All new subject/grade packs launch with mode-specific controls and editable question pools.
+ for(const f of ['kingdom','corners','earth'])for(const subject of ['english','math'])for(const grade of [7,8]){await open(f,subject,grade);assert.equal((await state()).mode,f==='kingdom'?'TEAM':'CLASS');await p.screenshot({path:`output/modes/${subject}-${grade}-${f}.png`,fullPage:true});}
+ // Team setup round-trips through save, reload and download.
+ await p.goto(`${base}/?game=math-7-kingdom`);await p.locator('#team-count').selectOption('6');assert.equal(await p.locator('[data-group-name]').count(),6);await p.locator('[data-group-name="0"]').fill('Falcons');await p.locator('#save-lesson').click();const downloadPromise=p.waitForEvent('download');await p.locator('#download-lesson').click();const download=await downloadPromise;await download.saveAs('output/modes/team.json');const data=JSON.parse(await fs.readFile('output/modes/team.json','utf8'));assert.equal(data.lesson.settings.teamCount,6);assert.equal(data.lesson.mode,'TEAM');await p.reload();await p.locator('[data-action="saved"]').click();await p.locator('[data-edit]').click();assert.equal(await p.locator('#team-count').inputValue(),'6');assert.equal(await p.locator('[data-group-name="0"]').inputValue(),'Falcons');
+ await p.locator('#team-count').selectOption('2');await p.locator('#start-game').click();
+ // No early reveal; shared answer locking and decisions actually change resources.
+ assert.ok(await p.locator('[data-mode-action="reveal"]').isDisabled());await p.locator('#answer-group-1').selectOption('2');await lock(0);assert.equal(await p.locator('#answer-group-1').inputValue(),'2');assert.ok(await p.locator('[data-mode-action="reveal"]').isDisabled());await lock(1,false);await p.locator('[data-mode-action="reveal"]').click();let s=await state();assert.deepEqual(s.session.groups[0].resources,[5,5,4]);assert.deepEqual(s.session.groups[1].resources,[3,3,2]);
+ await p.locator('[data-group="0"][data-investment="farm"]').click();await p.locator('[data-group="1"][data-investment="monument"]').click();s=await state();assert.equal(s.session.groups[0].farms,1);assert.equal(s.session.groups[1].prestige,3);assert.deepEqual(s.session.groups[1].resources,[1,1,0]);await p.screenshot({path:'output/modes/investments.png',fullPage:true});await p.locator('[data-mode-action="next"]').click();
+ await lock(0);await lock(1,false);await p.locator('[data-mode-action="reveal"]').click();s=await state();assert.deepEqual(s.session.groups[0].resources,[6,7,5]);assert.ok(await p.locator('[data-group="1"][data-investment="monument"]').isDisabled());
+ // Complete full group game; exactly one investment per group per round.
+ while((await state()).view!=='result'){
+  s=await state();if(s.session.phase==='discuss'){await lock(0);await lock(1,false);await p.locator('[data-mode-action="reveal"]').click();}
+  for(let i=0;i<2;i++)await p.locator(`[data-group="${i}"][data-investment="save"]`).click();await p.locator('[data-mode-action="next"]').click();
+ }
+ assert.match(await p.locator('#arena h2').textContent(),/Falcons/);await p.locator('[data-replay]').click();assert.deepEqual((await state()).session.groups[0].resources,[3,3,2]);
+ // Four Corners: vote entry, teacher-only reveal, distribution, completion without scores.
+ await open('corners');await p.locator('[data-vote="0"]').fill('8');await p.locator('[data-vote="1"]').fill('6');await p.locator('[data-mode-action="reveal"]').click();assert.equal(await p.locator('progress').count(),4);assert.equal((await state()).session.roundVotes[0],14);await p.screenshot({path:'output/modes/voting.png',fullPage:true});await p.locator('[data-mode-action="next"]').click();assert.equal((await state()).session.phase,'discuss');for(let i=1;i<6;i++){await p.locator('[data-mode-action="reveal"]').click();await p.locator('[data-mode-action="next"]').click();}assert.equal((await state()).view,'result');assert.match(await p.locator('#arena').textContent(),/14 votes/);
+ // Shared planet success and failure paths; no individual/team score owners.
+ for(const good of [true,false]){await open('earth');while((await state()).view!=='result'){const n=await correctChoice();await p.locator(`[data-mode-action="choose"][data-choice="${good?n:(n+1)%4}"]`).click();await p.locator('[data-mode-action="reveal"]').click();await p.locator('[data-mode-action="next"]').click();}assert.equal((await state()).session.health,good?100:0);await p.screenshot({path:`output/modes/earth-${good}.png`});}
+ await open('kingdom');await p.setViewportSize({width:390,height:844});assert.ok(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));await p.screenshot({path:'output/modes/mobile.png',fullPage:true});
+ assert.deepEqual(errors,[]);console.log('PASS modes: 52 lessons, exclusive categories, all new packs, setup/save/export, locking, investments/income, votes, class success/failure, replay, mobile, no errors');
+}finally{await b.close();}

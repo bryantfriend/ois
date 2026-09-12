@@ -5,6 +5,6 @@
   "description": "A teacher-facing classroom game library",
   "scripts": {
     "dev": "node scripts/serve.mjs",
-    "check": "node --check dist/tug.js && node --check dist/catalog.js && node --check dist/app.js && node --check scripts/serve.mjs && node --check scripts/qa.mjs && node --check scripts/qa-teacher.mjs && node --check dist/arcade.js && node --check scripts/qa-arcade.mjs"
+    "check": "node --check dist/modes.js && node --check dist/tug.js && node --check dist/catalog.js && node --check dist/app.js && node --check scripts/serve.mjs && node --check scripts/qa.mjs && node --check scripts/qa-teacher.mjs && node --check dist/arcade.js && node --check scripts/qa-arcade.mjs"
   }
 }

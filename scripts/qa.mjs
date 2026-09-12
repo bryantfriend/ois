@@ -20,7 +20,7 @@ const state=()=>page.evaluate(()=>JSON.parse(window.render_game_to_text()));
 async function open(id){await page.goto(`${base}/?game=${id}`);await page.locator('#start-game').click();assert.equal((await state()).view,'playing');}
 async function answerRound(lesson,correct=true){
  const s=await state();
- if(lesson.format==='tug'){await page.waitForFunction(()=>!game.tug[0].locked);const p=(await state()).tugPlayers[0],q=lesson.items.find(q=>q.prompt===p.question),n=p.choices.findIndex(a=>correct?a===q.answer:a!==q.answer);await page.locator(`[data-player="0"][data-tug-answer="${n}"]`).click();return;}
+ if(['tug','relay','board'].includes(lesson.format)){const side=lesson.format==='board'&&s.tugPlayers[0].attempts>=lesson.items.length?1:0;await page.waitForFunction(i=>!game.tug[i].locked,side);const p=(await state()).tugPlayers[side],q=lesson.items.find(q=>q.prompt===p.question),n=p.choices.findIndex(a=>correct?a===q.answer:a!==q.answer);await page.locator(`[data-player="${side}"][data-tug-answer="${n}"]`).click();return;}
  if(lesson.format==='match'){
   const ids=await page.locator('[data-left]:not([disabled])').evaluateAll(nodes=>nodes.map(n=>n.dataset.left));
   for(const id of ids){await page.locator(`[data-left="${id}"]`).click();await page.locator(`[data-right="${id}"]`).click();}return;
@@ -55,7 +55,7 @@ try{
  for(const lesson of catalog){
   await open(lesson.id);let rounds=0;
   while((await state()).view!=='result'){await answerRound(lesson,true);assert.ok(++rounds<=40);}
-  const s=await state();assert.equal(s.correct,lesson.format==='tug'?3:lesson.items.length,lesson.id);assert.equal(s.attempts,lesson.format==='tug'?3:lesson.items.length,lesson.id);
+  const s=await state();assert.equal(s.correct,lesson.format==='tug'?3:lesson.format==='board'?lesson.items.length*2:lesson.items.length,lesson.id);assert.equal(s.attempts,lesson.format==='tug'?3:lesson.format==='board'?lesson.items.length*2:lesson.items.length,lesson.id);
   if(['quiz','sort','order','clue','survival'].includes(lesson.format))assert.ok(s.score>=600,lesson.id);
   if(lesson.format==='wager')assert.equal(s.score,900);
   summary.push({id:lesson.id,score:s.score,correct:s.correct});

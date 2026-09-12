@@ -55,3 +55,17 @@ body[data-world="tug"] #player:fullscreen .play-heading h1{font-size:24px}
 body[data-world="tug"] #player:fullscreen #game-canvas{max-height:160px}
 body[data-world="tug"] #player:fullscreen .arcade-mission{padding:6px 12px}
 body[data-world="tug"] #player:fullscreen #arena{padding:12px 18px}
+/* Compact parallel question cards, matching the teacher's board reference. */
+body:has(.tug-duel) #arena{background:linear-gradient(110deg,#bbeaed,#f0e5ef);border:0;padding:20px}
+.tug-duel{gap:16px;align-items:start}.tug-side{background:#ffffffed;border-color:#92c6ff;box-shadow:0 8px 16px #34436618;padding:16px;border-radius:16px}.tug-side[data-side="1"]{background:#ffffffed;border-color:#ff9bd1}
+.tug-player-heading strong{font-size:12px;background:#dfedff;border-radius:20px;padding:5px 9px;color:#2859c8}.tug-side[data-side="1"] .tug-player-heading strong{background:#fce5f2;color:#c1287f}.tug-player-heading span{font-size:12px}
+#arena .tug-side h2{font-size:clamp(18px,1.6vw,26px);text-align:center;min-height:2.7em;margin:14px 0;line-height:1.3}
+.tug-answers button{min-height:60px;text-align:center;background:#fff;border:1px solid #dce1ec;box-shadow:none;font-size:clamp(16px,1.3vw,21px);padding:12px}
+.tug-side[data-side="1"] button{border-color:#dce1ec;box-shadow:none}.tug-answers button span{display:none}.tug-feedback{min-height:42px;font-size:13px;margin-top:12px}
+body:has(.tug-duel) #game-canvas{max-height:180px;object-fit:contain}
+@media(min-width:701px){body:has(.tug-duel) #player:fullscreen #game-canvas{max-height:160px}}
+@media(max-width:700px){.tug-duel{gap:10px}.tug-side{padding:10px}.tug-answers{grid-template-columns:1fr 1fr;gap:6px}.tug-answers button{font-size:14px;padding:8px;overflow-wrap:anywhere}.tug-player-heading strong{font-size:10px}.tug-player-heading span{margin-top:8px}#arena .tug-side h2{font-size:16px}body:has(.tug-duel) #arena{padding:10px}}
+/* Keep player colors consistent with the scoreboard and animated characters. */
+.tug-side{border-color:#ff9bb7}.tug-side[data-side="1"]{border-color:#92c6ff}
+.tug-player-heading strong{background:#fce5ed;color:#bd2855}.tug-side[data-side="1"] .tug-player-heading strong{background:#dfedff;color:#2859c8}
+@media(max-width:550px){.tug-answers{grid-template-columns:1fr}.tug-answers button{overflow-wrap:break-word;min-height:60px}}

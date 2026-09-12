@@ -5,8 +5,8 @@ async function open(format,subject='math',grade=7){await go(`${base}/?game=${sub
 async function correctChoice(){return p.evaluate(()=>game.choices.indexOf(current().answer));}
 async function lock(i,correct=true){const n=await correctChoice();await p.locator('#answer-group-'+i).selectOption(String(correct?n:(n+1)%4));await p.locator(`[data-mode-action="lock"][data-group="${i}"]`).click();}
 try{
- await fs.mkdir('output/modes',{recursive:true});await go(base);await p.locator('#reset').click();assert.equal(await p.locator('.game-card').count(),176);
- for(const [key,count]of [['one',76],['two',12],['teams',42],['class',46]]){await p.locator('#players').selectOption(key);assert.equal(await p.locator('.game-card').count(),count);}
+ await fs.mkdir('output/modes',{recursive:true});await go(base);await p.locator('#reset').click();assert.equal(await p.locator('.game-card').count(),218);
+ for(const [key,count]of [['one',106],['two',12],['teams',42],['class',58]]){await p.locator('#players').selectOption(key);assert.equal(await p.locator('.game-card').count(),count);}
  await p.screenshot({path:'output/modes/library.png',fullPage:true});
  // All new subject/grade packs launch with mode-specific controls and editable question pools.
  for(const f of ['kingdom','corners','earth'])for(const subject of ['english','math'])for(const grade of [7,8]){await open(f,subject,grade);assert.equal((await state()).mode,f==='kingdom'?'TEAM':'CLASS');await p.screenshot({path:`output/modes/${subject}-${grade}-${f}.png`,fullPage:true});}
@@ -28,7 +28,7 @@ try{
  // Shared planet success and failure paths; no individual/team score owners.
  for(const good of [true,false]){await open('earth');while((await state()).view!=='result'){const n=await correctChoice();await p.locator(`[data-mode-action="choose"][data-choice="${good?n:(n+1)%4}"]`).click();await p.locator('[data-mode-action="reveal"]').click();await p.locator('[data-mode-action="next"]').click();}assert.equal((await state()).session.health,good?100:0);await p.screenshot({path:`output/modes/earth-${good}.png`});}
  await open('kingdom');await p.setViewportSize({width:390,height:844});assert.ok(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));await p.screenshot({path:'output/modes/mobile.png',fullPage:true});
- assert.deepEqual(errors,[]);console.log('PASS modes: 176 lessons, exclusive categories, all new packs, setup/save/export, locking, investments/income, votes, class success/failure, replay, mobile, no errors');
+ assert.deepEqual(errors,[]);console.log('PASS modes: 218 lessons, exclusive categories, all new packs, setup/save/export, locking, investments/income, votes, class success/failure, replay, mobile, no errors');
 }finally{await b.close();}
 
 async function go(url){await p.goto(url);if(await p.locator('#boozled-setup[open]').count()){await p.locator('[data-boozled-count="4"]').click();await p.locator('#boozled-edit-questions').click();}}

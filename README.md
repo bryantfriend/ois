@@ -2,7 +2,7 @@
 
 Live: https://bryantfriend.github.io/ois/ · Source: https://github.com/bryantfriend/ois
 
-A teacher-facing library for Oxford International School, using its official logo and red/indigo branding. The library contains 176 editable lesson packs across 54 formats for English and Mathematics, grades 7 and 8. The new group/class packs reuse the prepared quiz question banks. Russian and Kyrgyz have separate sections; teachers can assign custom lessons to either.
+A teacher-facing library for Oxford International School, using its official logo and red/indigo branding. The library contains 218 editable lesson packs across 66 formats for English and Mathematics, grades 7 and 8. The new group/class packs reuse the prepared quiz question banks. Russian and Kyrgyz have separate sections; teachers can assign custom lessons to either.
 
 ## Four distinct modes
 
@@ -114,3 +114,13 @@ Wordsearch and Crossword accept 2–12 distinct words of 2–14 letters. Crosswo
 Maths Generator stores operation, maximum factor/operand and 2–40-question settings. Each run generates a new bank; division constructs whole-number answers and may use a dividend larger than the factor limit. Word Magnets supports both tapping and HTML drag/drop; keyboard-accessible taps are available for every magnet. Rank Order uses explicit up/down controls.
 
 New implementation: `dist/activities-catalog.js`, `dist/activities.js`, `dist/activities.css`. Verification: `scripts/qa-activities.mjs` (all packs and each format), `scripts/qa-activity-edges.mjs` (image/marker persistence, generator settings, failure and scoring guards), and `scripts/qa-activity-layout.mjs` (all 70 starts plus crossword entry and diagram alignment at 1366×768).
+
+## Reference template collection
+
+Added all 12 templates from the teacher’s image: Match Up, Quiz, Flash Cards, Speaking Cards, Group Sort, Complete the Sentence, Spin the Wheel, Find the Match, Anagram, Unjumble, Open the Box and Matching Pairs. They add 42 grade 7–8 packs: all twelve have English starters; nine also have Math starters.
+
+Speaking Cards, Spin the Wheel and Open the Box use Whole Class mode. The other templates use Solo mode with large shared-board controls. Existing formats remain available. Matching and sorting support drag-and-drop plus tap controls; letter/word building also supports undo and clear. Flash Cards keeps missed cards in the review deck. Wheel and speaking prompts do not repeat within a round.
+
+Teachers use the existing Edit & play, paste, save and lesson-file controls. Matching lessons support up to 12 unique pairs; Group Sort supports up to six categories. Complete the Sentence uses exactly one ___ blank per prompt. Anagram answers use 2–14 letters; Unjumble accepts 2–12 words separated with |.
+
+Implementation: dist/templates.js and dist/templates.css. Browser QA: scripts/qa-templates.mjs and scripts/qa-template-edges.mjs.

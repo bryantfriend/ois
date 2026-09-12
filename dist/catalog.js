@@ -1,12 +1,12 @@
 const SUBJECTS = [
  {id:'all',name:'All subjects',icon:'▦'}, {id:'english',name:'English',icon:'Aa'}, {id:'math',name:'Mathematics',icon:'∑'},
  {id:'russian',name:'Russian · Русский',icon:'Я'}, {id:'kyrgyz',name:'Kyrgyz · Кыргызча',icon:'Ө'},
- {id:'science',name:'General Science',icon:'⚗'}, {id:'chemistry',name:'Chemistry',icon:'⚗'}, {id:'biology',name:'Biology',icon:'♧'}, {id:'physics',name:'Physics',icon:'⚛'}, {id:'ict',name:'ICT',icon:'▣'}, {id:'computer-science',name:'Computer Science',icon:'⌘'}, {id:'humanities',name:'Humanities',icon:'◎'}, {id:'global',name:'Global Perspectives',icon:'↗'}
+ {id:'science',name:'General Science',icon:'⚗'}, {id:'chemistry',name:'Chemistry',icon:'⚗'}, {id:'biology',name:'Biology',icon:'♧'}, {id:'physics',name:'Physics',icon:'⚛'}, {id:'ict',name:'ICT',icon:'▣'}, {id:'computer-science',name:'Computer Science',icon:'⌘'}, {id:'geography',name:'Geography',icon:'🌍'}, {id:'humanities',name:'Humanities',icon:'◎'}, {id:'global',name:'Global Perspectives',icon:'↗'}
 ];
 const SUBJECT_MENU=[
  'all', {id:'language',name:'Language',icon:'Aa',children:['english','russian','kyrgyz']}, 'math',
  {id:'science',name:'Science',icon:'⚗',children:['chemistry','biology','physics','science']},
- {id:'computer',name:'Computer',icon:'▣',children:['ict','computer-science']}, 'humanities','global'
+ {id:'computer',name:'Computer',icon:'▣',children:['ict','computer-science']}, 'geography','humanities','global'
 ];
 const FORMATS = {
  quiz:{name:'Quiz Sprint',icon:'ϟ',description:'Choose an answer and build a streak.',instructions:'Correct answers earn 100 points, plus 20 for each earlier answer in your current streak. Discuss the feedback before moving on.'},

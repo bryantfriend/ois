@@ -1,0 +1,41 @@
+const GEO_FORMATS={geosolo:{name:'Geography Explorer',mode:'SOLO',icon:'🧭'},geoduel:{name:'Geography Partners',mode:'DUEL',icon:'🗺️'},geoteam:{name:'Geography Expedition',mode:'TEAM',icon:'🏕️'},geoclass:{name:'Geography Mission',mode:'CLASS',icon:'🌍'}};
+for(const [id,f] of Object.entries(GEO_FORMATS)){const rule=f.mode==='DUEL'?'Two students work simultaneously on independent panels. Compare evidence and explain your answers. Complete both trails for a shared expedition result.':f.mode==='TEAM'?'Choose 2–6 teams. Each team completes the same challenges; rotate navigator, evidence reader and spokesperson. Highest points wins.':f.mode==='CLASS'?'One class, one expedition. Discuss the evidence, agree an action, and rotate who uses the board. Build a shared result.':'Follow the expedition, solve each challenge, and explain your reasoning. There is no time pressure.';ACTIVITIES[id]={...f,input:'geography',color:'#258975',rule};FORMATS[id]={...f,input:'geography',description:rule,instructions:rule+' Questions, practice sources, maps and model settings are editable. Spoken explanations use teacher/partner review, not automatic grading.'};}
+const GEO_BOARDS={
+ town:{name:'Practice town · schematic, not to scale',background:'town',pins:[['School',48,43],['River',18,43],['Playing fields',78,43],['Road',48,80]]},
+ grid:{name:'Practice grid · eastings then northings',background:'grid',pins:[['2141',25,75],['2345',58.33,8.33],['2543',91.67,41.67],['2244',41.67,25]]},
+ uk:{name:'UK locator · simplified schematic',background:'uk',pins:[['Scotland',52,18],['England',62,63],['Wales',40,63],['Northern Ireland',20,42]]},
+ world:{name:'World reference lines · schematic',background:'world',pins:[['Northern and Eastern',72,25],['Northern and Western',28,25],['Southern and Eastern',72,75],['Southern and Western',28,75]]},
+ africa:{name:'Africa locator · simplified schematic',background:'africa',pins:[['Atlantic Ocean',12,48],['Indian Ocean',86,65],['Sahara',42,22],['Congo Basin',49,53],['Kenya',66,48]]},
+ kenya:{name:'Kenya locator · simplified schematic',background:'kenya',pins:[['Indian Ocean',84,80],['Uganda',15,45],['Ethiopia',52,10],['Tanzania',27,80],['Somalia',85,30]]},
+ river:{name:'River network · schematic, flow follows arrows',background:'river',pins:[['Source',16,16],['Tributary',70,24],['Confluence',49,49],['Mouth',72,86]]}
+};
+function geoBase(q,source,explanation,kind='choice'){return {...q,hint:'',explanation,geo:{kind,source}};}
+const GEO_SEQUENCE_TOPICS=new Set([3,7,23,24,26,27,29,32,33,34,35,36,40,43,45,47,49,51,54,55]);
+const GEO_MAP_TOPICS={10:['town','Playing fields','Tap the playing fields east of the school.'],11:['grid','2345','Tap the point in grid square 2345.'],14:null,15:['world','Northern and Eastern','Bishkek is approximately 43°N, 75°E. Tap its hemisphere pair.'],16:['uk','Northern Ireland','Tap the UK country that is not on Great Britain.'],17:['uk','Wales','Tap Wales, west of much of England and south of Scotland.'],22:['uk','England','London is in southeast England. Tap its country.'],28:null,30:['uk','England','The Lake District is in northwest England. Tap its country.'],32:['river','Confluence','Tap the point where the tributary joins the main river.'],38:['river','Mouth','Tap the river mouth, where tidal mixing may occur.'],42:['africa','Atlantic Ocean','Tap the ocean west of Africa.'],45:['africa','Kenya','Tap Kenya in eastern Africa near the Equator.'],47:['africa','Sahara','Tap the large desert in northern Africa.'],48:['kenya','Indian Ocean','Tap the ocean on Kenya’s coast.'],49:['kenya','Tanzania','Tap Kenya’s southern neighbour, Tanzania.']};
+const GEO_BUDGETS={
+ 1:{budget:8,target:3,needs:['Temperature','Direction','Distance'],offers:[['Thermometer',3,1],['Compass',2,2],['Tape measure',3,4],['Camera',4,0]]},
+ 21:{budget:8,target:3,needs:['Water access','Clinic access','Travel access'],offers:[['Repair water point',3,1],['Mobile clinic',3,2],['Bus connection',2,4],['Decorative arch',4,0]]},
+ 31:{budget:9,target:3,needs:['Household supply','Farm efficiency','River habitat'],offers:[['Repair leaking pipes',3,1],['Efficient irrigation',3,2],['Reserve ecological flow',3,4],['Unrestricted pumping',6,0]]},
+ 37:{budget:8,target:3,needs:['Farm use','Household use','Habitat flow'],offers:[['Irrigation schedule',3,1],['Drinking-water allocation',3,2],['Minimum river flow',2,4],['One user takes all',5,0]]},
+ 39:{budget:8,target:3,needs:['Warn residents','Safe shelter','Maintain access'],offers:[['Warning network',2,1],['High-ground shelter',3,2],['Signed alternative route',3,4],['Unverified social post',1,0]]},
+ 41:{budget:10,target:3,needs:['Store floodwater','Warn residents','Protect buildings'],offers:[['Upstream storage',4,1],['Warning system',2,2],['Property resilience',4,4],['Decorative fountain',3,0]]},
+ 53:{budget:9,target:3,needs:['Clinic access','Public transport','Water access'],offers:[['Neighbourhood clinic',4,1],['Connecting bus route',3,2],['Repair water service',2,4],['Prestige statue',5,0]]},
+ 55:{budget:8,target:3,needs:['Keep cool','Move shipment','Inform buyer'],offers:[['Cold storage',3,1],['Alternative transport',4,2],['Buyer update',1,4],['Leave in sunlight',1,0]]},
+ 56:{budget:9,target:3,needs:['Wildlife space','Durable route','Local benefit'],offers:[['Viewing distance plan',2,1],['Maintain designated route',4,2],['Local guide partnership',3,4],['Off-road pursuit',3,0]]},
+ 57:{budget:8,target:3,needs:['Health evidence','Income evidence','Distribution evidence'],offers:[['Comparable clinic data',3,1],['Comparable income data',2,2],['Household variation study',3,4],['One tourist opinion',2,0]]}
+};
+const GEO_PACKS=[];
+GEO_PLAN.forEach((t,i)=>t.games.forEach((idea,j)=>{
+ const b=GEO_BANK[i],format=Object.keys(GEO_FORMATS).find(f=>GEO_FORMATS[f].mode===idea.mode);
+ const recognise=geoBase(b.recognise,b.source,b.reason),apply=geoBase(b.apply,b.source,b.reason);
+ if(GEO_SEQUENCE_TOPICS.has(i)&&!GEO_MAP_TOPICS[i]){apply.geo.kind='order';apply.prompt='Build the sequence: '+t.topic+'. Tap cards in order.';apply.answer=b.sequence;apply.options=[];apply.explanation=b.reason;}
+ if(GEO_MAP_TOPICS[i]){const [board,answer,prompt]=GEO_MAP_TOPICS[i];Object.assign(apply,{prompt,answer,options:[],explanation:'Check the labelled reference points and orientation. '+b.reason});apply.geo={...apply.geo,kind:'map',board};}
+ if(i===8||i===12){Object.assign(apply,{prompt:i===8?'Set the building width to represent a 12 m wall. Scale: 1 cm = 2 m.':'Set the traced map length for a 4 km route. Scale: 1 cm = 0.5 km.',answer:i===8?'6':'8',options:[]});apply.geo={...apply.geo,kind:'measure',unit:'cm',start:1,maximum:12};}
+ if(i===9){apply.geo={...apply.geo,kind:'memory',board:'town'};apply.prompt='Study the town, then hide it. Which feature is east of the school?';apply.answer='Playing fields';apply.options=['River','Road'];}
+ if(i===14||i===28){apply.geo={...apply.geo,kind:'profile'};apply.prompt=i===14?'Choose the profile with the gentler gradient.':'Choose the cross-section most consistent with a glacial trough.';apply.answer=i===14?'Gentle slope':'U-shaped trough';apply.options=i===14?['Steep slope','Cliff']:['V-shaped valley','Flat plain'];}
+ if(i===25){apply.geo={...apply.geo,kind:'model',start:10,target:12,maximum:10};apply.prompt='Make the glacier end with exactly 12 ice tokens. Adjust accumulation and melting, then run a year.';apply.answer='12';apply.options=[];}
+ if(GEO_BUDGETS[i]){apply.geo={...apply.geo,kind:'budget',...GEO_BUDGETS[i]};apply.prompt='Plan the mission. Meet all three needs without exceeding '+apply.geo.budget+' tokens.';apply.answer='Meet all needs within budget';apply.options=[];apply.geo.source='Fictional classroom planning model. Costs and coverage are simplified game rules, not real prices or forecasts. '+b.source;}
+ const explain=geoBase({prompt:'Explain or justify: '+b.apply.prompt,answer:b.apply.answer+'. '+b.reason,options:[]},b.source,b.reason,'explain');
+ const pack={id:'geo-'+t.group.toLowerCase()+'-'+String(i+1).padStart(2,'0')+'-'+idea.mode.toLowerCase(),format,grade:t.group==='8'?8:7,subject:'geography',topic:t.group+' · '+t.topic,title:idea.title,minutes:'8–15',items:[recognise,apply,explain],settings:{shuffle:false,teamOne:'Player 1',teamTwo:'Player 2'}};
+ GEO_PACKS.push(pack);GAMES.push(pack);
+}));

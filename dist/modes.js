@@ -4,7 +4,7 @@ const INVESTMENTS={defense:{name:'Defenses',cost:[0,2,1],help:'Protect gold from
 function setupModeEditor(){
  const mode=GAME_MODES[FORMATS[draft.format].mode],host=$('#mode-setup');
  host.innerHTML=`<div class="mode-explainer"><strong>${mode.label}</strong><p>${mode.description}</p><small>${mode.control} · ${mode.objective}</small></div>`;
- setupExpansionEditor(host);setupActivityEditor(host);if(FORMATS[draft.format].mode!=='TEAM')return;
+ setupExpansionEditor(host);setupActivityEditor(host);if(GEO_FORMATS[draft.format])geoSetup(host);if(FORMATS[draft.format].mode!=='TEAM')return;
  const count=draft.settings.teamCount||4,names=draft.settings.teamNames||['Red','Blue','Green','Yellow','Purple','Orange'];
  host.innerHTML+=`<label>Number of teams<select id="team-count">${[2,3,4,5,6].map(n=>`<option ${n===count?'selected':''}>${n}</option>`).join('')}</select></label><div id="group-names">${Array.from({length:count},(_,i)=>`<label>Team ${i+1}<input data-group-name="${i}" maxlength="30" value="${esc(names[i]||'Team '+(i+1))}"></label>`).join('')}</div><p class="mode-help">Assign a captain, researcher and strategist in each group. Rotate these roles each round. Teams discuss away from the screen, then the teacher records their agreed choices.</p>`;
  if(draft.format==='boozled')host.innerHTML+=`<label>Surprise tiles<select id="boozled-power-count">${[0,2,4,8].map(n=>`<option value="${n}" ${n===(draft.settings.boozledPowerCount??4)?'selected':''}>${n}${n===0?' · questions only':''}</option>`).join('')}</select></label><p class="mode-help">The team chooses a tile and agrees its answer. The teacher reveals and marks it. Surprise tiles are mixed randomly into the board.</p>`;

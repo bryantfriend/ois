@@ -2,7 +2,7 @@
 
 Live: https://bryantfriend.github.io/ois/ · Source: https://github.com/bryantfriend/ois
 
-A teacher-facing library for Oxford International School, using its official logo and red/indigo branding. The library contains 374 editable lesson packs across 187 formats, including Grades 1–6 maths, logic, physics and computing alongside Grades 7–8 English and Mathematics. The new group/class packs reuse the prepared quiz question banks. Russian and Kyrgyz have separate sections; teachers can assign custom lessons to either.
+A teacher-facing library for Oxford International School, using its official logo and red/indigo branding. The library contains 490 editable lesson packs across 191 formats, including Grades 1–6 maths, logic, physics and computing alongside Grades 7–8 English and Mathematics. The new group/class packs reuse the prepared quiz question banks. Russian and Kyrgyz have separate sections; teachers can assign custom lessons to either.
 
 ## Four distinct modes
 
@@ -154,3 +154,13 @@ Whack-a-Mole uses a nine-hole animated garden. Each question’s answer choices 
 A solo picture-to-word game with large illustrated clues, two to four answer choices, feedback, points and progress. Four starter packs cover everyday English (Grade 2), scientific English (Grade 7), science vocabulary (Grade 5) and ICT equipment (Grade 7). Teachers can change the grade and subject, edit the words, select one of fourteen original illustrations, or upload a picture for each question. Uploaded pictures are compressed and included in saved/downloaded lessons. The optional Listen button uses browser speech synthesis and available device voices.
 
 `scripts/qa-picture-vocab.mjs` checks all four packs, scoring, replay, keyboard input, layouts, picture editing, uploads, save/export/import and validation.
+
+## Geography smartboard collection
+
+116 playable adaptations cover all 58 topics in the supplied 7A, 7BC and Grade 8 plan, with 29 lessons in each mode. Four Geography mode engines share nine task types: source choices, ordered stages, map markers, scale measurements, memory maps, profiles, glacier mass balance, token planning, and teacher-reviewed explanations. Each lesson has recognition, application and explanation checkpoints plus an individual exit prompt.
+
+Two-player panels accept simultaneous native touch and repaint independently. Teams choose 2–6 names and all lock their answers before shared review; whole-class games share progress. Teachers edit sources, answers, maps/markers, budgets and models. Uploaded maps stay with browser saves and exported lesson JSON.
+
+These are adaptations rather than full recreations of every physical/hidden-information activity. Textbook-specific evidence is not available: the Thames file is explicitly fictional, and Africa history uses source-evaluation practice. Maps are schematic and example data/budgets are labelled. The teacher guide lists each original idea, implemented task and source notes: `dist/geography-guide.html`. Regenerate it with `node scripts/build-geography-guide.mjs`.
+
+Verification: `scripts/qa-geography.mjs` completes all 116 packs and checks native two-touch, team locking, save/import/export, uploaded maps and mobile; `qa-geography-layout.mjs` checks every application screen; `qa-geography-edges.mjs` covers boundary cases, other screen states and guide filtering.

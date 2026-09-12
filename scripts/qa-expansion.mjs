@@ -1,9 +1,9 @@
 import assert from 'node:assert/strict';import fs from 'node:fs/promises';import {pathToFileURL} from 'node:url';const {chromium}=await import(process.env.OXFORD_PLAYWRIGHT_MODULE?pathToFileURL(process.env.OXFORD_PLAYWRIGHT_MODULE).href:'playwright');
 const b=await chromium.launch(),p=await b.newPage({viewport:{width:1440,height:1100}}),errors=[];p.on('pageerror',e=>errors.push(e.message));const base=process.env.OXFORD_TEST_URL||'http://127.0.0.1:4174';const click=a=>p.locator(`[data-mode-action="x-${a}"]`).first().click();
-try{await fs.mkdir('output/expansion',{recursive:true});await p.goto(base);const packs=await p.evaluate(()=>GAMES.filter(g=>EXPANSION[g.format]).map(g=>({id:g.id,format:g.format})));assert.equal(packs.length,50);assert.equal(await p.evaluate(()=>GAMES.length),106);
-for(const pack of packs){await p.goto(base+'/?game='+pack.id);await p.locator('#start-game').click();assert.equal(await p.evaluate(()=>game.session.engine),'expansion');assert.equal(await p.evaluate(()=>game.lesson.mode),await p.evaluate(()=>EXPANSION[game.lesson.format].mode));await p.evaluate(()=>advanceTime(100));}
+try{await fs.mkdir('output/expansion',{recursive:true});await go(base);const packs=await p.evaluate(()=>GAMES.filter(g=>EXPANSION[g.format]).map(g=>({id:g.id,format:g.format})));assert.equal(packs.length,50);assert.equal(await p.evaluate(()=>GAMES.length),106);
+for(const pack of packs){await go(base+'/?game='+pack.id);await p.locator('#start-game').click();assert.equal(await p.evaluate(()=>game.session.engine),'expansion');assert.equal(await p.evaluate(()=>game.lesson.mode),await p.evaluate(()=>EXPANSION[game.lesson.format].mode));await p.evaluate(()=>advanceTime(100));}
 console.log('PASS all 50 packs launch, grade/subject metadata and animation');
-for(const f of await p.evaluate(()=>Object.keys(EXPANSION))){const pack=packs.find(g=>g.format===f);await p.goto(base+'/?game='+pack.id);if(['poll','impostor'].includes(f))await p.locator('#exp-participants').fill('4');await p.locator('#start-game').click();await p.screenshot({path:`output/expansion/${f}.png`,fullPage:true});let turns=0;
+for(const f of await p.evaluate(()=>Object.keys(EXPANSION))){const pack=packs.find(g=>g.format===f);await go(base+'/?game='+pack.id);if(['poll','impostor'].includes(f))await p.locator('#exp-participants').fill('4');await p.locator('#start-game').click();await p.screenshot({path:`output/expansion/${f}.png`,fullPage:true});let turns=0;
 while(!await p.evaluate(()=>game.done)&&turns++<80){const s=await p.evaluate(()=>game.session);
  if(s.phase==='private'){await click(s.privateOpen?'hide':'private');continue;}
  if(f==='spy'){await p.locator('#spy-guess-0').fill(await p.evaluate(()=>current().answer));await click('guess');continue;}
@@ -17,3 +17,5 @@ while(!await p.evaluate(()=>game.done)&&turns++<80){const s=await p.evaluate(()=
 assert.ok(await p.evaluate(()=>game.done),f+' finishes');await p.locator('[data-replay]').click();assert.ok(!await p.evaluate(()=>game.done));await p.setViewportSize({width:390,height:844});assert.ok(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),f+' mobile overflow');await p.setViewportSize({width:1440,height:1100});console.log('PASS '+f+' full playthrough, replay, mobile');}
 assert.deepEqual(errors,[]);
 }finally{await b.close();}
+
+async function go(url){await p.goto(url);if(await p.locator('#boozled-setup[open]').count()){await p.locator('[data-boozled-count="4"]').click();await p.locator('#boozled-edit-questions').click();}}

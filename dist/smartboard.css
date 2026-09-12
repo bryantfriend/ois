@@ -1,0 +1,30 @@
+/* Large landscape displays use the whole screen, with reading size kept intact. */
+@media(min-width:1024px){
+ body.playing{overflow:hidden}body.playing>.header{display:none}body.playing main{max-width:none;width:100%;padding:0 16px}
+ body.playing #player,body.playing #player:fullscreen{width:100%;max-width:none;height:100dvh;padding:8px 12px;display:flex;flex-direction:column;gap:6px;margin:0;box-sizing:border-box;overflow:hidden}
+ #player .play-toolbar{padding:0;min-height:44px;flex:none;gap:12px}#player .play-toolbar button{min-height:44px;font-size:16px}#player .play-toolbar>span{font-size:16px}
+ #player .play-heading{margin:0;flex:none}#player .play-heading h1{font-size:clamp(24px,2vw,34px);line-height:1.15;margin:0}#player .play-heading .eyebrow{display:none}
+ #player #scoreboard{margin:0;flex:none}#player .kingdom-scores{grid-template-columns:repeat(var(--team-count,4),minmax(0,1fr));gap:8px}#player .kingdom-scores>div{padding:8px;gap:3px}#player .kingdom-scores strong{font-size:20px}#player .kingdom-scores small{font-size:16px;line-height:1.25}#player .class-score{padding:10px;font-size:20px}
+ #player #game-canvas{height:clamp(85px,12vh,140px)!important;max-height:140px!important;min-height:0;aspect-ratio:auto!important;object-fit:contain;flex:none;margin:0;box-shadow:none}
+ #player .arcade-mission{padding:4px 12px;flex:none;border-radius:10px;font-size:18px}#player .arcade-mission strong{font-size:18px}#player .arcade-mission p{display:none}
+ #player #arena{flex:1;min-height:0;overflow:auto;overscroll-behavior:contain;padding:12px 16px;scrollbar-gutter:stable;box-shadow:none;font-size:20px}
+ #player #arena h2{font-size:clamp(24px,2vw,32px);line-height:1.25;margin:8px 0 12px}#player #arena button,#player #arena select,#player #arena input{font-size:20px;min-height:48px;touch-action:manipulation}#player #arena .tug-answers button{touch-action:none}
+ #player .player-bottom{margin:0;min-height:40px;flex:none}#player .player-bottom button{font-size:16px;min-height:40px}#player .player-bottom>span{font-size:16px}
+ #player .mode-round,#player .question-top{font-size:16px;margin:0 0 6px}#player .class-options{gap:8px}#player .class-options>div{padding:8px;font-size:22px}#player .class-options b{padding:4px 10px}
+ #player .team-decisions{grid-template-columns:repeat(var(--team-count,4),minmax(0,1fr));gap:8px}#player .team-decisions section{padding:8px}#player .team-decisions h3{font-size:20px;margin:0 0 8px}#player .team-decisions label{font-size:16px;margin:0 0 6px}#player .team-decisions select{padding:6px;width:100%}
+ #player .mode-callout{padding:8px;margin:8px 0;font-size:18px}#player .mode-feedback{padding:10px;margin:8px 0;font-size:20px}#player .mode-feedback p{margin:6px 0}#player .arena>.button{margin:6px}
+ #player .boozled-heading{gap:4px;margin:4px 0 12px}#player .boozled-heading>small{font-size:16px}#player .boozled-board{grid-template-columns:repeat(7,minmax(0,1fr));gap:10px}#player .boozled-board button{min-height:80px}#player .boozled-board button small{font-size:12px}
+ #player .tug-side{padding:12px}#player .tug-player-heading strong,#player .tug-player-heading span{font-size:18px}#player #arena .tug-side h2{font-size:26px;min-height:0}#player .tug-feedback{font-size:18px;min-height:24px}#player .tug-answers button{font-size:24px;min-height:60px}
+ #player .territory-map{margin:6px 0;gap:4px}#player .territory-map>div{padding:4px;font-size:16px}#player .territory-map small{font-size:14px}
+ #player .investment{display:grid;grid-template-columns:1fr;gap:2px;margin-top:6px;padding:6px}#player .investment span,#player .investment small{font-size:14px}#player .investment strong{font-size:18px}
+ #player .matching button{font-size:22px;min-height:50px;padding:8px}#player .matching>div{gap:6px}#player .sequence-answer{min-height:40px;margin-bottom:8px;padding:8px;gap:4px}#player .sequence-answer>span{padding:6px;font-size:20px}#player .sequence-tiles button{font-size:20px;padding:8px}
+ #player.board-dense #game-canvas,#player.board-dense .arcade-mission{display:none}#player.board-dense .play-instruction,#player.board-dense .mode-callout{margin:4px 0;padding:6px}#player.board-dense .boozled-heading>small{display:none}
+ #player .private-card{padding:20px}#player .class-choice{gap:10px}#player .class-choice button{padding:12px 18px}
+}
+@media(min-width:1024px){
+ #player.board-dense .mode-callout{display:none}#player.board-dense .class-options{grid-template-columns:repeat(4,minmax(0,1fr))}#player .investment-detail{font-size:16px;line-height:1.25;margin:6px 0}
+ #player #arena:has(.territory-map){display:grid;grid-template-columns:minmax(260px,.7fr) minmax(0,2fr);gap:8px;align-content:start;align-items:start}
+ #player #arena:has(.territory-map)>.mode-round{grid-column:1/-1}#player .territory-map{grid-column:1;grid-row:2/span 3}#player #arena:has(.territory-map)>h2{grid-column:2;grid-row:2}#player #arena:has(.territory-map)>.class-options{grid-column:2;grid-row:3}#player #arena:has(.territory-map)>.mode-feedback{grid-column:2;grid-row:3}#player #arena:has(.territory-map)>.team-decisions,#player #arena:has(.territory-map)>.button{grid-column:1/-1}#player #arena:has(.territory-map)>.mode-callout{display:none}
+}
+@media(min-width:1024px){#player .territory-map>div{line-height:1.1;min-height:42px}#player .territory-map small{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:14px;line-height:1.2;margin-top:3px}}
+@media(min-width:1024px){body.playing #player,body.playing #player:fullscreen{gap:4px}#player #arena button{padding:10px 12px;line-height:1.2}#player .team-decisions section>small{display:block;font-size:16px;line-height:1.2;margin-bottom:6px}#player .team-decisions .button{min-height:48px}#player .investment-detail{line-height:1.15}}

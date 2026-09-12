@@ -84,3 +84,11 @@ Teacher settings include 2–6 named teams; 4–40 participants for private poll
 - `scripts/qa-expansion-edges.mjs`: failure paths, timer penalties, contested territory, crystal defenses, pending-plan persistence, concealed ballots/roles, custom settings and numeric validation.
 
 Oxford-Boozled opens with a team setup dialog from either library action or a direct game link. Choose 2–6 teams (two by default), optionally rename them, and continue to play or edit questions. Blank names fall back to Red, Blue, Green, Yellow, Purple and Orange. Saved team settings populate the dialog; existing boozled lesson IDs and downloads remain compatible. `scripts/qa-boozled-setup.mjs` covers setup, defaults, saved names, cancel and mobile behavior.
+
+## Team launch and smartboard display
+
+Every Teams format now uses the shared 2–6-team launch dialog, with optional custom names and default color names. Existing saved settings populate the screen. Continue starts the prepared lesson; Edit questions first retains the selected teams in the editor.
+
+Landscape displays at least 1024 pixels wide automatically use the full play area. Main questions and answers use 20–32px text and touch controls are at least 48px high. Scores and teacher controls stay on screen; decorative artwork yields space when necessary. Long custom content remains scrollable inside the game area instead of being clipped. Full screen remains available from the toolbar; F does not interrupt typing in input fields.
+
+Kingdom Clash uses a compact investment selector with costs, effect and confirmation; unavailable investments stay disabled. Territory Wars places its map beside the current challenge. `dist/team-setup.js`, `dist/smartboard.css` and `dist/smartboard.js` contain the shared changes. `scripts/qa-smartboard.mjs` checks all 32 formats at 1920×1080 and 1366×768, including six-team planning screens, every team count, fullscreen and long custom content.

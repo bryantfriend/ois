@@ -44,3 +44,10 @@ Kareem-Boozled: read the user's original source, preserved its +15 questions and
 - Library edit/play actions and direct links open a focused setup dialog: 2–6 teams, optional names, blank-name defaults, Continue to game, or Edit questions first.
 - Team names survive count changes and saved lesson round-trips. Escape/back returns to the library. Existing IDs retained; legacy default lesson-title prefixes migrate on validation.
 - Setup browser checks pass for every team count, custom/blank names, default launch, saved setup, both library entry points, cancel and mobile widths. Skill browser loop and screenshots inspected; full game regression verifies scores and surprises.
+
+2026-09-12 — Shared team setup and smartboard layout.
+- Extended the team launch flow to every TEAM format: 2–6 teams, optional names, defaults, saved settings and edit-question path. Extracted shared setup to team-setup.js.
+- Added smartboard CSS and adaptive decorative-art collapse for landscape screens >=1024px. Main reading text stays large; touch controls >=48px; game area scrolls for oversized custom content without hiding the persistent toolbar.
+- Compact Kingdom Clash investment selector preserves cost validation and one-investment rules; Territory Wars map sits beside its challenge. Fullscreen F shortcut ignores text inputs.
+- Checks: all 32 formats at 1080p and 768p, six-team question/plan views; all 2–6 team counts; saved names, mobile setup; Kingdom Clash scoring; all 12 simultaneous two-player packs including native multi-touch. Skill screenshots reviewed.
+- Final bank check: all 106 prepared lesson opening screens fit 1366×768 without game-area overflow, including six-team launches. Both smartboard viewport suites and fullscreen/typing/long-content checks passed.

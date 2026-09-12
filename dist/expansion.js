@@ -39,7 +39,7 @@ function xActions(g,i){
  if(f==='crystal'){add('shield','Shield: 1 AP → block one attack',g.ap>=1&&g.shield<3);add('scout','Scout: 1 AP → next attack +1 damage',g.ap>=1&&!g.scout);add('trap','Trap: 2 AP → cancel next incoming attack',g.ap>=2&&!g.trap);s.groups.forEach((r,n)=>{if(n!==i)add('attack:'+n,`Attack ${r.name}: 2 AP`,g.ap>=2);});}
  return a;
 }
-function xMap(){const s=game.session;return `<div class="territory-map">${s.map.map((owner,n)=>`<div style="--owner:${owner<0?'#e6eafa':s.groups[owner].color}"><b>${n+1}${n%6===0?' ★':''}</b><small>${owner<0?'Unclaimed':esc(s.groups[owner].name)}</small></div>`).join('')}</div>`;}
+function xMap(){const s=game.session;return `<div class="territory-map">${s.map.map((owner,n)=>`<div title="${owner<0?'Unclaimed':esc(s.groups[owner].name)}" style="--owner:${owner<0?'#e6eafa':s.groups[owner].color}"><b>${n+1}${n%6===0?' ★':''}</b><small>${owner<0?'Free':esc(s.groups[owner].name)}</small></div>`).join('')}</div>`;}
 function renderExpansion(){
  const f=game.lesson.format,s=game.session,c=EXPANSION[f],team=c.mode==='TEAM';
  $('#play-title').textContent=game.lesson.title;$('#play-format').textContent=c.name;$('#play-subtitle').textContent=`${team?'🔴 Teams':'🏫 Whole Class'} · ${['spy','impostor','poll'].includes(f)?'Pass the device privately':'Teacher hosts'}`;$('.player-bottom > span').textContent=team?'Discuss your plan together. Rotate the spokesperson.':'One shared classroom experience.';

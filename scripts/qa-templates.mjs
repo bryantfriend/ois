@@ -11,7 +11,7 @@ async function open(id){await p.goto(base+'/?game='+id);await p.locator('#start-
 try{
  await fs.mkdir('output/templates',{recursive:true});await p.goto(base);
  const packs=await p.evaluate(()=>GAMES.filter(g=>TEMPLATES[g.format]).map(g=>({id:g.id,format:g.format})));
- assert.equal(packs.length,42);assert.equal(await p.evaluate(()=>GAMES.map(validateLesson).length),266);
+ assert.equal(packs.length,42);assert.equal(await p.evaluate(()=>GAMES.map(validateLesson).length),370);
  for(const g of packs){await open(g.id);assert.equal((await state()).s.template,true);assert.ok(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));const overflow=await p.locator('#arena').evaluate(el=>el.scrollHeight-el.clientHeight);assert.ok(overflow<=3,g.id+' overflow '+overflow);}
  console.log('PASS 42 packs validate, launch and fit smartboard');
  for(const f of await p.evaluate(()=>Object.keys(TEMPLATES))){

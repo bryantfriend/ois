@@ -55,7 +55,7 @@ try{
  await page.locator('[data-subject-group="language"] summary').click();await page.locator('[data-subject="english"]').click();assert.equal(await page.locator('.game-card').count(),57);
  await page.locator('[data-grade="8"]').click();assert.equal(await page.locator('.game-card').count(),57);
  await page.locator('#search').fill('Paragraph');assert.equal(await page.locator('.game-card').count(),1);
- await page.locator('#reset').click();assert.equal(await page.locator('.game-card').count(),266);
+ await page.locator('#reset').click();assert.equal(await page.locator('.game-card').count(),370);
  await page.locator('[data-subject="russian"]').click();assert.equal(await page.locator('#empty').isVisible(),true);
  await page.locator('[data-subject="kyrgyz"]').click();assert.equal(await page.locator('#empty').isVisible(),true);
  const summary=[];

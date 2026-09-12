@@ -2,7 +2,7 @@
 
 Live: https://bryantfriend.github.io/ois/ · Source: https://github.com/bryantfriend/ois
 
-A teacher-facing library for Oxford International School, using its official logo and red/indigo branding. The library contains 266 editable lesson packs across 82 formats, including primary Grades 1–3 and Grades 7–8 English and Mathematics. The new group/class packs reuse the prepared quiz question banks. Russian and Kyrgyz have separate sections; teachers can assign custom lessons to either.
+A teacher-facing library for Oxford International School, using its official logo and red/indigo branding. The library contains 370 editable lesson packs across 186 formats, including Grades 1–6 maths, logic, physics and computing alongside Grades 7–8 English and Mathematics. The new group/class packs reuse the prepared quiz question banks. Russian and Kyrgyz have separate sections; teachers can assign custom lessons to either.
 
 ## Four distinct modes
 
@@ -134,3 +134,15 @@ Each has three Grade 1–3 starter packs (48 total), placed in English for feeli
 The editor provides ready-made variation selectors plus editable prompts, puzzle setups and explanations. Format instructions describe each setup: counts, picture sets, shape names, block heights, tile rotations or symmetry points. Tracing supports all capital letters A–Z and digits 0–9, uses ordered strokes, and checks pointer progress along the path. Paths are stylized block letter guides. Picture artwork is native SVG; no external image downloads are needed.
 
 Tests: scripts/qa-primary.mjs covers all 48 launches, all sixteen complete games/replays/mobile widths and real pointer tracing. scripts/qa-primary-edges.mjs covers retries, fixed clues, reverse symmetry paths, undo/drag, tracing boundaries after resize, grade navigation and all sixteen preset/save/reopen workflows with a lesson-file round-trip.
+
+## PlayMath-inspired collection
+
+The September 2026 directory contains 105 titles. Oxford now provides 104 original classroom adaptations plus the existing Number Tracing game. Use **Explore 104 new maths & logic games** or search by either the Oxford title or source title. Each pack has a suggested grade, subject and player mode. The full mapping is in [docs/playmath-coverage.json](docs/playmath-coverage.json).
+
+These are independently written, simplified classroom games with original artwork and levels, not copies of PlayMath or its publishers’ commercial games. They cover number models, logic grids, geometric puzzles, movement, merging, sorting, drawing physics, resource economies and traditional board games. Several related source titles intentionally share a classroom engine and a smaller rule set. The economic games are short decision simulations; falling-block games use deliberate placement rather than timed arcade falling; drawing-outline games use touchable anchor points. They do not include the source games’ campaigns, licensed characters, commercial art, online opponents or full progression systems.
+
+Teachers can change the title, instructions, grade, subject and challenge numbers, save a copy, and import/export JSON. Challenge numbers 1–99 reproduce seeded puzzle variations where supported; standard board positions and fixed introductory puzzles do not change with every seed. These puzzle packs do not turn arbitrary uploaded lesson questions into puzzles. Existing quiz and vocabulary editors remain available for that workflow. Two-player board games take turns according to their rules; Times Racers uses independent simultaneous touch panels.
+
+Chess uses chess.js 1.4.0 under its BSD-2-Clause license, included in `dist/vendor/chess.js`. Other new engines have no external runtime dependencies.
+
+Validation: `qa-lab.mjs` completes the number/logic packs; `qa-lab-path.mjs` covers route and traditional games; `qa-lab-collection.mjs` covers the remaining engines; `qa-lab-edges.mjs` checks rule edges, all 10,296 seed initializations, teacher files and simultaneous touch; `qa-lab-layout.mjs` checks all 104 starter screens at 1366×768. Initialization checks do not claim every generated puzzle was solved.

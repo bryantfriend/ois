@@ -9,7 +9,7 @@ const page=await context.newPage();const errors=[];page.on('pageerror',e=>errors
 const state=()=>page.evaluate(()=>JSON.parse(window.render_game_to_text()));
 try{
  await page.goto(`${base}/?game=math-7-quiz`);
- assert.equal(await page.evaluate(()=>GAMES.map(validateLesson).length),56);
+ assert.equal(await page.evaluate(()=>GAMES.map(validateLesson).length),106);
  await page.locator('#paste-toggle').click();
  await page.locator('#bulk-input').fill('What is 3 + 3?\t6\t4; 5; 7\tAdd three.\nWhat is 4 + 4?\t8\t6; 7; 9');
  await page.locator('#bulk-replace').click();assert.equal(await page.locator('#confirm').isVisible(),true);
@@ -39,6 +39,6 @@ try{
  // Tools register via supported modelContext, using the same UI filter action.
  const toolsContext=await browser.newContext();await toolsContext.addInitScript(()=>{Object.defineProperty(document,'modelContext',{value:{registerTool(tool){window.registeredOxfordTool=tool;}}});});const toolPage=await toolsContext.newPage();await toolPage.goto(base);
  const toolResult=await toolPage.evaluate(async()=>{const tool=window.registeredOxfordTool;const result=await tool.execute({grade:8,subject:'math'});let invalid=false;try{await tool.execute({grade:99,subject:'math'});}catch{invalid=true;}return {name:tool.name,result,invalid,visible:document.querySelector('#results').textContent};});
- assert.equal(toolResult.name,'filter_classroom_games');assert.equal(toolResult.result.summary,'14 lessons · Grade 8');assert.equal(toolResult.visible,'14 lessons · Grade 8');assert.equal(toolResult.invalid,true);await toolsContext.close();
+ assert.equal(toolResult.name,'filter_classroom_games');assert.equal(toolResult.result.summary,'26 lessons · Grade 8');assert.equal(toolResult.visible,'26 lessons · Grade 8');assert.equal(toolResult.invalid,true);await toolsContext.close();
  assert.deepEqual(errors,[]);await fs.writeFile('output/qa/teacher-results.json',JSON.stringify({passed:true,checks:['paste replacement and cancel','custom lesson launch','unsaved work protection','restart and cancel','fullscreen','spoken answer fallback','question add/remove validation','keyboard control','mobile overflow','WebMCP contract'],consoleErrors:errors},null,2));console.log('PASS: focused teacher workflow, custom play, fullscreen, keyboard, responsive and tool contract checks.');
 }finally{await browser.close();}

@@ -49,13 +49,13 @@ async function answerRound(lesson,correct=true){
 }
 try{
  await page.goto(base);
- assert.equal(await page.locator('.game-card').count(),28);
+ assert.equal(await page.locator('.game-card').count(),53);
  assert.equal(await page.locator('.brand img').evaluate(img=>img.complete&&img.naturalWidth>0),true);
  await page.screenshot({path:'output/qa/library-desktop.png',fullPage:false});
- await page.locator('[data-subject="english"]').click();assert.equal(await page.locator('.game-card').count(),14);
- await page.locator('[data-grade="8"]').click();assert.equal(await page.locator('.game-card').count(),14);
+ await page.locator('[data-subject="english"]').click();assert.equal(await page.locator('.game-card').count(),27);
+ await page.locator('[data-grade="8"]').click();assert.equal(await page.locator('.game-card').count(),27);
  await page.locator('#search').fill('Paragraph');assert.equal(await page.locator('.game-card').count(),1);
- await page.locator('#reset').click();assert.equal(await page.locator('.game-card').count(),56);
+ await page.locator('#reset').click();assert.equal(await page.locator('.game-card').count(),106);
  await page.locator('[data-subject="russian"]').click();assert.equal(await page.locator('#empty').isVisible(),true);
  await page.locator('[data-subject="kyrgyz"]').click();assert.equal(await page.locator('#empty').isVisible(),true);
  const summary=[];
@@ -110,5 +110,5 @@ try{
  await page.goto(`${base}/?game=english-8-order`);await page.screenshot({path:'output/qa/editor-mobile.png',fullPage:false});await page.locator('#start-game').click();assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=document.documentElement.clientWidth),true);await page.screenshot({path:'output/qa/order-mobile.png',fullPage:false});
  await page.setViewportSize({width:1440,height:1050});await open('math-8-tug');await page.screenshot({path:'output/qa/tug-desktop.png',fullPage:false});
  await open('english-8-match');await page.screenshot({path:'output/qa/match-desktop.png',fullPage:false});
- assert.deepEqual(errors,[]);await fs.writeFile('output/qa/results.json',JSON.stringify({passed:true,lessons:summary,consoleErrors:errors},null,2));console.log('PASS: all 56 lessons completed; failure paths, custom edit/save/reload/import/export, and responsive checks passed.');
+ assert.deepEqual(errors,[]);await fs.writeFile('output/qa/results.json',JSON.stringify({passed:true,lessons:summary,consoleErrors:errors},null,2));console.log('PASS: all 56 original lessons completed; failure paths, custom edit/save/reload/import/export, and responsive checks passed.');
 }finally{await browser.close();}

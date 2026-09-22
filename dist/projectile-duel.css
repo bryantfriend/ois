@@ -1,0 +1,211 @@
+
+        :root {
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --p1-color: #3b82f6;
+            --p2-color: #ef4444;
+            --bg-color: #f8fafc;
+            --text-color: #1e293b;
+            --board-bg: #ffffff;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            user-select: none; /* Prevent accidental text selection on smartboards */
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Smartboard Container - Forces 16:9 Aspect Ratio */
+        #smartboard {
+            width: 100vw;
+            height: 56.25vw;
+            max-height: 100vh;
+            max-width: 177.78vh;
+            background-color: var(--board-bg);
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #fullscreen-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: rgba(0,0,0,0.6);
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            font-size: 1.5rem;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        #fullscreen-btn:hover { background: rgba(0,0,0,0.9); }
+
+        .view {
+            display: none;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+            padding: 40px;
+        }
+        .view.active { display: flex; }
+
+        /* --- Game View Styles --- */
+        #game-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            padding: 0 40px;
+        }
+        
+        .score-box {
+            font-size: 3rem;
+            font-weight: bold;
+            padding: 10px 40px;
+            border-radius: 15px;
+            color: white;
+        }
+        .p1-score-box { background: var(--p1-color); }
+        .p2-score-box { background: var(--p2-color); }
+
+        #game-area {
+            flex: 1;
+            background: linear-gradient(to bottom, #87CEEB 50%, #87CEEB 100%);
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+            border: 4px solid #cbd5e1;
+            box-shadow: inset 0 0 30px rgba(0,0,0,0.1);
+        }
+
+        .dual-controls {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            gap: 20px;
+        }
+
+        .player-panel {
+            flex: 1;
+            background: #f1f5f9;
+            border-radius: 20px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            border: 4px solid;
+            box-shadow: 0 8px 0 rgba(0,0,0,0.1);
+        }
+        .p1-panel { border-color: var(--p1-color); }
+        .p2-panel { border-color: var(--p2-color); }
+
+        .control-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 1.8rem;
+            font-weight: bold;
+            background: white;
+            padding: 10px 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        /* Chunky Smartboard controls */
+        .adj-btn {
+            width: 50px;
+            height: 50px;
+            font-size: 2rem;
+            border-radius: 10px;
+            border: none;
+            background: #e2e8f0;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .adj-btn:active { background: #cbd5e1; transform: scale(0.95); }
+        
+        input[type=range] {
+            flex: 1;
+            margin: 0 20px;
+            height: 25px;
+            cursor: pointer;
+            accent-color: #475569;
+        }
+
+        .fire-btn {
+            width: 100%;
+            padding: 20px;
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: white;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .p1-fire { background: var(--p1-color); box-shadow: 0 6px 0 #1e3a8a; }
+        .p2-fire { background: var(--p2-color); box-shadow: 0 6px 0 #7f1d1d; }
+        .fire-btn:active { transform: translateY(6px); box-shadow: none; }
+        .fire-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        #message-overlay {
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 5rem;
+            font-weight: bold;
+            color: white;
+            text-align: center;
+            text-shadow: 3px 3px 15px rgba(0,0,0,0.6);
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 50;
+        }
+
+    
+/* Keep the extracted game usable on smartboards, laptops and narrow screens. */
+body { min-height:100dvh; height:auto; overflow:auto; }
+#smartboard { width:100%; max-width:1600px; height:100dvh; min-height:640px; max-height:none; }
+.toolbar { display:flex; align-items:center; gap:12px; padding:12px 20px; flex-wrap:wrap; }
+.toolbar a { margin-right:auto; color:#312e81; font-weight:700; }
+.toolbar button { padding:10px 16px; border:1px solid #cbd5e1; border-radius:10px; background:white; cursor:pointer; font-weight:700; }
+#fullscreen-btn { position:static; color:#1e293b; background:white; font-size:1rem; }
+#fullscreen-btn:hover { background:#e2e8f0; }
+.view { padding:0 20px 20px; flex:1; min-height:0; }
+#game-header { padding:0; gap:12px; }
+#game-header strong { font-size:clamp(18px,2.5vw,30px); text-align:center; }
+.score-box { font-size:clamp(20px,2.5vw,32px); padding:8px 20px; }
+#game-area { min-height:200px; }
+#game-svg { display:block; position:absolute; inset:0; }
+.dual-controls { margin-top:12px; gap:12px; }
+.player-panel { padding:12px; gap:8px; min-width:0; }
+.control-row { font-size:clamp(16px,1.6vw,23px); padding:8px; gap:8px; }
+.control-row label { min-width:105px; }
+.adj-btn { width:44px; height:44px; flex-shrink:0; }
+input[type=range] { width:0; min-width:30px; margin:0; }
+.fire-btn { padding:12px; font-size:clamp(18px,2vw,28px); }
+#message-overlay { font-size:clamp(26px,5vw,65px); width:90%; }
+.instructions { text-align:center; font-size:14px; margin-bottom:8px; }
+button:focus-visible,a:focus-visible,input:focus-visible { outline:3px solid #7c3aed; outline-offset:3px; }
+@media(max-width:650px) { #smartboard { height:auto; min-height:100dvh; } .view { padding:0 10px 20px; } #game-area { flex:none; height:260px; } .dual-controls { flex-direction:column; } .toolbar { padding:10px; gap:8px; } .score-box { padding:8px 12px; } }
+.adj-btn,.fire-btn { touch-action:none; -webkit-tap-highlight-color:transparent; } input[type=range] { touch-action:none; height:40px; accent-color:#2563eb; } .p2-panel input[type=range] { accent-color:#ef4444; } .adj-btn,.fire-btn { transition:filter .12s,transform .12s; } .adj-btn:hover,.fire-btn:hover:not(:disabled) { filter:brightness(1.08); }

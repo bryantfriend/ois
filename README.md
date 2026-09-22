@@ -41,6 +41,8 @@ Hamster Dash's markings wrap continuously; wrong answers randomly trigger a tumb
 
 ## Verification
 
+Projectile Duel is a standalone Grade 8 game under Science → Physics. Its card launches directly into the two-player cannon game extracted from the supplied activity, with no lesson slides or question editor. Players adjust angle and power, fire independently with five-second reloads, and score hits to generate new terrain. Restart resets scores; fullscreen supports the F key. The source lives in `dist/projectile-duel.html`, `.css`, and `.js`, with registration in `dist/projectile-catalog.js`. Run `scripts/qa-projectile.mjs` with the Playwright environment variables below to verify navigation, both players, scoring, terrain changes and layouts.
+
 Browser runners require Playwright and Chromium. Set `OXFORD_PLAYWRIGHT_MODULE` to its `index.mjs` if needed, and `OXFORD_TEST_URL` to change the preview URL. Screenshots go into ignored `output/`.
 
 - `scripts/qa.mjs`: complete the 56 original lesson packs and verify original gameplay/edit/import/export flows.

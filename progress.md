@@ -124,3 +124,7 @@ Validation: scripts/qa-boardgames.mjs passed real wins/draws, extra turns, captu
 
 2026-09-15 — Teacher WhatsApp contact
 Added a main-library-only help/game-request banner linking to the owner-supplied +996 550 346 970. Prefills a help/suggestion message, opens WhatsApp in a new tab, and does not send anything automatically. The banner lives inside #home, so it is hidden during editing and games; additional playing CSS safeguards the game screen. Browser checks passed for URL/prefill, main/editor/game/return visibility and mobile fit. Screenshots in output/contact; no WhatsApp message sent during testing. Release teacher-contact-2026-09-15.
+
+## 2026-09-22 — Projectile Duel
+User request: extract only the physics game from the supplied lesson and add it to OIS Physics. Added a standalone Grade 8 two-player game, direct Play card, responsive controls, restart and fullscreen. Removed all slides and lesson navigation. Preserved SVG artwork and cannon physics; made physics/cooldowns frame-rate independent and terrain transitions deterministic. Verification in progress.
+Validation complete: focused browser QA passed library filtering, direct launch/link, input limits, simultaneous shots, cooldowns, both scoring paths, terrain changes, restart, fullscreen and return navigation; no browser errors. Desktop (1366/1920) and mobile screenshots and skill-client gameplay screenshots inspected. npm run check passed. No pending implementation TODOs.

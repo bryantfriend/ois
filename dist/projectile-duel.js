@@ -92,7 +92,7 @@
         // --- Helper for Smartboard +/- buttons ---
         function adjustInput(inputId, amount) {
             const input = document.getElementById(inputId);
-            let val = parseInt(input.value) + amount;
+            let val = parseFloat(input.value) + amount;
             
             // clamp
             if(val < parseInt(input.min)) val = parseInt(input.min);
@@ -104,10 +104,10 @@
 
         function updatePreviews() {
             // Update Text values
-            document.getElementById('p1-angle-val').innerText = p1AngleIn.value;
-            document.getElementById('p1-power-val').innerText = p1PowerIn.value;
-            document.getElementById('p2-angle-val').innerText = p2AngleIn.value;
-            document.getElementById('p2-power-val').innerText = p2PowerIn.value;
+            document.getElementById('p1-angle-val').textContent = p1AngleIn.value;
+            document.getElementById('p1-power-val').textContent = p1PowerIn.value;
+            document.getElementById('p2-angle-val').textContent = p2AngleIn.value;
+            document.getElementById('p2-power-val').textContent = p2PowerIn.value;
 
             // Rotate Barrels
             // P1 rotates normally (0 is right, negative is up in SVG space)
@@ -120,33 +120,33 @@
             p2Barrel.setAttribute('transform', `rotate(${p2AngleIn.value})`);
 
             // Generate Previews based on exact cannon positions
-            drawPreviewLine('p1-preview', p1Hitbox.x, p1Hitbox.y, parseInt(p1AngleIn.value), parseInt(p1PowerIn.value), 1);
-            drawPreviewLine('p2-preview', p2Hitbox.x, p2Hitbox.y, parseInt(p2AngleIn.value), parseInt(p2PowerIn.value), -1);
+            drawPreviewLine('p1-preview', p1Hitbox.x, p1Hitbox.y, parseFloat(p1AngleIn.value), parseFloat(p1PowerIn.value), 1);
+            drawPreviewLine('p2-preview', p2Hitbox.x, p2Hitbox.y, parseFloat(p2AngleIn.value), parseFloat(p2PowerIn.value), -1);
         }
 
         function drawPreviewLine(elementId, startX, startY, angleDeg, power, direction) {
-            let pathD = `M ${startX} ${startY}`;
             let rad = angleDeg * (Math.PI / 180);
             
             // Scaled down velocity components for slower, observable flight
             let vx = (power * 0.12) * Math.cos(rad) * direction;
             let vy = -(power * 0.12) * Math.sin(rad); 
             
-            let px = startX;
-            let py = startY;
+            let px = startX + 60 * Math.cos(rad) * direction;
+            let py = startY - 60 * Math.sin(rad);
+            let pathD = `M ${px} ${py}`;
 
             // Draw just enough to guide
-            for(let i=0; i<15; i++) {
-                px += vx * 2;
-                vy += GRAVITY * 2;
-                py += vy * 2;
+            for(let i=0; i<30; i++) {
+                px += vx;
+                vy += GRAVITY;
+                py += vy;
                 pathD += ` L ${px} ${py}`;
             }
             document.getElementById(elementId).setAttribute('d', pathD);
         }
 
         function showMessage(text, color) {
-            msgOverlay.innerText = text;
+            msgOverlay.textContent = text;
             msgOverlay.style.color = color;
             
             // Add text stroke for visibility
@@ -168,14 +168,14 @@
             
             if(playerNum === 1) {
                 startX = p1Hitbox.x; startY = p1Hitbox.y;
-                angle = parseInt(p1AngleIn.value);
-                power = parseInt(p1PowerIn.value);
+                angle = parseFloat(p1AngleIn.value);
+                power = parseFloat(p1PowerIn.value);
                 direction = 1;
                 color = "#3b82f6"; // blue
             } else {
                 startX = p2Hitbox.x; startY = p2Hitbox.y;
-                angle = parseInt(p2AngleIn.value);
-                power = parseInt(p2PowerIn.value);
+                angle = parseFloat(p2AngleIn.value);
+                power = parseFloat(p2PowerIn.value);
                 direction = -1;
                 color = "#ef4444"; // red
             }
@@ -261,7 +261,7 @@
                     const dist = Math.hypot(p.x - p1Hitbox.x, p.y - p1Hitbox.y);
                     if(dist < p1Hitbox.r) {
                         p2Score += 1;
-                        document.getElementById('p2-score').innerText = p2Score;
+                        document.getElementById('p2-score').textContent = p2Score;
                         showMessage("Red Team Scores! 🔥", "#ef4444");
                         destroyed = true;
                         nextLevel = 2000; // Change map after score
@@ -273,7 +273,7 @@
                     const dist = Math.hypot(p.x - p2Hitbox.x, p.y - p2Hitbox.y);
                     if(dist < p2Hitbox.r) {
                         p1Score += 1;
-                        document.getElementById('p1-score').innerText = p1Score;
+                        document.getElementById('p1-score').textContent = p1Score;
                         showMessage("Blue Team Scores! 💥", "#3b82f6");
                         destroyed = true;
                         nextLevel = 2000; // Change map after score
@@ -292,8 +292,10 @@
         function updateCooldowns() {
             [1,2].forEach(n => {
                 const button = document.getElementById('p'+n+'-fire-btn');
-                button.disabled = cooldowns[n-1] > 0 || nextLevel > 0;
-                button.textContent = nextLevel > 0 ? 'NEW TERRAIN…' : cooldowns[n-1] > 0 ? 'RELOADING… '+Math.ceil(cooldowns[n-1]/1000) : n===1 ? 'FIRE BLUE 💥' : 'FIRE RED 💥';
+                const disabled = cooldowns[n-1] > 0 || nextLevel > 0;
+                const label = nextLevel > 0 ? 'NEW TERRAIN…' : cooldowns[n-1] > 0 ? 'RELOADING… '+Math.ceil(cooldowns[n-1]/1000) : n===1 ? 'FIRE BLUE 💥' : 'FIRE RED 💥';
+                if(button.disabled!==disabled)button.disabled=disabled;
+                if(button.textContent!==label)button.textContent=label;
             });
         }
         function step(ms) {
@@ -331,3 +333,29 @@
         document.addEventListener('keydown',e=>{if(e.key.toLowerCase()==='f'&&!e.repeat)toggleFullScreen();});
         updatePreviews();
         requestAnimationFrame(frame);
+
+        // Pointer-down feedback and press-and-hold repeat work independently for
+        // both players, including two simultaneous smartboard touches.
+        const heldControls=new Map();
+        document.querySelectorAll('.adj-btn').forEach(button=>{
+            const input=button.parentElement.querySelector('input');
+            const amount=(button.textContent.trim()==='+'?1:-1)*(input.id.includes('power')?2:1);
+            button.setAttribute('aria-label',(amount>0?'Increase ':'Decrease ')+(input.id.startsWith('p1')?'Blue ':'Red ')+(input.id.includes('angle')?'angle':'power'));
+            button.addEventListener('pointerdown',e=>{
+                if(e.button!==0)return;e.preventDefault();button.setPointerCapture(e.pointerId);
+                adjustInput(input.id,amount);heldControls.set(e.pointerId,{input:input.id,amount,next:performance.now()+280});
+            });
+            for(const event of ['pointerup','pointercancel','lostpointercapture'])button.addEventListener(event,e=>heldControls.delete(e.pointerId));
+            button.addEventListener('click',e=>{if(e.detail){e.preventDefault();e.stopImmediatePropagation();}},true);
+        });
+        function repeatControls(time){
+            heldControls.forEach(control=>{if(time>=control.next){adjustInput(control.input,control.amount);control.next=time+45;}});
+            requestAnimationFrame(repeatControls);
+        }
+        requestAnimationFrame(repeatControls);
+        window.addEventListener('blur',()=>heldControls.clear());
+        document.addEventListener('visibilitychange',()=>{if(document.hidden)heldControls.clear();});
+        document.querySelectorAll('.fire-btn').forEach((button,i)=>{
+            button.addEventListener('pointerdown',e=>{if(e.button===0){e.preventDefault();fireCannon(i+1);}});
+            button.addEventListener('click',e=>{if(e.detail){e.preventDefault();e.stopImmediatePropagation();}},true);
+        });

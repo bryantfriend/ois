@@ -208,3 +208,4 @@ input[type=range] { width:0; min-width:30px; margin:0; }
 .instructions { text-align:center; font-size:14px; margin-bottom:8px; }
 button:focus-visible,a:focus-visible,input:focus-visible { outline:3px solid #7c3aed; outline-offset:3px; }
 @media(max-width:650px) { #smartboard { height:auto; min-height:100dvh; } .view { padding:0 10px 20px; } #game-area { flex:none; height:260px; } .dual-controls { flex-direction:column; } .toolbar { padding:10px; gap:8px; } .score-box { padding:8px 12px; } }
+.adj-btn,.fire-btn { touch-action:none; -webkit-tap-highlight-color:transparent; } input[type=range] { touch-action:none; height:40px; accent-color:#2563eb; } .p2-panel input[type=range] { accent-color:#ef4444; } .adj-btn,.fire-btn { transition:filter .12s,transform .12s; } .adj-btn:hover,.fire-btn:hover:not(:disabled) { filter:brightness(1.08); }

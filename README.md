@@ -45,6 +45,8 @@ Projectile Duel is a standalone Grade 8 game under Science → Physics. Its card
 
 Projectile controls respond on pointer-down, repeat while holding +/−, and support half-step sliders. The trajectory guide uses the same launch position and physics steps as the projectile. Checkers, Kids Checkers and Connect Four use large responsive SVG boards (`dist/board-motion.js`/`.css`): falling counters with a landing bounce, sliding checkers, arcing captures and a crown animation on promotion. Moves remain locked during animation, and a winning move finishes before the victory sequence. Motion-off and reduced-motion settings show the completed move immediately. `scripts/qa-board-motion.mjs` covers these interactions and desktop/tablet/mobile layouts.
 
+These boards now update in place, retaining their SVG and measured layout across moves to avoid flicker. Chess uses the same stage with original SVG pieces, legal-move hints, animated slides/captures, knight hops and both pieces moving during castling (`dist/chess-motion.js`). Its optional **Auto-rotate** button faces the next player after each move lands; pieces, coordinates and click targets follow the orientation. The preference carries across rematches in the current page. Standard chess.js rules, promotion choices and checkmate/draw detection remain in effect. `scripts/qa-chess-motion.mjs` verifies stage stability, rotation, captures, special moves, promotion, endgames and reduced motion.
+
 Browser runners require Playwright and Chromium. Set `OXFORD_PLAYWRIGHT_MODULE` to its `index.mjs` if needed, and `OXFORD_TEST_URL` to change the preview URL. Screenshots go into ignored `output/`.
 
 - `scripts/qa.mjs`: complete the 56 original lesson packs and verify original gameplay/edit/import/export flows.

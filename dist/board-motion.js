@@ -53,3 +53,26 @@ function classicPaintMotion(){
 const classicStep=stepArcade;stepArcade=function(dt){classicStep(dt);if(ui.view!=='player')return;const s=game?.session,m=s?.data?.motion;if(!m)return;m.age+=dt;if(m.age>=m.duration||arcade.reduced){s.data.motion=null;if(m.finish)s.phase='feedback';renderGame();}else classicPaintMotion();};
 const classicFit=boardFit;boardFit=function(){classicFit();const layout=$('.classic-layout');if(!layout||ui.view!=='player')return;const arena=$('#arena'),available=innerWidth>=1024?arena.clientHeight-52:innerHeight-260,ratio=layout.classList.contains('classic-four')?760/720:1;layout.style.setProperty('--classic-height',Math.max(240,Math.min(available,(layout.clientWidth-254)/ratio))+'px');classicPaintMotion();};
 document.addEventListener('fullscreenchange',()=>requestAnimationFrame(boardFit));
+
+// Preserve the stage, its measured size and its SVG between moves. Replacing
+// arena.innerHTML used to reset the board to its fallback height for two frames.
+function classicPatchNode(current,next){
+ if(current.nodeType!==next.nodeType||current.nodeName!==next.nodeName){current.replaceWith(next.cloneNode(true));return;}
+ if(current.nodeType===Node.TEXT_NODE){if(current.nodeValue!==next.nodeValue)current.nodeValue=next.nodeValue;return;}
+ if(current.nodeType!==Node.ELEMENT_NODE)return;
+ for(const a of [...current.attributes])if(!next.hasAttribute(a.name)&&!(a.name==='style'&&current.classList.contains('classic-layout')))current.removeAttribute(a.name);
+ for(const a of next.attributes)if(current.getAttribute(a.name)!==a.value)current.setAttribute(a.name,a.value);
+ const old=[...current.childNodes],fresh=[...next.childNodes];
+ for(let i=0;i<Math.max(old.length,fresh.length);i++){if(!fresh[i])old[i].remove();else if(!old[i])current.append(fresh[i].cloneNode(true));else classicPatchNode(old[i],fresh[i]);}
+}
+let classicStageOwner=null;
+const classicStableRender=labRender;labRender=function(){
+ const s=game?.session,c=s?.config,layout=$('.classic-layout');
+ const enhanced=cinematicClassic(c)||c?.engine==='classics'&&c.variant==='chess';
+ if(!enhanced||game.done||classicStageOwner!==game||!layout){classicStableRender();classicStageOwner=game;boardFit();return;}
+ const template=document.createElement('template');template.innerHTML=LAB_ENGINES[c.engine].render(s.data,c);
+ classicPatchNode(layout,template.content.firstElementChild);
+ const status=$('.board-game .lab-status');if(status)status.textContent=s.message;
+ classicPaintMotion();
+ if(s.phase==='feedback'){game.done=true;renderGame();}
+};

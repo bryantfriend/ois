@@ -17,6 +17,8 @@ These are shared-screen activities. No student-device joining, networked session
 
 ## Teacher workflow
 
+The editor opens with **one large Whole lesson textbox**. Use **Copy AI instructions** to ask an AI to convert your material into the selected game's labelled format, paste its response, then **Check lesson** before playing or saving. Copy lesson, tab-separated spreadsheet paste, hints and explanations are supported. **Detailed editor** remains available for individual fields, pictures, maps and settings. Reference lines preserve attached structured activity data; keep those with their questions. Strategy board games retain their question-free setup.
+
 Filter by grade, subject, game mode or topic. Choose **Edit & play**, edit questions and answer choices, then launch. New Team/Class templates require 1–3 wrong choices (2–4 answers total). Simultaneous duel formats also require wrong choices. Matching requires unique answers; sequences use `|` between steps.
 
 Paste tab-separated spreadsheet rows: question, answer, optional semicolon-separated wrong choices, optional hint. Save browser-local copies or download versioned JSON lesson files to transfer between devices/sites. Limits: 2–40 questions per lesson and 100 saved copies per browser. No student records are collected. The content is a starting point for teacher review, not a verified mapping to a particular Oxford textbook edition.

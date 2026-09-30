@@ -66,7 +66,7 @@ function renderLibrary(){
  $('#collection-label').textContent=ui.collection==='saved'?'SAVED ON THIS DEVICE':'READY TO TEACH';
  $('#results').textContent=`${filtered.length} lesson${filtered.length===1?'':'s'} · ${ui.grade==='all'?'All grades':`Grade ${ui.grade}`}${ui.players==='all'?'':` · ${PLAYER_LABELS[ui.players]}`}`;
  $('#library-note').innerHTML=ui.subject==='geography'&&ui.collection!=='saved'?'New Geography adventures · Navigate, build, sculpt and investigate. <strong>No multiple-choice activities.</strong> <a href="./geography-guide.html" target="_blank" rel="noopener">Explore the teacher guide ↗</a>':ui.collection==='saved'?'These copies are saved in this browser. <strong>Download a lesson file</strong> to back up or move your work.':'Start with a prepared lesson, or select <strong>Edit & play</strong> to customize questions, instructions or puzzle settings. No student logins needed.';
- $('#games').innerHTML=filtered.map(g=>`<article class="game-card ${g.subject==='math'?'math':'english'}"><div class="card-art art-${g.format}" aria-hidden="true"><span class="art-symbol">${FORMATS[g.format].icon}</span><span class="art-mini">${g.subject==='math'?'x + y':g.subject==='physics'?'⚛':'Aa'}</span><span class="format-tag">${FORMATS[g.format].name}</span></div><div class="card-body"><div class="card-meta"><span>${esc(SUBJECTS.find(s=>s.id===g.subject).name)}</span><span>${boardGradeLabel(g)}</span></div><h3>${esc(g.title)}</h3><p>${esc(g.topic)}</p>${g.subject==='geography'?`<span class="gx-release-label">NEW · ${g.items.map(q=>esc(GX_TYPES[q.geo?.kind?.slice(3)]||'Creation studio')).join(' + ')}</span>`:''}<div class="player-tags">${playerModes(g.format).map(mode=>`<span>${PLAYER_LABELS[mode]}</span>`).join('')}</div><div class="card-details"><span>◷ ${g.minutes} min</span><span>${FORMATS[g.format].standalone?'Free play':`${g.items.length} ${GEO_FORMATS[g.format]?'missions':LAB_GAMES[g.format]?'challenges':g.format==='match'?'pairs':'questions'}`}</span></div><div class="card-actions"><button class="edit-card" data-edit="${esc(g.id)}">${FORMATS[g.format].standalone?'Play game':'Edit & play'} <span>↗</span></button><button class="quick-play" data-play="${esc(g.id)}" aria-label="Play ${esc(g.title)} grade ${g.grade}">▶</button></div></div></article>`).join('');
+ $('#games').innerHTML=filtered.map(g=>`<article class="game-card ${g.subject==='math'?'math':'english'}"><div class="card-art art-${g.format}" aria-hidden="true"><span class="art-symbol">${FORMATS[g.format].icon}</span><span class="art-mini">${g.subject==='math'?'x + y':g.subject==='physics'?'⚛':'Aa'}</span><span class="format-tag">${FORMATS[g.format].name}</span></div><div class="card-body"><div class="card-meta"><span>${esc(SUBJECTS.find(s=>s.id===g.subject).name)}</span><span>${boardGradeLabel(g)}</span></div><h3>${esc(g.title)}</h3><p>${esc(g.topic)}</p>${g.subject==='geography'?`<span class="gx-release-label">NEW · ${g.items.map(q=>esc(GX_TYPES[q.geo?.kind?.slice(3)]||'Creation studio')).join(' + ')}</span>`:''}<div class="player-tags">${playerModes(g.format).map(mode=>`<span>${PLAYER_LABELS[mode]}</span>`).join('')}</div><div class="card-details"><span>◷ ${g.minutes} min</span><span>${FORMATS[g.format].standalone?'Free play':`${g.items.length} ${GEO_FORMATS[g.format]?'missions':LAB_GAMES[g.format]?'challenges':g.format==='match'?'pairs':'questions'}`}</span></div><div class="card-actions"><button class="edit-card" data-edit="${esc(g.id)}">${FORMATS[g.format].standalone?'Play game':'Edit & play'} <span>↗</span></button><button class="quick-play" data-play="${esc(g.id)}" aria-label="Play ${esc(g.title)} grade ${g.grade}">▶</button></div>${ui.collection==='saved'?`<div class="saved-actions" aria-label="Manage ${esc(g.title)}"><button data-rename="${esc(g.id)}">Rename</button><button data-duplicate="${esc(g.id)}">Duplicate &amp; edit</button><button data-delete-lesson="${esc(g.id)}">Remove</button></div>`:''}</div></article>`).join('');
  $('#empty').hidden=filtered.length!==0;
  $('#empty-title').textContent=ui.collection==='saved'?'Your lessons belong here.':'This shelf is ready to grow.';
  $('#empty-message').textContent=ui.collection==='saved'?'Save a copy from the teacher editor. Try All grades if you already saved a lesson.':ui.subject==='russian'||ui.subject==='kyrgyz'?'This language has its own section now. To make a lesson, edit any existing game and change its subject here.':'No lessons match these filters. To create one for this subject, edit an existing game and choose its subject in Lesson details.';
@@ -82,6 +82,35 @@ $('#reset').onclick=resetFilters;
 document.addEventListener('click',e=>{const b=e.target.closest('[data-action]');if(!b)return;if(b.dataset.action==='library')library();if(b.dataset.action==='saved')library('saved');if(b.dataset.action==='reset'){ui.collection='library';resetFilters();}if(b.dataset.action==='import')leaveEditor(()=>$('#import-file').click());});
 function findLesson(id){return [...saved,...GAMES].find(g=>g.id===id);}
 $('#games').onclick=e=>{const b=e.target.closest('[data-edit],[data-play]');if(!b)return;const lesson=(ui.collection==='saved'?saved:GAMES).find(g=>g.id===(b.dataset.edit||b.dataset.play));if(!lesson)return;if(FORMATS[lesson.format]?.standalone){openEditor(lesson);return;}openEditor(lesson);if(FORMATS[lesson.format].mode==='TEAM')openTeamSetup();else if(b.dataset.play)startGame();};
+// Commit storage before changing the visible collection.
+function storeLessons(next){
+ try{localStorage.setItem(storageKey,JSON.stringify(next));saved=next;$('#saved-count').textContent=saved.length;return true;}
+ catch{notify('Could not save this change. Your saved lessons have not changed. Download a backup or free browser storage and try again.');return false;}
+}
+const renameDialog=document.createElement('dialog');
+renameDialog.id='rename-lesson';renameDialog.setAttribute('aria-labelledby','rename-heading');
+renameDialog.innerHTML='<form><h2 id="rename-heading">Rename lesson</h2><label>Lesson title<input id="rename-title" maxlength="120" required></label><p id="rename-error" role="alert"></p><div class="result-actions"><button type="button" class="button secondary" id="rename-cancel">Cancel</button><button class="button primary" type="submit">Save title</button></div></form>';
+document.body.append(renameDialog);
+let renamingId=null;
+$('#rename-cancel').onclick=()=>renameDialog.close();
+renameDialog.querySelector('form').onsubmit=e=>{
+ e.preventDefault();const title=$('#rename-title').value.trim();
+ if(!title){$('#rename-error').textContent='Enter a lesson title.';$('#rename-title').focus();return;}
+ if(!storeLessons(saved.map(lesson=>lesson.id===renamingId?{...lesson,title}:lesson)))return;
+ renameDialog.close();renderLibrary();notify('Lesson title updated.');
+ document.querySelector('[data-rename="'+CSS.escape(renamingId)+'"]')?.focus();
+};
+$('#games').addEventListener('click',e=>{
+ const button=e.target.closest('[data-rename],[data-duplicate],[data-delete-lesson]');if(!button||ui.collection!=='saved')return;
+ const id=button.dataset.rename||button.dataset.duplicate||button.dataset.deleteLesson,lesson=saved.find(l=>l.id===id);if(!lesson)return;
+ if(button.hasAttribute('data-rename')){renamingId=id;$('#rename-title').value=lesson.title;$('#rename-error').textContent='';renameDialog.showModal();$('#rename-title').select();return;}
+ if(button.hasAttribute('data-delete-lesson')){confirmAction('Remove this saved lesson?',`Remove “${lesson.title}” from My lessons on this device? This cannot be undone. Other versions will stay saved.`,()=>{if(storeLessons(saved.filter(l=>l.id!==id))){renderLibrary();notify('Lesson removed from My lessons.');$('#search').focus();}});return;}
+ if(saved.length>=100)return notify('This browser has 100 lessons. Download a backup and remove an unused lesson before duplicating.');
+ let number=1,title;do{const suffix=number===1?' (copy)':` (copy ${number})`;title=lesson.title.slice(0,120-suffix.length)+suffix;number++;}while(saved.some(l=>l.title===title));
+ const copy={...clone(lesson),id:`custom-${crypto.randomUUID()}`,title};
+ if(!storeLessons([copy,...saved]))return;
+ openEditor(copy);notify('Copy saved. Change its title and questions, then save your lesson.');
+});
 function openEditor(lesson){
  if(FORMATS[lesson.format]?.standalone){location.href=FORMATS[lesson.format].standalone;return;}
  lesson=gxUpgradeLesson(lesson);

@@ -1,0 +1,22 @@
+import assert from 'node:assert/strict';
+import {pathToFileURL} from 'node:url';
+import fs from 'node:fs';
+const {chromium}=await import(pathToFileURL('C:/Users/fangb_kyiapn1/.codex/skills/develop-web-game/node_modules/playwright/index.mjs').href);
+const browser=await chromium.launch();const p=await browser.newPage({viewport:{width:1366,height:900}});const errors=[];p.on('pageerror',e=>errors.push(e.message));
+await p.goto(process.env.TEST_URL||'http://127.0.0.1:4177');
+await p.evaluate(()=>openEditor(GAMES.find(g=>g.format==='tug')));await p.click('#save-lesson');await p.click('[data-action=saved]');
+await p.click('[data-rename]');await p.fill('#rename-title','   ');await p.click('#rename-lesson [type=submit]');assert.equal(await p.locator('#rename-lesson').isVisible(),true);
+await p.fill('#rename-title','English Verbs 1');await p.click('#rename-lesson [type=submit]');assert.equal(await p.locator('.game-card h3').textContent(),'English Verbs 1');
+const original=await p.evaluate(()=>JSON.stringify(saved[0]));
+await p.click('[data-duplicate]');assert.equal(await p.evaluate(()=>ui.view),'editor');
+await p.fill('#lesson-text','Title: English Adverbs 2\nTopic: Adverbs\n\nQuestion: Choose an adverb\nAnswer: Quickly\nWrong: Quick\n\nQuestion: Choose another adverb\nAnswer: Slowly\nWrong: Slow');await p.click('#save-lesson');await p.click('[data-action=saved]');
+assert.equal(await p.locator('.game-card').count(),2);assert.equal(await p.evaluate(()=>JSON.stringify(saved.find(l=>l.title==='English Verbs 1'))),original);
+await p.reload();await p.click('[data-action=saved]');assert.equal(await p.locator('.game-card').count(),2);
+await p.fill('#search','Adverbs');assert.equal(await p.locator('.game-card').count(),1);await p.click('[data-play]');assert.equal(await p.evaluate(()=>game.lesson.items[0].answer),'Quickly');await p.evaluate(()=>library('saved'));
+await p.locator('[data-delete-lesson]').first().click();await p.click('#confirm-cancel');assert.equal(await p.locator('.game-card').count(),2);
+await p.locator('[data-delete-lesson]').first().click();await p.click('#confirm-ok');assert.equal(await p.locator('.game-card').count(),1);assert.equal(await p.evaluate(()=>JSON.stringify(saved[0])),original);
+// A blocked storage write must not remove or mutate the saved collection.
+await p.evaluate(()=>{window.savedSetItem=Storage.prototype.setItem;Storage.prototype.setItem=()=>{throw Error('Quota');};});await p.click('[data-duplicate]');assert.equal(await p.evaluate(()=>saved.length),1);assert.equal(await p.evaluate(()=>ui.view),'home');await p.evaluate(()=>Storage.prototype.setItem=window.savedSetItem);
+for(let i=0;i<3;i++){await p.locator('[data-duplicate]').last().click();await p.click('[data-action=saved]');}assert.equal(await p.locator('.game-card').count(),4);assert.equal(await p.evaluate(()=>new Set(saved.map(l=>l.id)).size),4);
+fs.mkdirSync('output/playwright',{recursive:true});await p.screenshot({path:'output/playwright/my-lessons-desktop.png',fullPage:true});await p.setViewportSize({width:390,height:844});assert.equal(await p.evaluate(()=>document.documentElement.scrollWidth<=390),true);await p.screenshot({path:'output/playwright/my-lessons-mobile.png',fullPage:true});
+await p.reload();await p.click('[data-action=saved]');assert.equal(await p.locator('.game-card').count(),4);assert.deepEqual(errors,[]);await browser.close();console.log('Passed rename, blank-title validation, independent edited copies, search/play, reload, remove/cancel, storage failure, four versions and mobile layout.');

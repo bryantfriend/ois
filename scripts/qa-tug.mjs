@@ -36,13 +36,13 @@ try{
  await page.locator('[data-replay]').click();const fresh=await state();await page.waitForTimeout(2300);assert.deepEqual((await state()).tugPlayers,fresh.tugPlayers);
  await answer(0);await page.locator('#restart').click();await page.locator('#confirm-ok').click();const restarted=await state();assert.equal(restarted.attempts,0);await page.waitForTimeout(2300);assert.deepEqual((await state()).tugPlayers,restarted.tugPlayers);for(let i=0;i<2;i++)assert.equal(await page.locator(`[data-side="${i}"] h2`).textContent(),restarted.tugPlayers[i].question);
  // Each independent deck uses all questions before refilling, even after wrong answers.
- const seen=new Set();for(let i=0;i<7;i++){s=await state();if(i<6){assert.ok(!seen.has(s.tugPlayers[0].questionIndex));seen.add(s.tugPlayers[0].questionIndex);}await answer(0,false);await ready(0);}
+ const seen=new Set();for(let i=0;i<7;i++){s=await state();if(i<6){assert.ok(!seen.has(s.tugPlayers[0].questionIndex));seen.add(s.tugPlayers[0].questionIndex);}await answer(0,false);await answer(1,false);await ready(0);await ready(1);}
  assert.equal(seen.size,6);assert.equal((await state()).rope,0);
  // Left-side win and keyboard activation.
  await page.locator(`[data-player="0"][data-tug-answer="${await choice(0)}"]`).focus();await page.keyboard.press('Enter');await ready(0);await answer(0);await ready(0);await answer(0);assert.equal((await state()).rope,-3);assert.equal((await state()).view,'result');
  await open();await page.setViewportSize({width:390,height:844});assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));await page.screenshot({path:'output/tug/mobile.png',fullPage:true});
  // Teacher custom questions are used by both decks; missing distractors block launch clearly.
- await page.goto(`${base}/?game=english-8-tug`);await page.locator('[data-row="0"] [data-field="prompt"]').fill('Custom classroom question');await page.locator('[data-row="0"] [data-field="options"]').fill('');await page.locator('#start-game').click();assert.equal((await state()).view,'editor');
+ await page.goto(`${base}/?game=english-8-tug`);await page.click('#lesson-editor-toggle');await page.locator('[data-row="0"] [data-field="prompt"]').fill('Custom classroom question');await page.locator('[data-row="0"] [data-field="options"]').fill('');await page.locator('#start-game').click();assert.equal((await state()).view,'editor');
  await page.locator('[data-row="0"] [data-field="options"]').fill('Custom wrong answer');await page.locator('#start-game').click();assert.ok(await page.evaluate(()=>game.items.some(q=>q.prompt==='Custom classroom question')));
  assert.deepEqual(errors,[]);console.log('PASS simultaneous native touch, independent decks, feedback, both winners, restart, keyboard, mobile, custom pool and validation');
 }finally{await browser.close();}

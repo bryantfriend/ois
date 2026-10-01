@@ -1,0 +1,40 @@
+/* Stable hit targets: reserve reading/feedback space independently of answer length. */
+#player #arena .hamster-duel .tug-side{--side-color:#b62d51;display:grid;grid-template-rows:34px 76px auto 94px;gap:8px;padding:12px;align-content:start}
+#player #arena .hamster-duel .tug-side[data-side="1"]{--side-color:#245caf}
+#player #arena .hamster-duel .tug-player-heading{min-width:0;overflow:auto;overscroll-behavior:contain}
+#player #arena .hamster-duel .tug-player-heading strong{overflow-wrap:anywhere;font-size:16px}
+#player #arena .hamster-duel .tug-player-heading span{white-space:nowrap;font-size:13px}
+#player #arena .hamster-duel h2{height:76px;min-height:0;margin:0;width:100%;overflow:auto;overscroll-behavior:contain;font-size:clamp(20px,1.7vw,28px);line-height:1.3;text-align:left}
+#player #arena .hamster-duel .tug-answers{grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(var(--answer-rows),70px);gap:8px}
+#player #arena .hamster-duel .tug-answers button{display:flex;gap:8px;align-items:center;min-width:0;min-height:0;height:70px;padding:8px;font-size:clamp(18px,1.5vw,24px);line-height:1.2;transform:none;touch-action:none}
+#player #arena .hamster-duel .tug-answers button>span{flex:none;margin:0}
+#player #arena .hamster-duel .tug-answer-text{min-width:0;max-height:100%;overflow:auto;overscroll-behavior:contain;font-weight:700;touch-action:pan-y}
+#player #arena .hamster-duel .tug-answers button:disabled{opacity:.65}
+#player #arena .hamster-duel .tug-answers button.tug-correct{background:#e2f7e8;border-color:#40976a;opacity:1}
+#player #arena .hamster-duel .tug-feedback{display:grid;grid-template-columns:82px minmax(0,1fr);align-items:center;gap:10px;min-height:0;height:94px;margin:0;font-size:15px;line-height:1.25;color:var(--side-color)}
+.tug-feedback-copy{max-height:94px;overflow:auto;overscroll-behavior:contain;overflow-wrap:anywhere}
+.tug-answer-review{margin-top:3px;color:#393b57}.tug-countdown{font-variant-numeric:tabular-nums}
+.tug-mascot{display:block;width:82px;height:82px;overflow:visible;pointer-events:none}
+.tug-clock-track,.tug-clock-ring{fill:none;stroke-width:4;opacity:0}.tug-clock-track{stroke:#d9cad1}.tug-clock-ring{stroke:var(--side-color);stroke-dasharray:100;transform:rotate(-90deg);transform-origin:50px 50px}
+.tug-stars{opacity:0;transform-origin:50px 23px}.tug-point-pop{font:bold 20px 'Segoe UI',sans-serif;fill:var(--side-color);stroke:white;stroke-width:3px;paint-order:stroke}
+.tug-hamster-body{transform-origin:50px 80px}
+[data-reaction=ready] .tug-hamster-body{animation:tug-ready .5s ease-out}
+[data-reaction=pull] .tug-hamster-body{animation:tug-pull .45s ease-in-out 2}
+[data-reaction=pull] .tug-stars{opacity:1;animation:tug-spark .7s ease-out}
+[data-reaction=pull] .tug-point-pop,[data-reaction=penalty] .tug-point-pop{animation:tug-point 1s ease-out}
+[data-reaction=miss] .tug-hamster-body{animation:tug-wobble .6s ease-in-out 2}
+[data-reaction=miss] .tug-stars{opacity:1;animation:tug-dizzy 1.5s linear 2}
+[data-reaction=penalty] .tug-hamster-body{animation:tug-stumble .9s ease-in-out}
+[data-reaction=miss] .tug-clock-track,[data-reaction=miss] .tug-clock-ring,[data-reaction=penalty] .tug-clock-track,[data-reaction=penalty] .tug-clock-ring{opacity:1}
+@keyframes tug-ready{50%{transform:translateY(-5px)}}
+@keyframes tug-pull{50%{transform:translate(-5px,-7px) rotate(-8deg)}}
+@keyframes tug-wobble{25%{transform:rotate(-8deg)}75%{transform:rotate(8deg)}}
+@keyframes tug-stumble{40%{transform:translateY(8px) rotate(22deg) scale(1.1,.8)}75%{transform:rotate(-8deg)}}
+@keyframes tug-spark{from{transform:scale(.4);opacity:0}to{transform:scale(1);opacity:1}}
+@keyframes tug-dizzy{50%{transform:translateX(5px) rotate(8deg)}}
+@keyframes tug-point{from{transform:translateY(10px);opacity:0}to{transform:translateY(0);opacity:1}}
+#player.tug-motion-off .hamster-duel *{animation:none!important}
+@media(prefers-reduced-motion:reduce){.hamster-duel *{animation:none!important}}
+@media(min-width:1600px){#player #arena .hamster-duel .tug-answers{grid-template-rows:repeat(var(--answer-rows),84px)}#player #arena .hamster-duel .tug-answers button{height:84px}#player #arena .hamster-duel .tug-feedback{font-size:18px}}
+@media(max-width:700px){#player #arena .hamster-duel .tug-side{grid-template-rows:64px 100px auto 164px;gap:8px;padding:8px}#player #arena .hamster-duel h2{height:100px;font-size:16px}#player #arena .hamster-duel .tug-answers{grid-template-columns:minmax(0,1fr);grid-template-rows:repeat(var(--answer-slots),68px)}#player #arena .hamster-duel .tug-answers button{height:68px;font-size:16px;gap:4px;padding:5px}#player #arena .hamster-duel .tug-answers button>span{width:22px;height:24px}#player #arena .hamster-duel .tug-feedback{height:164px;grid-template-columns:minmax(0,1fr);grid-template-rows:58px 98px;gap:4px;font-size:13px}.tug-mascot{width:58px;height:58px;margin:auto}.tug-feedback-copy{max-height:98px}}
+@media(max-width:700px){#player #arena .hamster-duel .tug-player-heading{display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:3px}#player #arena .hamster-duel .tug-player-heading strong{display:block;font-size:12px;line-height:1.3;max-height:38px;overflow:auto;width:100%}#player #arena .hamster-duel .tug-player-heading span{font-size:11px;line-height:1.2}}

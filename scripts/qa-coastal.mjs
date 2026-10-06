@@ -18,6 +18,7 @@ try {
   await card.locator(grade===7?'[data-edit]':'[data-play]').click();
   await page.waitForURL('**/coastal/index.html');
   await page.waitForFunction(()=>typeof render_game_to_text==='function');
+  await page.locator('[data-mode=normal]').click();
   const state=await page.evaluate(()=>JSON.parse(render_game_to_text()));
   assert.equal(state.credits,20);
   assert.equal(state.round,1);
@@ -33,6 +34,7 @@ try {
  await page.locator('[data-grade="3"]').click();
  assert.equal(await page.locator('.game-card').filter({hasText:'Coastal Connections'}).count(),0);
  await page.goto(base+'/coastal/index.html');
+ await page.locator('[data-mode=normal]').click();
  await page.setViewportSize({width:390,height:844});
  assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
  await page.screenshot({path:'output/coastal/mobile.png'});

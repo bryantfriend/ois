@@ -149,3 +149,5 @@ Validation complete: fixed-rectangle browser assertions passed at 1366, 1920, ta
 2026-10-02 Chess verification complete: White/Black checkmates, resignation, stalemate draw, en passant capture tray, final result captures, rematch reset, stable boards, rotation, castling, promotion, reduced motion and 1366/1920/mobile layouts passed with no browser errors. Screenshots inspected; skill runner and npm run check passed. Asset hashes updated. Changes are local; no publication requested.
 
 2026-10-03 — Release 0.3.3: Chess winner celebration and capture trays. Updated package/release identifiers and asset hashes; deploying via configured GitHub Pages workflow.
+
+2026-10-06: Added Coastal Connections from Learn 2.6.4 as a local standalone Geography game for Grades 7 and 8. Preserved all current mechanics, added return-to-library navigation and release 0.3.4 cache metadata. Syntax checks, both grade filters/launch actions, return navigation and mobile checks passed without browser errors. Reviewed full-page and gameplay-client screenshots. No pending integration work.

@@ -6,5 +6,5 @@ for (const page of ['index.html','projectile-duel.html']) {
  html=html.replace(/(src|href)="\.\/([^"?]+\.(?:js|css))(?:\?[^\"]*)?"/g,(_,attr,file)=>`${attr}="./${file}?v=${crypto.createHash('sha256').update(fs.readFileSync('dist/'+file)).digest('hex').slice(0,12)}"`);
  fs.writeFileSync('dist/'+page,html);
 }
-fs.writeFileSync('dist/release.json',JSON.stringify({version:'coastal-connections-0.3.9-2026-10-06'})+'\n');
+fs.writeFileSync('dist/release.json',JSON.stringify({version:'coastal-connections-0.3.10-2026-10-06'})+'\n');
 console.log('Versioned browser assets.');

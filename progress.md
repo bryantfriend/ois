@@ -151,3 +151,5 @@ Validation complete: fixed-rectangle browser assertions passed at 1366, 1920, ta
 2026-10-03 — Release 0.3.3: Chess winner celebration and capture trays. Updated package/release identifiers and asset hashes; deploying via configured GitHub Pages workflow.
 
 2026-10-06: Added Coastal Connections from Learn 2.6.4 as a local standalone Geography game for Grades 7 and 8. Preserved all current mechanics, added return-to-library navigation and release 0.3.4 cache metadata. Syntax checks, both grade filters/launch actions, return navigation and mobile checks passed without browser errors. Reviewed full-page and gameplay-client screenshots. No pending integration work.
+
+2026-10-07 OIS 0.3.13: synchronized full Coastal Connections UK/Kyrgyzstan worlds, English/Russian/Kyrgyz support, world/difficulty picker, 53 Kyrgyzstan images, illustrated landmarks/atlas/passport, missions and saves. Listed under Geography for Years 7 and 8. Updated standalone return navigation for the new world picker and cache release metadata.

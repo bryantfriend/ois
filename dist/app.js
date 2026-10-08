@@ -53,14 +53,15 @@ function renderSubjectMenu(){
 }
 function subjectEditorOptions(){const option=id=>{const s=SUBJECTS.find(s=>s.id===id);return `<option value="${id}">${s.name}</option>`;};return SUBJECT_MENU.filter(e=>e!=='all').map(entry=>typeof entry==='string'?option(entry):`<optgroup label="${entry.name}">${entry.children.map(option).join('')}</optgroup>`).join('');}
 function renderLibrary(){
- $('#saved-count').textContent=saved.length;$('#lesson-total').textContent=GAMES.length;$('#format-total').textContent=Object.keys(FORMATS).length;
+ const activeGames=GAMES.filter(g=>!geoIsArchived(g));
+ $('#saved-count').textContent=saved.length;$('#lesson-total').textContent=activeGames.length;$('#format-total').textContent=Object.keys(FORMATS).length;
  $('#players').value=ui.players;
  $('#mode-description').textContent=Object.values(GAME_MODES).find(m=>m.key===ui.players)?.description||'Choose who owns the challenge: a student, a pair, a team, or the whole classroom.';
  document.querySelectorAll('.header .nav-link').forEach(b=>b.classList.toggle('active',b.dataset.action===(ui.collection==='saved'?'saved':'library')));
  renderSubjectMenu();
  $('#grades').innerHTML=['all',1,2,3,7,8].map(n=>`<button class="grade ${ui.grade===n?'active':''}" data-grade="${n}" aria-pressed="${ui.grade===n}">${n==='all'?'All grades':`Grade ${n}`}</button>`).join('');
  $('#other-grade').value=[1,2,3,7,8,'all'].includes(ui.grade)?'':String(ui.grade);
- const source=ui.collection==='saved'?saved:GAMES;
+ const source=ui.collection==='saved'?saved:activeGames;
  const filtered=source.filter(g=>boardGradeMatches(g,ui.grade)&&(ui.subject==='all'||g.subject===ui.subject)&&(ui.players==='all'||playerModes(g.format).includes(ui.players))&&`${g.title} ${g.topic} ${FORMATS[g.format].name} ${FORMATS[g.format].sourceTitle||''} ${LAB_GAMES[g.format]?'PlayMath':''} ${window.OXFORD_WORLDS?.[g.format]?.name||""}`.toLowerCase().includes(ui.search.toLowerCase()));
  $('#library-title').textContent=ui.collection==='saved'?'My lessons':ui.subject==='all'?'Your game library':SUBJECTS.find(s=>s.id===ui.subject).name;
  $('#collection-label').textContent=ui.collection==='saved'?'SAVED ON THIS DEVICE':'READY TO TEACH';

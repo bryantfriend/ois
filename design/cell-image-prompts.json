@@ -1,0 +1,31 @@
+{
+  "mode": "Built-in image_gen",
+  "useCase": "scientific-educational",
+  "style": "Premium biology textbook 3D illustration, softly shaded, crisp contours, pale ivory background, centered square composition, no text or arrows.",
+  "assets": [
+    {
+      "file": "cell-membrane.webp",
+      "prompt": "A curved cutaway patch of animal cell plasma membrane, two layers of phospholipids with pink round hydrophilic heads facing the watery outside and inside and paired golden hydrophobic tails facing inward, several teal transport proteins spanning the bilayer. Clearly show the continuous double layer."
+    },
+    {
+      "file": "cytoplasm.webp",
+      "prompt": "A cutaway animal cell with a translucent peach boundary, the pale gold jelly-like cytoplasm filling the whole interior strongly highlighted. A few subdued purple nucleus and orange mitochondria suspended within the cytoplasm for context. Cytoplasm is not a separate sac or organelle; emphasize continuous fluid interior."
+    },
+    {
+      "file": "nucleus.webp",
+      "prompt": "An isolated large spherical purple animal-cell nucleus, a cutaway reveals a smaller dark purple nucleolus and fine coiled chromatin threads within. Double nuclear envelope with small pores. No DNA outside the nucleus."
+    },
+    {
+      "file": "mitochondrion.webp",
+      "prompt": "One isolated orange bean-shaped mitochondrion in cutaway, smooth outer membrane, inner membrane folding into many clear cristae within a pale gold matrix. Anatomically coherent membranes."
+    },
+    {
+      "file": "vacuole.webp",
+      "prompt": "One small animal-cell vacuole, isolated translucent teal rounded membrane sac containing pale blue fluid and a few small stored dissolved particles. A small storage vesicle, no enormous plant central vacuole."
+    },
+    {
+      "file": "ribosome.webp",
+      "prompt": "One isolated ribosome shown as two adjoining lobed subunits, large blue subunit above and smaller teal subunit below, a thin purple mRNA strand passing through the groove between them and a short chain of tiny gold amino-acid beads emerging from the large subunit. Ribosome has no surrounding membrane."
+    }
+  ]
+}

@@ -2,7 +2,7 @@ import http from "node:http";
 import { readFile } from "node:fs/promises";
 import { resolve, sep, extname } from "node:path";
 const root = resolve("dist");
-const types = { ".html": "text/html", ".css": "text/css", ".js": "text/javascript", ".svg": "image/svg+xml", ".png": "image/png" };
+const types = { ".html": "text/html", ".css": "text/css", ".js": "text/javascript", ".svg": "image/svg+xml", ".png": "image/png", ".webp": "image/webp" };
 const server = http.createServer(async (request, response) => {
   try {
     const url = new URL(request.url, "http://localhost");

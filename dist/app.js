@@ -12,6 +12,7 @@ function confirmAction(title,text,action){$('#confirm-title').textContent=title;
 $('#confirm-cancel').onclick=()=>$('#confirm').close();
 $('#confirm-ok').onclick=()=>{const action=decision;$('#confirm').close();decision=null;action?.();};
 function textField(value,name,max=1500){if(typeof value!=='string'||!value.trim()||value.length>max)throw Error(`${name} is required (maximum ${max} characters).`);return value.trim();}
+function lessonItemLimit(format){return LAB_GAMES[format]?.engine==='physics'?80:40;}
 function validateLesson(raw){
  raw=gxUpgradeLesson(raw);
  if(!raw||typeof raw!=='object')throw Error('Choose a valid Oxford lesson file.');
@@ -19,7 +20,7 @@ function validateLesson(raw){
  if(!SUBJECTS.some(s=>s.id===raw.subject&&s.id!=='all'))throw Error('Choose a valid subject.');
  if(!Number.isInteger(raw.grade)||raw.grade<1||raw.grade>12)throw Error('Choose a grade from 1 to 12.');
  if(!Object.hasOwn(FORMATS,raw.format))throw Error('This game format is not supported.');
- if(!Array.isArray(raw.items)||raw.items.length<2||raw.items.length>40)throw Error('Use between 2 and 40 questions.');
+ if(!Array.isArray(raw.items)||raw.items.length<2||raw.items.length>lessonItemLimit(raw.format))throw Error('Use between 2 and '+lessonItemLimit(raw.format)+' activities.');
  const items=raw.items.map((item,i)=>{
   if(!item||typeof item!=='object')throw Error(`Check question ${i+1}.`);
   const prompt=textField(item.prompt,`Question ${i+1}`),answer=textField(item.answer,`Answer ${i+1}`);
@@ -133,14 +134,14 @@ function renderRows(){
 }
 $('#editor').addEventListener('input',e=>{dirty=true;const field=e.target.dataset.field;if(field){const i=Number(e.target.closest('[data-row]').dataset.row);draft.items[i][field]=field==='options'?e.target.value.split('\n').map(s=>s.trim()).filter(Boolean):e.target.value;}});
 $('#question-rows').onclick=e=>{const b=e.target.closest('[data-remove]');if(!b)return;const i=Number(b.dataset.remove);confirmAction('Remove this question?',draft.items[i].prompt||'This row will be removed from the draft.',()=>{draft.items.splice(i,1);dirty=true;renderRows();});};
-$('#add-question').onclick=()=>{if(draft.items.length>=40)return notify('A lesson can contain up to 40 questions.');draft.items.push({prompt:'',answer:'',options:[],hint:'',explanation:''});dirty=true;renderRows();$('#question-rows').lastElementChild.querySelector('textarea').focus();};
+$('#add-question').onclick=()=>{if(draft.items.length>=lessonItemLimit(draft.format))return notify('A lesson can contain up to '+lessonItemLimit(draft.format)+' activities.');draft.items.push({prompt:'',answer:'',options:[],hint:'',explanation:''});dirty=true;renderRows();$('#question-rows').lastElementChild.querySelector('textarea').focus();};
 $('#paste-toggle').onclick=()=>{$('#paste-panel').hidden=!$('#paste-panel').hidden;};
 function pasteQuestions(replace=false){
  const lines=$('#bulk-input').value.trim().split('\n').filter(s=>s.trim());
  if(!lines.length||!lines[0].includes('\t'))return notify('Paste at least two spreadsheet columns: question and answer, separated by a tab.');
  const rows=lines.map(line=>{const [prompt='',answer='',wrong='',hint='']=line.split('\t');return {prompt:prompt.trim(),answer:answer.trim(),options:wrong.split(';').map(s=>s.trim()).filter(Boolean),hint:hint.trim(),explanation:''};});
  if(rows.some(r=>!r.prompt||!r.answer))return notify('Each pasted row needs both a question and an answer. Nothing was added.');
- if((replace?0:draft.items.length)+rows.length>40)return notify('That would exceed 40 questions. Remove some rows first.');
+ if((replace?0:draft.items.length)+rows.length>lessonItemLimit(draft.format))return notify('That would exceed '+lessonItemLimit(draft.format)+' activities. Remove some rows first.');
  const apply=()=>{draft.items=replace?rows:[...draft.items,...rows];dirty=true;$('#bulk-input').value='';renderRows();notify(`${rows.length} questions ${replace?'loaded':'added'}. Review them below.`);};
  if(replace)confirmAction('Replace the question list?',`Replace the current ${draft.items.length} questions with your ${rows.length} pasted questions?`,apply);else apply();
 }

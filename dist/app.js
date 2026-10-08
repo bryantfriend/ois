@@ -53,7 +53,7 @@ function renderSubjectMenu(){
 }
 function subjectEditorOptions(){const option=id=>{const s=SUBJECTS.find(s=>s.id===id);return `<option value="${id}">${s.name}</option>`;};return SUBJECT_MENU.filter(e=>e!=='all').map(entry=>typeof entry==='string'?option(entry):`<optgroup label="${entry.name}">${entry.children.map(option).join('')}</optgroup>`).join('');}
 function renderLibrary(){
- const activeGames=GAMES.filter(g=>!geoIsArchived(g));
+ const activeGames=GAMES.filter(g=>!geoIsArchived(g)&&!LAB_GAMES[g.format]?.archived);
  $('#saved-count').textContent=saved.length;$('#lesson-total').textContent=activeGames.length;$('#format-total').textContent=Object.keys(FORMATS).length;
  $('#players').value=ui.players;
  $('#mode-description').textContent=Object.values(GAME_MODES).find(m=>m.key===ui.players)?.description||'Choose who owns the challenge: a student, a pair, a team, or the whole classroom.';

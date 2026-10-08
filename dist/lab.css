@@ -22,3 +22,5 @@
 @media(max-width:650px){#grades{flex-wrap:wrap;max-width:100%}}
 
 .lab-checkerboard .lab-legal{background:#ffe488!important}
+
+.lab-physics-heading{display:flex;flex-direction:column;gap:4px;margin:6px auto 10px;max-width:760px;color:#3f3262}.lab-physics-heading strong{font-size:22px}.lab-physics-heading span{font-size:18px;line-height:1.3}.lab-game[data-lab-engine="physics"] .lab-drawing{height:auto;aspect-ratio:2 / 1;max-height:min(380px,calc(100dvh - 300px));width:min(760px,100%);display:block;margin:0 auto}.lab-game[data-lab-engine="physics"] #lab-ink{margin:6px 0}.lab-game[data-lab-engine="physics"] .lab-status{margin:6px 0}@media(max-width:650px){.lab-physics-heading strong{font-size:20px}.lab-physics-heading span{font-size:16px}.lab-game[data-lab-engine="physics"] .lab-drawing{max-height:none}.lab-game[data-lab-engine="physics"] .lab-tools{margin-top:8px}}

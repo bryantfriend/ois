@@ -1,0 +1,49 @@
+/* Keep learning targets still. Motion lives in the characters and rewards. */
+.customer svg,.helper svg{transform-origin:50% 100%;animation:idle-sway 4.5s ease-in-out infinite}
+.helper svg{animation-delay:-2s}
+.eye{transform-box:fill-box;transform-origin:center;animation:blink 5.8s infinite}
+.helper .eye{animation-delay:-2.5s}
+.waving-arm{transform-box:fill-box;transform-origin:20% 90%;animation:wave 5s ease-in-out infinite}
+.arriving{animation:customer-arrive .65s ease-out both}
+.bubble-pop{animation:bubble-pop .45s ease-out both}
+.choice.card-arrive{animation:card-arrive .45s ease-out backwards}
+.customer.happy,.helper.happy{animation:happy-hop .7s ease-out}
+.happy .waving-arm{animation:excited-wave .22s ease-in-out 4}
+.speaking svg{animation:speaking .6s ease-in-out infinite}
+.choice.reward-pop{animation:reward-pop .55s ease-out}
+.choice.correct:disabled{opacity:1}
+.coin-pop{animation:reward-pop .6s ease-out}
+.choice.hinted{box-shadow:0 0 0 3px #f2d57b77}
+.choice:active:not(:disabled){transform:scale(.97)}
+.shop-glow{animation:shop-glow 1s ease-in-out}
+#complete[open]{animation:bubble-pop .5s ease-out}
+.celebration{animation:star-wiggle 2.5s ease-in-out infinite}
+.plant svg{transform-origin:50% 100%;animation:idle-sway 5s ease-in-out infinite}
+#effects-layer{position:fixed;inset:0;pointer-events:none;z-index:100;overflow:hidden}
+.particle{position:absolute;font-size:22px;font-weight:bold;color:#e8b536;animation:spark-flight .85s ease-out forwards;will-change:transform,opacity}
+.particle.flying-coin{font-size:30px;border-radius:50%;background:#ffe09a;color:#b98724;width:42px;height:42px;text-align:center;line-height:42px;border:3px solid #efc25d;animation:coin-flight .85s ease-in forwards}
+.particle.confetti{animation:confetti-fall 1.8s ease-in forwards}
+.confetti:nth-child(3n){color:#ed8a77}.confetti:nth-child(3n+1){color:#7fa99a}.confetti:nth-child(3n+2){color:#a393c4}
+.voice-settings{padding:17px;margin:15px 0;background:#eaf0e3;border-radius:14px;display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+.voice-settings label{font-weight:bold}.voice-settings select{font:inherit;color:var(--ink);border:1px solid #b7cbbd;border-radius:10px;padding:12px;max-width:100%;flex:1;min-width:180px;background:#fffdf6}
+.voice-settings p{flex-basis:100%;margin:0;font-size:12px}.voice-settings button{margin:0;font-size:13px;min-height:48px}
+.classroom-options{display:flex;gap:20px;flex-wrap:wrap;margin:16px 0}.classroom-options label{display:flex;align-items:center;gap:8px;min-height:44px}.classroom-options input{width:20px;height:20px;accent-color:var(--teal)}
+#listen{width:48px;height:48px}button{min-height:44px}.close{min-width:44px}
+@keyframes idle-sway{0%,100%{transform:rotate(-1deg) translateY(0)}50%{transform:rotate(1deg) translateY(-3px)}}
+@keyframes blink{0%,44%,48%,100%{transform:scaleY(1)}46%{transform:scaleY(.08)}}
+@keyframes wave{0%,60%,100%{transform:rotate(0)}65%,75%{transform:rotate(-22deg)}70%,80%{transform:rotate(8deg)}}
+@keyframes excited-wave{50%{transform:rotate(-25deg)}}
+@keyframes customer-arrive{from{opacity:0;transform:translateX(-60px)}to{opacity:1;transform:translateX(0)}}
+@keyframes bubble-pop{from{opacity:0;transform:scale(.85)}65%{transform:scale(1.025)}to{opacity:1;transform:scale(1)}}
+@keyframes card-arrive{from{opacity:0;transform:translateY(15px) scale(.95)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes happy-hop{0%,100%{transform:translateY(0)}25%,65%{transform:translateY(-16px) rotate(-3deg)}45%{transform:translateY(0) rotate(3deg)}}
+@keyframes speaking{0%,100%{transform:rotate(-1deg)}50%{transform:rotate(1deg) translateY(-2px)}}
+@keyframes reward-pop{0%,100%{transform:scale(1)}40%{transform:scale(1.09)}70%{transform:scale(.98)}}
+@keyframes spark-flight{0%{opacity:1;transform:translate(-50%,-50%) scale(.5)}60%{opacity:1}100%{opacity:0;transform:translate(calc(var(--dx) - 50%),calc(var(--dy) - 50%)) rotate(var(--turn)) scale(1.1)}}
+@keyframes coin-flight{0%{opacity:1;transform:translate(-50%,-50%) scale(.5)}20%{transform:translate(-50%,-90%) scale(1.2)}90%{opacity:1}100%{opacity:0;transform:translate(calc(var(--dx) - 50%),calc(var(--dy) - 50%)) scale(.6)}}
+@keyframes confetti-fall{0%{opacity:0;transform:translate(0,-30px) rotate(0)}10%{opacity:1}85%{opacity:1}100%{opacity:0;transform:translate(var(--dx),var(--dy)) rotate(300deg)}}
+@keyframes star-wiggle{0%,100%{transform:rotate(-8deg) scale(1)}50%{transform:rotate(8deg) scale(1.1)}}
+@keyframes shop-glow{50%{box-shadow:0 0 30px #efbc51aa}}
+body.gentle *,body.gentle *::before,body.gentle *::after{animation:none!important;transition:none!important}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+@media(min-width:1400px) and (min-height:900px){main{max-width:1250px;padding-top:20px}header{max-width:1340px}.scene{height:310px}.customer{height:250px;width:200px}.helper{height:205px;width:160px}.request{top:30px;padding:20px}#target{font-size:88px}.request p{font-size:18px}.choice{height:166px;font-size:80px}.choice svg{width:112px;height:125px}.feedback{font-size:18px}.intro p{font-size:17px}nav button{font-size:18px}nav button small{font-size:13px}.activity-footer>span{font-size:15px}}

@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Supermarket Word Quest</title><link rel="stylesheet" href="style.css?v=e8b00697a5f3"><link rel="stylesheet" href="animation.css?v=62c0d0e7cdec"></head>
+<body>
+<header><a class="brand" href="../index.html"><span class="brand-icon">▦</span><span>SUPER MARKET<small>WORD QUEST</small></span></a><div class="header-right"><button id="sound" aria-label="Turn voice off" title="Voice on">♫ Voice on</button><button id="fullscreen" aria-label="Fullscreen">⛶</button><span class="wallet">★ <b id="coins">0</b></span></div></header>
+<main>
+<section class="intro"><div><span class="eyebrow">A LITTLE SHOP. A BIG ADVENTURE.</span><h1>Hello, little shopkeeper!</h1><p>Help your friends shop. Learn a little with every visit.</p></div><button class="decor-btn" id="decorate">✿ Decorate my shop</button></section>
+<nav aria-label="Learning stages" id="stages"></nav>
+<section class="shop" aria-label="Supermarket activity">
+<div class="awning" aria-hidden="true"></div><div class="shop-top"><span>THE FRIENDLY MARKET</span><span id="round-label"></span></div>
+<div class="scene"><div class="window" aria-hidden="true"><i></i><i></i></div><div class="plant" id="plant" aria-hidden="true"></div><div class="shelves" id="shelves" aria-hidden="true"></div><div class="customer" id="customer" aria-hidden="true"></div><div class="request"><span class="request-kicker" id="task-label"></span><div class="target-row"><strong id="target"></strong><button id="listen" aria-label="Hear the request again">♪</button></div><p id="instruction"></p></div><div class="helper" id="helper" aria-hidden="true"></div><div class="counter" aria-hidden="true"><span class="register">▰<i></i></span><span class="counter-sign">a happy little shop</span></div></div>
+<div class="activity"><p class="feedback" id="feedback" role="status" aria-live="polite"></p><div class="choices" id="choices"></div><div class="activity-footer"><span id="customer-name"></span><button id="hint">♡ Help me</button><button id="next" class="primary" hidden>Next customer →</button></div></div>
+</section>
+<footer class="progress-footer"><span id="progress-label"></span><div class="dots" id="dots"></div><span>Little steps, lovely learning.</span></footer>
+<details class="grownups"><summary>For grown-ups · voice & classroom settings</summary><p>Start with letter matching, then practice uppercase and lowercase pairs. Complete each stage to unlock simple words. Word questions keep answer labels hidden so children read the request.</p><div class="voice-settings"><label for="voice-choice">Reading voice</label><select id="voice-choice"><option value="">Automatic · prefer a female English voice</option></select><button id="voice-preview">♪ Try this voice</button><p id="voice-info" role="status"></p></div><div class="classroom-options"><label><input type="checkbox" id="effects" checked> Celebration sounds</label><label><input type="checkbox" id="motion"> Gentle motion only</label><label><input type="checkbox" id="practice"> Unlock all stages for practice</label></div><button id="reset">Reset learning progress</button></details>
+</main>
+<dialog id="decoration"><button class="close" aria-label="Close decorations">×</button><span class="eyebrow">MAKE IT YOURS</span><h2>A little more lovely.</h2><p>Spend the coins you earn helping customers.</p><div id="decor-options"></div></dialog>
+<dialog id="complete"><span class="celebration">★</span><h2 id="complete-title"></h2><p id="complete-copy"></p><button class="primary" id="continue">Keep shopping →</button></dialog>
+<div id="effects-layer" aria-hidden="true"></div>
+<script src="game.js?v=65850c4ed864"></script>
+</body></html>

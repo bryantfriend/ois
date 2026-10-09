@@ -6,3 +6,44 @@ main{max-width:1170px;padding-top:20px}.intro{margin-bottom:18px}nav{margin-bott
 @media(min-width:1400px) and (min-height:900px){header{height:76px}main{padding-top:12px}.intro{margin-bottom:13px}nav{margin-bottom:12px}.checkout-scene{height:300px}.checkout-scene .customer{height:212px;width:170px}.checkout-scene .helper{height:200px;width:155px}.till-area{padding:12px 22px}.till-heading{margin-bottom:10px}.till-controls .choice{height:86px}.till-display{padding:10px}.progress-footer{padding-top:12px}}
 .cashier-arms{position:absolute;inset:0;width:100%;height:100%;z-index:8;pointer-events:none;overflow:visible}.held-shopping{position:absolute;z-index:7;pointer-events:none;filter:drop-shadow(0 4px 3px #31463c22);will-change:transform}.held-shopping svg{width:100%;height:100%}.cashier-handling .helper,.cashier-handling .helper svg{animation:none!important}.cashier-handling .helper svg{transform:none!important}.cashier-handling .helper .waving-arm{visibility:hidden}.cashier-handling .scanner.scanning .scan-light{animation:scanner-beam .4s ease-in-out infinite}.cashier-handling .shopping-bag{z-index:6}
 
+/* Keep the active checkout in the available Chrome/smartboard viewport. */
+.activity-footer #basket-progress{margin:0 auto;height:auto;align-items:center;flex-shrink:0}
+dialog{max-height:calc(100dvh - 32px);overflow:auto}
+@media(min-width:760px){
+ body{height:100vh;height:100dvh;display:grid;grid-template-rows:56px minmax(0,1fr)}
+ header{height:100%;width:100%;max-width:1440px;padding:0 20px}
+ .brand-icon{font-size:28px;padding:2px 10px}.header-right button{min-height:44px;padding:8px 14px}.wallet{padding:8px 16px;font-size:18px}
+ main{width:100%;max-width:1440px;min-height:0;margin:0 auto;padding:10px 20px 8px;display:grid;grid-template-rows:auto minmax(0,1fr) auto auto;gap:8px}
+ .intro{display:none}nav{margin:0;gap:10px}nav button{min-height:52px;padding:8px 14px}nav button small{margin-top:2px}
+ .shop{min-height:0;display:grid;grid-template-rows:18px 26px minmax(0,1fr) auto;border-radius:20px;box-shadow:0 4px 0 #e8e2d266}
+ .awning{height:auto;border-bottom-width:3px}.shop-top{padding:6px 20px;font-size:9px}
+ .checkout-scene{height:auto;min-height:0}
+ .checkout-scene .customer{height:calc(100% - 52px);max-height:270px;width:auto;aspect-ratio:164/218;left:5%;bottom:50px}
+ .checkout-scene .helper{height:calc(100% - 52px);max-height:250px;width:auto;aspect-ratio:154/206;right:7%;bottom:50px}
+ .checkout-scene .shelves{width:135px;right:20px;top:12px;padding:8px;gap:5px}.checkout-scene .shelves svg{width:30px;height:36px}
+ .market-sign{top:14px;left:20px;font-size:11px}.market-sign b{font-size:17px;padding:5px}.market-sign span{margin-top:10px;font-size:10px}
+ .cashier-speech{left:29%;width:43%;top:12px;padding:10px 14px;font-size:clamp(16px,1.3vw,21px);line-height:1.35}
+ .checkout-counter{height:78px;border-top-width:12px}.customer-basket{left:4%;bottom:54px;width:64px;height:45px;border-width:5px}.customer-basket:before{width:38px;height:22px;top:-27px;border-width:5px}.customer-basket span{left:21px;top:8px}
+ .belt-object{width:clamp(54px,5vw,80px);height:clamp(64px,6vw,94px);bottom:12px}.belt-label{bottom:14px;font-size:9px}.shopping-bag{height:92px;width:88px;top:-30px;padding-top:28px;font-size:10px}.bag-handle{left:20px;width:41px;height:27px;top:-24px}
+ .checkout-scene .plant{bottom:87px}
+ .till-area{padding:10px 20px}.till-heading{margin-bottom:6px;min-height:40px}.till-heading h2{font-size:18px;margin:2px 0}.till-heading #listen{width:48px;height:44px;min-width:48px}
+ .till-display{grid-template-columns:140px minmax(0,1fr);gap:14px;padding:8px 12px;border-width:4px;border-bottom-width:7px}
+ .till-display #target{font-size:62px;line-height:1;letter-spacing:2px}.till-display #item-name{font-size:14px}.till-display .request{padding:0}.till-display .request-kicker{font-size:8px}
+ .till-controls .feedback{font-size:13px;min-height:18px;margin:0 0 5px}.till-controls .choices{gap:14px}.till-controls .choice{height:76px;font-size:48px}.till-controls .choice.word{font-size:28px}
+ .activity-footer{height:44px;margin-top:4px;position:relative}.activity-footer>span{flex:1;margin:0;font-size:11px}.activity-footer #basket-progress{position:absolute;left:50%;transform:translateX(-50%)}
+ #hint{min-height:44px;padding:8px 14px}.till-area .primary{min-height:44px;padding:8px 14px}
+ .progress-footer{padding:0 3px;font-size:10px;min-height:18px}.dots span{width:8px;height:8px}.grownups{margin:0;font-size:11px}.grownups summary{min-height:26px;display:flex;align-items:center;cursor:pointer}
+ .grownups[open]{position:fixed;inset:24px max(24px,calc((100vw - 960px)/2));z-index:30;overflow:auto;padding:20px 28px;border:2px solid #b7cbb7;border-radius:20px;background:var(--cream);box-shadow:0 0 0 100vmax #29413b66}
+ .grownups[open] summary{font-size:16px;font-weight:bold;min-height:44px}.grownups[open] summary:after{content:'✕ Close';margin-left:auto;padding-left:24px;color:var(--teal)}
+}
+@media(min-width:760px) and (max-height:680px){
+ body{grid-template-rows:48px minmax(0,1fr)}main{padding:6px 16px;gap:5px}header{padding:0 16px}.brand{font-size:14px}.brand small{font-size:9px}.brand-icon{font-size:24px}
+ nav button{min-height:46px;padding:5px 12px}.shop{grid-template-rows:12px 22px minmax(0,1fr) auto}.shop-top{padding:4px 16px;font-size:8px}
+ .market-sign span{display:none}.cashier-speech{font-size:16px;padding:7px 12px;top:7px}.checkout-scene .shelves{width:100px;padding:5px;gap:3px;opacity:.45}.checkout-scene .shelves svg{width:22px;height:26px}
+ .checkout-counter{height:64px}.checkout-scene .customer,.checkout-scene .helper{bottom:39px;height:calc(100% - 40px)}.customer-basket{bottom:42px}.belt-label{bottom:7px}.conveyor{height:34px;border-width:6px}.scanner{height:55px;top:-25px;border-width:5px}.scanner>span{margin-top:23px}.scan-light{top:8px}.shopping-bag{height:76px;width:74px;top:-28px;padding-top:22px;font-size:9px}.bag-handle{left:16px;width:35px}.belt-object{width:52px;height:62px;bottom:9px}.checkout-scene .plant{bottom:72px;width:35px}
+ .till-area{padding:6px 16px}.till-heading{min-height:38px;margin-bottom:4px}.till-heading h2{font-size:16px}.till-heading .eyebrow{font-size:8px}
+ .till-display{grid-template-columns:110px minmax(0,1fr);padding:5px 10px;gap:10px}.till-display #target{font-size:50px}.till-display #item-name{font-size:12px}.till-controls .choice{height:64px;font-size:42px}.till-controls .choice.word{font-size:24px}.till-controls .feedback{font-size:12px}
+ .activity-footer{margin-top:2px}.progress-footer{min-height:16px}.grownups summary{min-height:24px}
+}
+@media(max-width:759px){.header-right #decorate{padding:8px;font-size:10px}.wallet{white-space:nowrap;padding:8px 12px;font-size:16px}.brand{font-size:11px;letter-spacing:1px}.brand small{font-size:9px;letter-spacing:1.5px}.activity-footer #basket-progress{gap:4px}.basket-dot{width:9px;height:9px}}
+

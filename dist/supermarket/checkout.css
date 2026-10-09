@@ -47,3 +47,9 @@ dialog{max-height:calc(100dvh - 32px);overflow:auto}
 }
 @media(max-width:759px){.header-right #decorate{padding:8px;font-size:10px}.wallet{white-space:nowrap;padding:8px 12px;font-size:16px}.brand{font-size:11px;letter-spacing:1px}.brand small{font-size:9px;letter-spacing:1.5px}.activity-footer #basket-progress{gap:4px}.basket-dot{width:9px;height:9px}}
 
+.till-display>.request{display:none}
+.till-display{grid-template-columns:minmax(0,1fr)}
+.shop.retrying .till-display{border-color:#d7b363;background:#fff0cd}
+.shop.retrying .feedback{color:#806027;font-size:16px}
+.shop.retrying .choice:disabled{opacity:.6}
+

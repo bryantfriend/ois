@@ -52,4 +52,12 @@ dialog{max-height:calc(100dvh - 32px);overflow:auto}
 .shop.retrying .till-display{border-color:#d7b363;background:#fff0cd}
 .shop.retrying .feedback{color:#806027;font-size:16px}
 .shop.retrying .choice:disabled{opacity:.6}
+.till-controls .choice.word{white-space:normal;overflow-wrap:anywhere;line-height:1.1;font-size:clamp(14px,2vw,28px)}
 
+
+.belt-object{z-index:5}
+.checkout-start{position:absolute;left:50%;top:42%;transform:translate(-50%,-50%);z-index:10;width:60%;max-width:640px;min-height:64px;height:clamp(64px,12vh,150px);font-size:clamp(22px,3vw,40px);border-radius:24px;box-shadow:0 7px 0 #174f4b}
+.checkout-start:hover,.checkout-start:active{transform:translate(-50%,-50%) scale(1.02)}
+.customer-unloading .customer,.customer-unloading .customer svg{animation:none!important}
+.customer-unloading .customer .waving-arm{visibility:hidden}
+@media(max-width:759px){.checkout-start{top:42%;width:68%;height:76px;font-size:24px}}

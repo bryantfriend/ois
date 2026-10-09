@@ -1,0 +1,30 @@
+// Five distinct objects per letter. The illustration keys share a consistent SVG art kit.
+window.SHOP_OBJECTS={
+A:[['apple','apple'],['airplane','plane'],['avocado','avocado'],['ant','ant'],['apron','apron']],
+B:[['banana','banana'],['ball','ball'],['book','book'],['bag','bag'],['bus','bus']],
+C:[['cup','cup'],['cat','cat'],['car','car'],['carrot','carrot'],['cake','cake']],
+D:[['dog','dog'],['duck','duck'],['doll','doll'],['drum','drum'],['donut','donut']],
+E:[['egg','egg'],['elephant','elephant'],['envelope','envelope'],['eraser','eraser'],['eagle','eagle']],
+F:[['fish','fish'],['frog','frog'],['flower','flower'],['fan','fan'],['fork','fork']],
+G:[['grapes','grapes'],['guitar','guitar'],['goat','goat'],['glove','glove'],['gift','gift']],
+H:[['hat','hat'],['ham','ham'],['horse','horse'],['hammer','hammer'],['helicopter','helicopter']],
+I:[['ice cream','icecream'],['igloo','igloo'],['insect','insect'],['ink','ink'],['iguana','iguana']],
+J:[['jam','jam'],['juice','juice'],['jelly','jelly'],['jacket','jacket'],['jug','jug']],
+K:[['kite','kite'],['key','key'],['koala','koala'],['kettle','kettle'],['kiwi','kiwi']],
+L:[['lemon','lemon'],['lion','lion'],['lamp','lamp'],['leaf','leaf'],['ladder','ladder']],
+M:[['milk','milk'],['monkey','monkey'],['moon','moon'],['map','map'],['mushroom','mushroom']],
+N:[['nest','nest'],['net','net'],['notebook','notebook'],['noodles','noodles'],['nut','nut']],
+O:[['orange','orange'],['owl','owl'],['octopus','octopus'],['onion','onion'],['oven','oven']],
+P:[['pen','pen'],['pot','pot'],['pear','pear'],['pig','pig'],['pizza','pizza']],
+Q:[['queen doll','queen'],['quilt','quilt'],['quail','quail'],['quiche','quiche'],['quarter','quarter']],
+R:[['rabbit','rabbit'],['robot','robot'],['ring','ring'],['rocket','rocket'],['rainbow','rainbow']],
+S:[['sun','sun'],['sock','sock'],['soap','soap'],['spoon','spoon'],['star','star']],
+T:[['train','train'],['tiger','tiger'],['tomato','tomato'],['turtle','turtle'],['toothbrush','toothbrush']],
+U:[['umbrella','umbrella'],['unicorn','unicorn'],['uniform','uniform'],['ukulele','ukulele'],['unicycle','unicycle']],
+V:[['van','van'],['vase','vase'],['violin','violin'],['vest','vest'],['vacuum','vacuum']],
+W:[['watermelon','watermelon'],['whale','whale'],['watch','watch'],['wagon','wagon'],['whistle','whistle']],
+X:[['xylophone','xylophone'],['x-ray','xray'],['x-ray fish','xrayfish'],['xerus','xerus'],['x-ray machine','xraymachine']],
+Y:[['yogurt','yogurt'],['yo-yo','yoyo'],['yarn','yarn'],['yak','yak'],['yam','yam']],
+Z:[['zebra','zebra'],['zipper','zipper'],['zucchini','zucchini'],['zinnia','zinnia'],['zeppelin','zeppelin']]
+};
+window.SIMPLE_SHOP_WORDS=['cup','jam','egg','bag','ham','pot','hat','pen','dog','cat','bus','sun','map','nut','net','fan'];

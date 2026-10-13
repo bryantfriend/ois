@@ -356,12 +356,7 @@ function createWorldGame(saved,onRestore){
    if(link.type==='tunnel')text(state.world==='kyrgyzstan'?'Mountain tunnel':'Channel Tunnel',(a.x+b.x)/2,(a.y+b.y)/2-28,12/state.camera.zoom,'#7b4d88');
    if((state.world==='kyrgyzstan'?link.type==='rail':['rail','highspeed','tunnel'].includes(link.type))){ctx.strokeStyle='#74584b';ctx.lineWidth=2;for(let d=18;d<curve.length-12;d+=12){const p=pointAlong(curve,d/curve.length),nx=-Math.sin(p.angle),ny=Math.cos(p.angle);ctx.beginPath();ctx.moveTo(p.x-nx*6,p.y-ny*6);ctx.lineTo(p.x+nx*6,p.y+ny*6);ctx.stroke();}ctx.strokeStyle='#fff1d5';ctx.lineWidth=1;for(const side of [-2,2]){ctx.beginPath();traceSegment(ctx,curve,side);ctx.stroke();}}
    if(link.type==='road'){ctx.strokeStyle='#fffdf8b0';ctx.lineWidth=1;ctx.setLineDash([4,10]);ctx.beginPath();traceSegment(ctx,curve);ctx.stroke();ctx.setLineDash([]);}
-   }for(const vehicle of lineVehicles(link)){const link=vehicle,a=stops[link.a],b=stops[link.b],closed=link.type==='ferry'&&state.ferryClosed;const t=link.direction===1?link.position:1-link.position,location=pointAlong(geometry[link.segment??0],t),{x,y}=location;
-   if(link.service){const handling=stationStats(state,link.service.at).handling;ctx.beginPath();ctx.arc(x,y,19,-Math.PI/2,-Math.PI/2+Math.PI*2*Math.min(1,link.service.clock/handling));ctx.strokeStyle=link.service.phase==='unload'?'#dca438':'#137c83';ctx.lineWidth=3;ctx.stroke();}
-   ctx.beginPath();ctx.arc(x,y,11,0,Math.PI*2);ctx.fillStyle=lineColour(link.slot);ctx.fill();if(!closed){const transit=trainStationVisual(state.world==='kyrgyzstan'&&link.type!=='rail'?'road':link.type,state.levels[link.type],link.position,geometry[link.segment??0].length);art.vehicle(ctx,state.world==='kyrgyzstan'?({road:'road',rail:'rail',ferry:'road',flight:'flight',highspeed:'road',tunnel:'road'}[link.type]):link.type,x,y,location.angle+(link.direction===-1?Math.PI:0),visualTime,state.levels[link.type],state.running&&!link.service,transit);
-    ctx.save();if(transit)ctx.globalAlpha=Math.min(1,transit.visible/24);
-    for(let i=0;i<link.cargo.length;i++){const radius=Math.max(5,10/state.camera.zoom),spacing=radius*2+2,row=Math.floor(i/4),columns=Math.min(4,link.cargo.length-row*4);drawPassenger(state.passengers[link.cargo[i]],x+((i%4)-(columns-1)/2)*spacing,y-22-radius-row*spacing,radius);} ctx.restore();
-   }}
+   }
   }
   if(dragStart!==null&&pointer&&moved){const target=nearest(pointer),path=target===null?dragStops:dragStops.at(-1)===target?dragStops:[...dragStops,target],issue=target!==null?buildSelectedLine(structuredClone(state),path):null,end=target===null?pointer:stops[target],colour=issue?'#c04436':lineColour(state.lineSlot);ctx.beginPath();ctx.moveTo(stops[dragStart].x,stops[dragStart].y);for(const id of dragStops.slice(1))ctx.lineTo(stops[id].x,stops[id].y);ctx.lineTo(end.x,end.y);ctx.strokeStyle=colour;ctx.lineWidth=5;ctx.setLineDash([8,6]);ctx.stroke();ctx.setLineDash([]);if(target!==null){ctx.beginPath();ctx.arc(end.x,end.y,32,0,Math.PI*2);ctx.stroke();const title=issue?.message??'Release to build · '+Math.max(1,path.length-1)*routeCost(state,state.tool)+' 💷',hint=issue?.hint??'Your route will connect these two stops.';if(toast.firstChild?.textContent!==((issue?'✕ ':'➜ ')+title))feedback(title,hint,issue?'error':'preview',true);}else if(toast.dataset.kind==='preview'||toast.dataset.kind==='error'){toast.hidden=true;}}
   if(rejected&&performance.now()<rejected.until){const a=stops[rejected.a],b=stops[rejected.b];ctx.save();ctx.strokeStyle='#c04436';ctx.lineWidth=4;ctx.setLineDash([7,7]);ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();ctx.setLineDash([]);for(const s of [a,b]){ctx.beginPath();ctx.arc(s.x,s.y,32,0,Math.PI*2);ctx.stroke();}const x=(a.x+b.x)/2,y=(a.y+b.y)/2;ctx.fillStyle='#fff8f1';ctx.beginPath();ctx.arc(x,y,17,0,Math.PI*2);ctx.fill();text('×',x,y+8,28,'#c04436');ctx.restore();}
@@ -386,7 +381,15 @@ function createWorldGame(saved,onRestore){
    if(state.danger[stop.id]>0){ctx.beginPath();ctx.arc(stop.x,stop.y,32,0,Math.PI*2);ctx.lineWidth=5;ctx.strokeStyle=reducedMotion?'#d34e42':`rgba(211,78,66,${.55+.45*Math.sin(visualTime*Math.PI*2)})`;ctx.stroke();text(Math.ceil(stationStats(state,stop.id).alarm-state.danger[stop.id])+'s TO CLEAR',stop.x,stop.y-41-Math.max(0,Math.ceil(queue.length/4)-1)*14,14,'#b73832');}
    ctx.restore();
   }
-  if(state.ferryClosed){text('Ferries paused',stops[14].x+80,stops[14].y-40,18/state.camera.zoom,'#a44932');}
+  // Moving vehicles and onboard destinations stay above station artwork and queues.
+  for(const route of state.links){const geometry=routeGeometry(route,stops);
+   for(const vehicle of lineVehicles(route)){const link=vehicle,a=stops[link.a],b=stops[link.b],closed=link.type==='ferry'&&state.ferryClosed;const t=link.direction===1?link.position:1-link.position,location=pointAlong(geometry[link.segment??0],t),{x,y}=location;
+   if(link.service){const handling=stationStats(state,link.service.at).handling;ctx.beginPath();ctx.arc(x,y,19,-Math.PI/2,-Math.PI/2+Math.PI*2*Math.min(1,link.service.clock/handling));ctx.strokeStyle=link.service.phase==='unload'?'#dca438':'#137c83';ctx.lineWidth=3;ctx.stroke();}
+   ctx.beginPath();ctx.arc(x,y,11,0,Math.PI*2);ctx.fillStyle=lineColour(link.slot);ctx.fill();if(!closed){const transit=trainStationVisual(state.world==='kyrgyzstan'&&link.type!=='rail'?'road':link.type,state.levels[link.type],link.position,geometry[link.segment??0].length);art.vehicle(ctx,state.world==='kyrgyzstan'?({road:'road',rail:'rail',ferry:'road',flight:'flight',highspeed:'road',tunnel:'road'}[link.type]):link.type,x,y,location.angle+(link.direction===-1?Math.PI:0),visualTime,state.levels[link.type],state.running&&!link.service,transit);
+    ctx.save();if(transit)ctx.globalAlpha=Math.min(1,transit.visible/24);
+    for(let i=0;i<link.cargo.length;i++){const radius=Math.max(5,10/state.camera.zoom),spacing=radius*2+2,row=Math.floor(i/4),columns=Math.min(4,link.cargo.length-row*4);drawPassenger(state.passengers[link.cargo[i]],x+((i%4)-(columns-1)/2)*spacing,y-22-radius-row*spacing,radius);} ctx.restore();
+   }}
+  }  if(state.ferryClosed){text('Ferries paused',stops[14].x+80,stops[14].y-40,18/state.camera.zoom,'#a44932');}
   for(let i=effects.length-1;i>=0;i--){const e=effects[i],age=visualTime-e.born;if(age>1.4){effects.splice(i,1);continue;}const s=stops[e.id];ctx.save();ctx.globalAlpha=1-age/1.4;ctx.beginPath();ctx.arc(s.x,s.y,24+age*22,0,Math.PI*2);ctx.strokeStyle=e.colour;ctx.lineWidth=3;ctx.stroke();text(e.label,s.x,s.y-35-age*25,15,e.colour);ctx.restore();}
   expeditionUI?.draw(ctx);ctx.restore();
   shapeFilterUI?.refresh();
@@ -443,3 +446,4 @@ export function openCoastalGame(saved,onClose=()=>{}){
  dialog.addEventListener('close',()=>{onClose(structuredClone(game.state));game.destroy();dialog.remove();},{once:true});
  document.body.append(dialog);dialog.showModal();close.focus();
 }
+

@@ -210,3 +210,7 @@ Full checkout regression also passed: all 130 objects, 26 focused letters, stage
 
 2026-10-13: Archive all Geography shelf games except Coastal Connections; rename it Landmark Connections throughout the library, browser title, tutorial and translated start screen. Replace generic boat card with a route network connecting the game’s UK/Kyrgyz landmark artwork. Preserve identifiers, saves and archived content. Verification pending.
 Validation complete: 185 syntax checks; browser verified grades 7/8/all, other Geography hidden, other subjects retained, launch, three languages and mobile with no errors. Desktop/mobile artwork inspected. Updated obsolete 116-activity promo and versioned the game module graph for cached browsers.
+Published commit 19199ef9509d8c67b53f418cfc7ffe72a543721b. GitHub Pages deployment 38387164187 succeeded. Live browser regression passed both grades/all, archival, other subjects, artwork, game launch, English/Russian/Kyrgyz and mobile without page errors. No pending work.
+
+2026-10-13: User reports buses hidden behind stations. Move vehicle rendering (including handling rings and onboard destination badges) after station rendering; leave route lines below stations. Verification pending.
+Validation: UK/Kyrgyzstan departure, near-departure, near-arrival and arrival foreground order verified from actual canvas paint calls; movement/handling advances. Required gameplay client passed with no errors; bus-on-station screenshot inspected.

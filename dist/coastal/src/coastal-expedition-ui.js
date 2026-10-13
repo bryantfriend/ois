@@ -1,4 +1,4 @@
-import {expedition,pressureReport,encodeSave,decodeSave} from './coastal-expedition.js';
+import {expedition,pressureReport,encodeSave,decodeSave} from './coastal-expedition.js?v=tourist-itineraries-1';
 import {mapLandmarks,landmarkImage,visibleLandmarks} from './coastal-landmarks.js';
 import {geoStops as stops,regions} from './coastal-geography.js';
 import {lineName,lineColour} from './coastal-lines.js';

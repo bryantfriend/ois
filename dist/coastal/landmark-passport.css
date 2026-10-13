@@ -27,3 +27,6 @@
 .coastal-landmark-passport>.coastal-landmark-ref-close:first-child{position:absolute!important;width:auto!important;margin:0!important;display:block;right:15px;top:12px}
 
 .coastal-landmark-ref-location{display:block;margin-top:5px;font-style:italic;line-height:1.4}.coastal-landmark-ref-picture{object-fit:contain;background:#fffdf0}
+
+.coastal-tourist-itinerary{padding-left:24px}.coastal-tourist-itinerary li{display:flex;align-items:center;gap:12px;margin:10px 0;padding:12px;border:1px solid #c5d3bd;border-radius:12px;background:#fffdf0;flex-wrap:wrap}.coastal-tourist-itinerary img{width:52px;height:52px;object-fit:contain}.coastal-tourist-itinerary span{flex:1;min-width:140px}.coastal-tourist-itinerary strong{font-size:12px;color:#607368}.coastal-tourist-itinerary [data-visit=next]{border:2px solid #dca438;background:#fff4d6}.coastal-tourist-itinerary [data-visit=visited]{opacity:.65}
+.coastal-network-shop>button:first-child{margin-inline:0}

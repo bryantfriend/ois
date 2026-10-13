@@ -1,8 +1,8 @@
-import {registerTranslations,setLanguage,t} from './coastal-i18n.js';
-import {geoStops,regions} from './coastal-geography.js';
-import {cityQuestions} from './coastal-city-learning.js?v=unique-landmarks-2';
-import {countryQuestions} from './coastal-learning.js';
-import {stationArt} from './coastal-station-art.js';
+import {registerTranslations,setLanguage,t} from './coastal-i18n.js?v=landmark-connections-1';
+import {geoStops,regions} from './coastal-geography.js?v=landmark-connections-1';
+import {cityQuestions} from './coastal-city-learning.js?v=landmark-connections-1';
+import {countryQuestions} from './coastal-learning.js?v=landmark-connections-1';
+import {stationArt} from './coastal-station-art.js?v=landmark-connections-1';
 // Translate complete sentences so question grammar does not rely on word replacement.
 export function registerQuestionTranslations(world,language){
  const names=text=>{setLanguage('ru');const ru=t(text);setLanguage('ky');const ky=t(text);return [ru,ky];};

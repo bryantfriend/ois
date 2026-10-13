@@ -1,11 +1,11 @@
-import {regions,project} from './coastal-geography.js';
-import {regionShapes} from './coastal-boundaries.js';
-import {countryLearning,flagUrl} from './coastal-learning.js';
-import {stationArt,stationArtUrl} from './coastal-station-art.js';
-import {lineColour} from './coastal-lines.js';
+import {regions,project} from './coastal-geography.js?v=landmark-connections-1';
+import {regionShapes} from './coastal-boundaries.js?v=landmark-connections-1';
+import {countryLearning,flagUrl} from './coastal-learning.js?v=landmark-connections-1';
+import {stationArt,stationArtUrl} from './coastal-station-art.js?v=landmark-connections-1';
+import {lineColour} from './coastal-lines.js?v=landmark-connections-1';
 
-import {expedition,recordKnowledge} from './coastal-expedition.js';
-import {mapLandmarks} from './coastal-landmarks.js';
+import {expedition,recordKnowledge} from './coastal-expedition.js?v=landmark-connections-1';
+import {mapLandmarks} from './coastal-landmarks.js?v=landmark-connections-1';
 const asset=name=>new URL('../assets/coastal/passport/'+name+'.png',import.meta.url).href;
 export function renderPassportReview({content,state,review,region,question,stops,lineStops,node,makeButton,refresh,close}){
  const country=regions.find(r=>r.id===region),learning=countryLearning[region],capital=stops.find(s=>s.region===region&&s.capital),art=stationArt[capital.id];

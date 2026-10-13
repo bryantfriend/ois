@@ -1,6 +1,6 @@
-import {validItinerary} from './coastal-itineraries.js';
-import {geoStops as stops,regions} from './coastal-geography.js';
-import {mapLandmarks} from './coastal-landmarks.js';
+import {validItinerary} from './coastal-itineraries.js?v=landmark-connections-1';
+import {geoStops as stops,regions} from './coastal-geography.js?v=landmark-connections-1';
+import {mapLandmarks} from './coastal-landmarks.js?v=landmark-connections-1';
 export function expedition(state){
  state.expedition??={visits:{},knowledge:{},stamps:{},missions:[],missionRound:0};
  const e=state.expedition;

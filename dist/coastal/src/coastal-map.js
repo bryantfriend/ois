@@ -1,9 +1,9 @@
-import {regionShapes} from './coastal-boundaries.js';
-import {regions,project,waterways,rivers,worldId} from './coastal-geography.js';
-import {landmarkLayout,landmarkImage} from './coastal-landmarks.js';
-import {drawLandmarkArt} from './coastal-landmark-art.js';
-import {kgLakes,kgPasses} from './coastal-kyrgyzstan-data.js';
-import {t} from './coastal-i18n.js';
+import {regionShapes} from './coastal-boundaries.js?v=landmark-connections-1';
+import {regions,project,waterways,rivers,worldId} from './coastal-geography.js?v=landmark-connections-1';
+import {landmarkLayout,landmarkImage} from './coastal-landmarks.js?v=landmark-connections-1';
+import {drawLandmarkArt} from './coastal-landmark-art.js?v=landmark-connections-1';
+import {kgLakes,kgPasses} from './coastal-kyrgyzstan-data.js?v=landmark-connections-1';
+import {t} from './coastal-i18n.js?v=landmark-connections-1';
 const paths=new Map(),pictures=new Map();function picture(place){const src=landmarkImage(place);if(!pictures.has(src)){const image=new Image();image.src=src;pictures.set(src,image);}return pictures.get(src);}
 export function geographyBounds(round){const points=regions.filter(r=>r.round<=round).flatMap(r=>regionShapes[r.id].flat()).map(([x,y])=>project(x,y));return {left:Math.min(...points.map(p=>p.x))-80,right:Math.max(...points.map(p=>p.x))+110,top:Math.min(...points.map(p=>p.y))-60,bottom:Math.max(...points.map(p=>p.y))+100};}
 function countryPath(id){const key=worldId+':'+id;if(paths.has(key))return paths.get(key);const path=new Path2D();for(const ring of regionShapes[id]){ring.forEach(([lon,lat],i)=>{const p=project(lon,lat);path[i?'lineTo':'moveTo'](p.x,p.y);});path.closePath();}paths.set(key,path);return path;}

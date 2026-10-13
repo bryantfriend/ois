@@ -1,7 +1,7 @@
-import {countryOutline} from './coastal-country-outline.js';
-import {mapLandmarks,landmarkImage} from './coastal-landmarks.js';
-import {regions,geoStops} from './coastal-geography.js';
-import {countryLearning,unlockedCountries,flagUrl,questionForCoin,answerGeographyCoin} from './coastal-learning.js';
+import {countryOutline} from './coastal-country-outline.js?v=landmark-connections-1';
+import {mapLandmarks,landmarkImage} from './coastal-landmarks.js?v=landmark-connections-1';
+import {regions,geoStops} from './coastal-geography.js?v=landmark-connections-1';
+import {countryLearning,unlockedCountries,flagUrl,questionForCoin,answerGeographyCoin} from './coastal-learning.js?v=landmark-connections-1';
 export function installLearningUI({root,map,side,state,node,refresh}){
  function flag(id){const image=node('img',null,'coastal-country-flag');image.src=flagUrl(id);image.alt=id==='northern-ireland'?'Union Flag of the United Kingdom':regions.find(r=>r.id===id).name+' flag';return image;}
  function modal(label,cls){const dialog=node('dialog',null,'coastal-shop '+cls),close=node('button','Close '+label.toLowerCase()+' ×');close.type='button';close.onclick=()=>dialog.close();dialog.setAttribute('aria-label',label);dialog.append(close);root.append(dialog);return dialog;}

@@ -4,6 +4,7 @@ export function registerTranslations(en,ru,ky){dictionary.set(en,[ru,ky]);folded
 export function setLanguage(value){language=['en','ru','ky'].includes(value)?value:'en';}
 export const currentLanguage=()=>language;
 const entries=`
+Landmark Connections|Связи достопримечательностей|Көрүнүктүү жерлердин байланышы
 United Kingdom|Великобритания|Улуу Британия
 Kyrgyzstan|Кыргызстан|Кыргызстан
 Choose your journey|Выберите путешествие|Саякатыңызды тандаңыз

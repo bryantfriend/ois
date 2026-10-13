@@ -1,7 +1,7 @@
-import {expedition,pressureReport,encodeSave,decodeSave} from './coastal-expedition.js?v=tourist-itineraries-1';
-import {mapLandmarks,landmarkImage,visibleLandmarks} from './coastal-landmarks.js';
-import {geoStops as stops,regions} from './coastal-geography.js';
-import {lineName,lineColour} from './coastal-lines.js';
+import {expedition,pressureReport,encodeSave,decodeSave} from './coastal-expedition.js?v=landmark-connections-1';
+import {mapLandmarks,landmarkImage,visibleLandmarks} from './coastal-landmarks.js?v=landmark-connections-1';
+import {geoStops as stops,regions} from './coastal-geography.js?v=landmark-connections-1';
+import {lineName,lineColour} from './coastal-lines.js?v=landmark-connections-1';
 export function installExpedition({root,side,controls,state,node,refresh,restore,engine}){
  const button=(label,action)=>{const b=node('button',label);b.type='button';b.onclick=action;return b;};
  function modal(title){const d=node('dialog',null,'coastal-shop coastal-expedition-shop');d.setAttribute('aria-label',title);let resume=false;d.append(button('Close '+title+' ×',()=>d.close()),node('h3',title));const content=node('div');d.append(content);root.append(d);d.addEventListener('click',event=>{if(event.target===d){const r=d.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)d.close();}});d.addEventListener('close',()=>{if(resume&&!state.complete&&!state.failed&&!root.querySelector('dialog[open]'))state.running=true;resume=false;refresh();});return {d,content,open(){resume=state.running;state.running=false;d.showModal();refresh();}};}

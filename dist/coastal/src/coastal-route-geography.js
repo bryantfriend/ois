@@ -1,5 +1,5 @@
-import {regionShapes} from './coastal-boundaries.js?v=landmark-connections-1';
-import {project,worldId} from './coastal-geography.js?v=landmark-connections-1';
+import {regionShapes} from './coastal-boundaries.js?v=map-callouts-1';
+import {project,worldId} from './coastal-geography.js?v=map-callouts-1';
 const getPolygons=()=>Object.values(regionShapes).flat().map(ring=>ring.map(([lon,lat])=>project(lon,lat)));
 const cross=(a,b)=>a.x*b.y-a.y*b.x;
 // A shared station is a junction; overlapping road interiors are conflicts.

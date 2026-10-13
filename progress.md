@@ -218,3 +218,7 @@ Published 4eb1323fad7a160d4a813696af3f84172af324e6; Pages deployment 38390250590
 
 2026-10-13: Publish Landmark Connections and UK Border Geography: The First Shift in OIS Geography. Landmark Connections is already live with foreground vehicles; add the inspection game’s latest built bundle and catalog entry, allow it through the Geography archive filter, preserve all other archived games. Verification pending.
 Validation passed: correct grades/card filtering, both launch buttons, Landmark launch, inspection full ten-case regression including mouse/touch stamps, passport reading, atlas/journal, narrative transitions, replay/mobile and zero page errors. Required gameplay client and screenshots reviewed.
+Published f3bd54df428b5307b8b313c037ce46f29bcabb8d; Pages deployment 38405257656 succeeded. Live Geography shelf, both launch buttons, inspection briefing and Landmark journey verified with no errors. No pending work.
+
+2026-10-13: Hide duplicate map callout pictures when the visible city marker already shows that landmark. Retain landmark catalog/passport content and distinct natural/site landmarks. Remove duplicates from anchor allocation so remaining landmarks are not displaced by hidden callouts. Verification pending.
+Validation: both worlds at rounds 1/8/20/40 remove exactly the duplicated city callouts (35 per world at full unlock), retain every distinct landmark, preserve city destination sprites and passport content. Browser screenshots inspected; no page errors. Gameplay client reached playable map and captured clean screenshot/state.

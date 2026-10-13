@@ -1,10 +1,10 @@
-import {stationArt} from './coastal-station-art.js?v=landmark-connections-1';
-import {destinationArtUrl} from './coastal-destinations.js?v=landmark-connections-1';
-import {renderPassportReview} from './coastal-passport-review.js?v=landmark-connections-1';
-import {installPassportFit} from './coastal-passport-fit.js?v=landmark-connections-1';
-import {regions,vehicleLabels} from './coastal-geography.js?v=landmark-connections-1';
-import {countryQuestions} from './coastal-learning.js?v=landmark-connections-1';
-import {lineColour,lineName,freeLineSlot} from './coastal-lines.js?v=landmark-connections-1';
+import {stationArt} from './coastal-station-art.js?v=map-callouts-1';
+import {destinationArtUrl} from './coastal-destinations.js?v=map-callouts-1';
+import {renderPassportReview} from './coastal-passport-review.js?v=map-callouts-1';
+import {installPassportFit} from './coastal-passport-fit.js?v=map-callouts-1';
+import {regions,vehicleLabels} from './coastal-geography.js?v=map-callouts-1';
+import {countryQuestions} from './coastal-learning.js?v=map-callouts-1';
+import {lineColour,lineName,freeLineSlot} from './coastal-lines.js?v=map-callouts-1';
 export function installNetworkFeatures({root,map,side,controls,celebration,state,node,refresh,draw,engine,openVehicle,openCards,fresh}){
  const {stops,lineStops,routeCost,buyLine,extendLine,passengerJourney,roundReview,buyLineVehicle,lineVehicles,setDifficulty}=engine;
  const makeButton=(label,action)=>{const b=node('button',label);b.type='button';b.onclick=action;return b;};

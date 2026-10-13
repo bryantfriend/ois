@@ -1,4 +1,4 @@
-import {geoStops} from './coastal-geography.js?v=landmark-connections-1';
+import {geoStops} from './coastal-geography.js?v=map-callouts-1';
 // Fictional disruptions for Hard mode; facts describe the real locations.
 export function planEvent(state){
  if(state.mode!=='hard'||state.round<3)return null;

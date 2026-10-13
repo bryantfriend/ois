@@ -1,4 +1,4 @@
-import {registerTranslations} from './coastal-i18n.js?v=landmark-connections-1';
+import {registerTranslations} from './coastal-i18n.js?v=map-callouts-1';
 const rows=`
 Belgium shares borders with France, the Netherlands, Germany and Luxembourg.|Бельгия граничит с Францией, Нидерландами, Германией и Люксембургом.|Бельгия Франция, Нидерланддар, Германия жана Люксембург менен чектешет.
 The Netherlands borders the North Sea, Belgium and Germany.|Нидерланды граничат с Северным морем, Бельгией и Германией.|Нидерланддар Түндүк деңиз, Бельгия жана Германия менен чектешет.

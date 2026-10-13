@@ -1,4 +1,4 @@
-import {shapeCollection,stationShape} from './coastal-shapes.js?v=landmark-connections-1';
+import {shapeCollection,stationShape} from './coastal-shapes.js?v=map-callouts-1';
 export let worldId='uk';
 export function setWorldProjection(id){worldId=id;}
 export const project=(lon,lat)=>worldId==='kyrgyzstan'?({x:(lon-69)*105,y:(43.3-lat)*155}):({x:(lon+12)*65,y:(61-lat)*95});

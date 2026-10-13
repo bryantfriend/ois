@@ -1,6 +1,6 @@
-import {regions,geoStops} from './coastal-geography.js?v=landmark-connections-1';
-import {flagUrl,countryLearning} from './coastal-learning.js?v=landmark-connections-1';
-import {stationArt,stationArtUrl} from './coastal-station-art.js?v=landmark-connections-1';
+import {regions,geoStops} from './coastal-geography.js?v=map-callouts-1';
+import {flagUrl,countryLearning} from './coastal-learning.js?v=map-callouts-1';
+import {stationArt,stationArtUrl} from './coastal-station-art.js?v=map-callouts-1';
 export function installTravelJournal({root,side,state,node,mission,count,bar,task,wallet,pressure,message,routes,mapKey,runCards,learningUI,vehiclePicture,refresh,roundDuration,stationStats,draw}){
  side.classList.add('coastal-journal');let country=0,lastRound=0,key='';
  const heading=node('header',null,'coastal-journal-heading');heading.append(node('span','✦ FIELD NOTES'),node('h3','Travel journal'),node('span','Explore · Connect · Discover'));

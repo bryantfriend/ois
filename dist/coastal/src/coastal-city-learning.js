@@ -1,5 +1,5 @@
-import {geoStops,regions,worldId} from './coastal-geography.js?v=landmark-connections-1';
-import {stationArt} from './coastal-station-art.js?v=landmark-connections-1';
+import {geoStops,regions,worldId} from './coastal-geography.js?v=map-callouts-1';
+import {stationArt} from './coastal-station-art.js?v=map-callouts-1';
 // Wikipedia city articles checked for the geography facts. Correct answers are first.
 export const cityDetails=[
  ['London','River Thames','Clock tower and parliament buildings','London is the capital of which two places?','England and the United Kingdom','Wales and France','Scotland and Belgium'],
@@ -38,7 +38,7 @@ export const cityDetails=[
  ['Cologne','River Rhine','Cathedral','Which architectural style is Cologne Cathedral known for?','Gothic','Modern glass skyscraper','Ancient Greek temple'],
  ['Hamburg','River Elbe','Concert hall','How does the Elbe help Hamburg’s transport connections?','It connects the port towards the North Sea','It connects directly to the Pacific Ocean','It is a desert road']
 ];
-import {kgCities} from './coastal-kyrgyzstan-data.js?v=landmark-connections-1';
+import {kgCities} from './coastal-kyrgyzstan-data.js?v=map-callouts-1';
 const kgWaterArticles={'Chuy River':'Chu_(river)','Naryn River':'Naryn_(river)','Talas River':'Talas_(river)','Issyk-Kul':'Issyk-Kul'};
 const kgWaterSource=id=>kgWaterArticles[kgCities[id][10]]?'https://en.wikipedia.org/wiki/'+kgWaterArticles[kgCities[id][10]]:cityWikipedia(id);
 export const cityWikipedia=id=>worldId==='kyrgyzstan'?'https://en.wikipedia.org/wiki/'+encodeURIComponent(kgCities[id][0].replaceAll(' ','_')):'https://en.wikipedia.org/wiki/'+encodeURIComponent(cityDetails[id][0]);

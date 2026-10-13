@@ -1,4 +1,4 @@
-import {t,setLanguage} from './coastal-i18n.js?v=landmark-connections-1';
+import {t,setLanguage} from './coastal-i18n.js?v=map-callouts-1';
 export function startScreen({node,onStart,initial={}}){
  let world=initial.world??'uk',language=initial.language??'en',mode=initial.mode??'normal';
  const root=node('section',null,'coastal-start-screen');

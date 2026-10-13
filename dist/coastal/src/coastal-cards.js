@@ -1,4 +1,4 @@
-import {unlockRounds} from './coastal-geography.js?v=landmark-connections-1';
+import {unlockRounds} from './coastal-geography.js?v=map-callouts-1';
 const card=(id,name,description,effects)=>({id,name,description,effects});
 export function migrateRefundCards(state){for(const h of state.cardHistory??[]){if(!['refund','resale'].includes(h.id)||!h.description?.includes('refunds'))continue;const c=[...goodCards,...badCards].find(c=>c.id===h.id);state.mods??={};state.mods.allCost=(state.mods.allCost??0)+c.effects.allCost;h.name=c.name;h.description=c.description;}}
 export const goodCards=[

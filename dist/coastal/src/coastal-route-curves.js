@@ -1,5 +1,5 @@
-import {worldId,project} from './coastal-geography.js?v=landmark-connections-1';
-import {kgShorePaths} from './coastal-kyrgyzstan-data.js?v=landmark-connections-1';
+import {worldId,project} from './coastal-geography.js?v=map-callouts-1';
+import {kgShorePaths} from './coastal-kyrgyzstan-data.js?v=map-callouts-1';
 // Keep bends within station footprints; shore corridors are explicit map paths.
 const cache=new WeakMap(),distance=(a,b)=>Math.hypot(b.x-a.x,b.y-a.y);
 const mix=(a,b,t)=>({x:a.x+(b.x-a.x)*t,y:a.y+(b.y-a.y)*t});

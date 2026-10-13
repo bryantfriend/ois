@@ -1,7 +1,7 @@
-import {stationArt,stationArtUrl} from './coastal-station-art.js?v=landmark-connections-1';
-import {landmarkDestinationUrl} from './coastal-landmark-catalog.js?v=landmark-connections-1';
-import {regions} from './coastal-geography.js?v=landmark-connections-1';
-import {t,registerTranslations} from './coastal-i18n.js?v=landmark-connections-1';
+import {stationArt,stationArtUrl} from './coastal-station-art.js?v=map-callouts-1';
+import {landmarkDestinationUrl} from './coastal-landmark-catalog.js?v=map-callouts-1';
+import {regions} from './coastal-geography.js?v=map-callouts-1';
+import {t,registerTranslations} from './coastal-i18n.js?v=map-callouts-1';
 for(const row of [
  ['Geography passport','Географический паспорт','Географиялык паспорт'],['Passport','Паспорт','Паспорт'],
  ['Destinations','Пункты назначения','Бара турган шаарлар'],['All destinations','Все пункты назначения','Бардык шаарлар'],

@@ -1,5 +1,5 @@
-import {regions,geoStops,worldId} from './coastal-geography.js?v=landmark-connections-1';
-import {cityQuestions} from './coastal-city-learning.js?v=landmark-connections-1';
+import {regions,geoStops,worldId} from './coastal-geography.js?v=map-callouts-1';
+import {cityQuestions} from './coastal-city-learning.js?v=map-callouts-1';
 export const countryLearning={
  england:{setting:'A country of the United Kingdom, on the island of Great Britain.',water:'North Sea, English Channel, River Thames',landmarks:[['Big Ben','London','The famous bell inside the clock tower beside the Houses of Parliament.','🕰'],['Stonehenge','Wiltshire','A prehistoric stone circle: an example of a human-made landmark.','🪨'],['White Cliffs of Dover','Kent','Chalk cliffs overlooking the English Channel towards France.','🌊'],['Lake District','Cumbria','A landscape of lakes and mountains in north-west England.','🏔']],extra:['Stonehenge in Wiltshire, England, has a stone circle built about 4,500 years ago — around the same time as the Great Pyramid in Egypt!'],question:['Which waterway separates southern England from France?','English Channel','Irish Sea','Baltic Sea']},
  wales:{setting:'A country of the United Kingdom, west of England on Great Britain.',water:'Irish Sea, Bristol Channel, River Severn',landmarks:[['Cardiff Castle','Cardiff','A castle in the capital with layers of history stretching back to Roman times.','🏰'],['Eryri / Snowdonia','North Wales','A national park known for its mountain landscapes.','🏔'],['Conwy Castle','Conwy','A medieval castle beside the estuary of the River Conwy.','🏰']],extra:['Cymru is the Welsh name for Wales. Welsh and English are used in Wales.'],question:['What is the Welsh name for Cardiff?','Caerdydd','Cymru','Eryri']},
@@ -29,5 +29,5 @@ export function advanceLearning(state,dt){
  if(!l.bags[city.id]?.length){const bag=quizQuestions(city.id).map((_,i)=>i);for(let i=bag.length-1;i>0;i--){const j=Math.floor(random()*(i+1));[bag[i],bag[j]]=[bag[j],bag[i]];}if(bag.at(-1)===l.last[city.id])[bag[0],bag[bag.length-1]]=[bag.at(-1),bag[0]];l.bags[city.id]=bag;}
  const question=l.bags[city.id].pop();l.last[city.id]=question;l.coin={id:l.serial,city:city.id,region:city.region,question,x:24+(l.serial*23)%53,y:26+(l.serial*13)%38};
 }
-import {recordKnowledge} from './coastal-expedition.js?v=landmark-connections-1';
+import {recordKnowledge} from './coastal-expedition.js?v=map-callouts-1';
 export function answerGeographyCoin(state,coinId,choice){const l=state.learning,coin=l?.coin;if(!coin||coin.id!==coinId)return null;const q=questionForCoin(coin);if(!q||!q.options.includes(choice))return null;const correct=choice===q.options[0],reward=correct?15:0;state.credits+=reward;if(correct)recordKnowledge(state,coin.region);l.earned+=reward;l.coin=null;return {correct,reward,answer:q.options[0],explanation:q.explanation};}

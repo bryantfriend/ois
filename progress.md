@@ -214,3 +214,7 @@ Published commit 19199ef9509d8c67b53f418cfc7ffe72a543721b. GitHub Pages deployme
 
 2026-10-13: User reports buses hidden behind stations. Move vehicle rendering (including handling rings and onboard destination badges) after station rendering; leave route lines below stations. Verification pending.
 Validation: UK/Kyrgyzstan departure, near-departure, near-arrival and arrival foreground order verified from actual canvas paint calls; movement/handling advances. Required gameplay client passed with no errors; bus-on-station screenshot inspected.
+Published 4eb1323fad7a160d4a813696af3f84172af324e6; Pages deployment 38390250590 succeeded. Live source order and game launch verified with no page errors. No pending work.
+
+2026-10-13: Publish Landmark Connections and UK Border Geography: The First Shift in OIS Geography. Landmark Connections is already live with foreground vehicles; add the inspection game’s latest built bundle and catalog entry, allow it through the Geography archive filter, preserve all other archived games. Verification pending.
+Validation passed: correct grades/card filtering, both launch buttons, Landmark launch, inspection full ten-case regression including mouse/touch stamps, passport reading, atlas/journal, narrative transitions, replay/mobile and zero page errors. Required gameplay client and screenshots reviewed.

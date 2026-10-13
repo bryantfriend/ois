@@ -1,0 +1,562 @@
+[
+  {
+    "world": "uk",
+    "id": 0,
+    "city": "London",
+    "landmark": "Big Ben and the Houses of Parliament",
+    "prompt": "Use case: stylized-concept. Production game sprite, ONE isolated landmark emblem for London, British/European transport map. Depict Big Ben and the Houses of Parliament, geographically grounded recognizable form. This is a small destination symbol used identically for station, waiting passenger and onboard cargo in an educational geography game. Bold simplified flat dark teal silhouette with minimal muted sage/gold accents on an entirely uniform warm ivory #fffdf0 background. Landmark fills central 80% of square canvas, generous 10% margin, no framing circle, no text, letters, numbers, map, people or vehicles unless the landmark itself is a station. Crisp strong outer contour, readable at 24 pixels, very few interior details. Natural landscape/craft entries show characteristic local landscape/craft, not invented buildings. Consistent clean atlas illustration style. ONE subject, no grid, no variants, no shadows, no gradients.",
+    "asset": "dist/coastal/assets/coastal/destinations/uk/0.webp"
+  },
+  {
+    "world": "uk",
+    "id": 1,
+    "city": "Oxford",
+    "landmark": "Radcliffe Camera",
+    "prompt": "Use case: stylized-concept. Production game sprite, ONE isolated landmark emblem for Oxford, British/European transport map. Depict Radcliffe Camera, geographically grounded recognizable form. This is a small destination symbol used identically for station, waiting passenger and onboard cargo in an educational geography game. Bold simplified flat dark teal silhouette with minimal muted sage/gold accents on an entirely uniform warm ivory #fffdf0 background. Landmark fills central 80% of square canvas, generous 10% margin, no framing circle, no text, letters, numbers, map, people or vehicles unless the landmark itself is a station. Crisp strong outer contour, readable at 24 pixels, very few interior details. Natural landscape/craft entries show characteristic local landscape/craft, not invented buildings. Consistent clean atlas illustration style. ONE subject, no grid, no variants, no shadows, no gradients.",
+    "asset": "dist/coastal/assets/coastal/destinations/uk/1.webp"
+  },
+  {
+    "world": "uk",
+    "id": 2,
+    "city": "Bristol",
+    "landmark": "Clifton Suspension Bridge",
+    "prompt": "Use case: stylized-concept. Production game sprite, ONE isolated landmark emblem for Bristol, British/European transport map. Depict Clifton Suspension Bridge, geographically grounded recognizable form. This is a small destination symbol used identically for station, waiting passenger and onboard cargo in an educational geography game. Bold simplified flat dark teal silhouette with minimal muted sage/gold accents on an entirely uniform warm ivory #fffdf0 background. Landmark fills central 80% of square canvas, generous 10% margin, no framing circle, no text, letters, numbers, map, people or vehicles unless the landmark itself is a station. Crisp strong outer contour, readable at 24 pixels, very few interior details. Natural landscape/craft entries show characteristic local landscape/craft, not invented buildings. Consistent clean atlas illustration style. ONE subject, no grid, no variants, no shadows, no gradients.",
+    "asset": "dist/coastal/assets/coastal/destinations/uk/2.webp"
+  },
+  {
+    "world": "uk",
+    "id": 3,
+    "city": "Birmingham",
+    "landmark": "Library of Birmingham",
+    "prompt": "Use case: stylized-concept. Production game sprite, ONE isolated landmark emblem for Birmingham, British/European transport map. Depict Library of Birmingham, geographically grounded recognizable form. This is a small destination symbol used identically for station, waiting passenger and onboard cargo in an educational geography game. Bold simplified flat dark teal silhouette with minimal muted sage/gold accents on an entirely uniform warm ivory #fffdf0 background. Landmark fills central 80% of square canvas, generous 10% margin, no framing circle, no text, letters, numbers, map, people or vehicles unless the landmark itself is a station. Crisp strong outer contour, readable at 24 pixels, very few interior details. Natural landscape/craft entries show characteristic local landscape/craft, not invented buildings. Consistent clean atlas illustration style. ONE subject, no grid, no variants, no shadows, no gradients.",
+    "asset": "dist/coastal/assets/coastal/destinations/uk/3.webp"
+  },
+  {
+    "world": "uk",
+    "id": 4,
+    "city": "Manchester",
+    "landmark": "Manchester Town Hall",
+    "prompt": "Use case: stylized-concept. Production game sprite, ONE isolated landmark emblem for Manchester, British/European transport map. Depict Manchester Town Hall, geographically grounded recognizable form. This is a small destination symbol used identically for station, waiting passenger and onboard cargo in an educational geography game. Bold simplified flat dark teal silhouette with minimal muted sage/gold accents on an entirely uniform warm ivory #fffdf0 background. Landmark fills central 80% of square canvas, generous 10% margin, no framing circle, no text, letters, numbers, map, people or vehicles unless the landmark itself is a station. Crisp strong outer contour, readable at 24 pixels, very few interior details. Natural landscape/craft entries show characteristic local landscape/craft, not invented buildings. Consistent clean atlas illustration style. ONE subject, no grid, no variants, no shadows, no gradients.",
+    "asset": "dist/coastal/assets/coastal/destinations/uk/4.webp"
+  },
+  {
+    "world": "uk",
+    "id": 5,
+    "city": "Cardiff",
+    "landmark": "Cardiff Castle",
+    "prompt": "Use case: stylized-concept. Production game sprite, ONE isolated landmark emblem for Cardiff, British/European transport map. Depict Cardiff Castle, geographically grounded recognizable form. This is a small destination symbol used identically for station, waiting passenger and onboard cargo in an educational geography game. Bold simplified flat dark teal silhouette with minimal muted sage/gold accents on an entirely uniform warm ivory #fffdf0 background. Landmark fills central 80% of square canvas, generous 10% margin, no framing circle, no text, letters, numbers, map, people or vehicles unless the landmark itself is a station. Crisp strong outer contour, readable at 24 pixels, very few interior details. Natural landscape/craft entries show characteristic local landscape/craft, not invented buildings. Consistent clean atlas illustration style. ONE subject, no grid, no variants, no shadows, no gradients.",
+    "asset": "dist/coastal/assets/coastal/destinations/uk/5.webp"
+  },
+  {
+    "world": "uk",
+    "id": 6,
+    "city": "Swansea",
+    "landmark": "National Waterfront Museum",
+    "prompt": "Use case: stylized-concept. Production game sprite, ONE isolated landmark emblem for Swansea, British/European transport map. Depict National Waterfront Museum, geographically grounded recognizable form. This is a small destination symbol used identically for station, waiting passenger and onboard cargo in an educational geography game. Bold simplified flat dark teal silhouette with minimal muted sage/gold accents on an entirely uniform warm ivory #fffdf0 background. Landmark fills central 80% of square canvas, generous 10% margin, no framing circle, no text, letters, numbers, map, people or vehicles unless the landmark itself is a station. Crisp strong outer contour, readable at 24 pixels, very few interior details. Natural landscape/craft entries show characteristic local landscape/craft, not invented buildings. Consistent clean atlas illustration style. ONE subject, no grid, no variants, no shadows, no gradients.",
+    "asset": "dist/coastal/assets/coastal/destinations/uk/6.webp"
+  },
+  {
+    "world": "uk",
+    "id": 7,
+    "city": "Bangor",
+    "landmark": "Garth Pier",
+    "prompt": "Use case: stylized-concept. Production game sprite, ONE isolated landmark emblem for Bangor, British/European transport map. Depict Garth Pier, geographically grounded recognizable form. This is a small destination symbol used identically for station, waiting passenger and onboard cargo in an educational geography game. Bold simplified flat dark teal silhouette with minimal muted sage/gold accents on an entirely uniform warm ivory #fffdf0 background. Landmark fills central 80% of square canvas, generous 10% margin, no framing circle, no text, letters, numbers, map, people or vehicles unless the landmark itself is a station. Crisp strong outer contour, readable at 24 pixels, very few interior details. Natural landscape/craft entries show characteristic local landscape/craft, not invented buildings. Consistent clean atlas illustration style. ONE subject, no grid, no variants, no shadows, no gradients.",
+    "asset": "dist/coastal/assets/coastal/destinations/uk/7.webp"
+  },
+  {
+    "world": "uk",
+    "id": 8,
+    "city": "Edinburgh",
+    "landmark": "Edinburgh Castle",
+    "prompt": "Use case: stylized-concept. Production game sprite, ONE isolated landmark emblem for Edinburgh, British/European transport map. Depict Edinburgh Castle, geographically grounded recognizable form. This is a small destination symbol used identically for station, waiting passenger and onboard cargo in an educational geography game. Bold simplified flat dark teal silhouette with minimal muted sage/gold accents on an entirely uniform warm ivory #fffdf0 background. Landmark fills central 80% of square canvas, generous 10% margin, no framing circle, no text, letters, numbers, map, people or vehicles unless the landmark itself is a station. Crisp strong outer contour, readable at 24 pixels, very few interior details. Natural landscape/craft entries show characteristic local landscape/craft, not invented buildings. Consistent clean atlas illustration style. ONE subject, no grid, no variants, no shadows, no gradients.",
+    "asset": "dist/coastal/assets/coastal/destinations/uk/8.webp"
+  },
+  {
+    "world": "uk",
+    "id": 9,
+    "city": "Glasgow",
+    "landmark": "University of Glasgow",
+    "prompt": "Use case: stylized-concept. Production game sprite, ONE isolated landmark emblem for Glasgow, British/European transport map. Depict University of Glasgow, geographically grounded recognizable form. This is a small destination symbol used identically for station, waiting passenger and onboard cargo in an educational geography game. Bold simplified flat dark teal silhouette with minimal muted sage/gold accents on an entirely uniform warm ivory #fffdf0 background. Landmark fills central 80% of square canvas, generous 10% margin, no framing circle, no text, letters, numbers, map, people or vehicles unless the landmark itself is a station. Crisp strong outer contour, readable at 24 pixels, very few interior details. Natural landscape/craft entries show characteristic local landscape/craft, not invented buildings. Consistent clean atlas illustration style. ONE subject, no grid, no variants, no shadows, no gradients.",
+    "asset": "dist/coastal/assets/coastal/destinations/uk/9.webp"
+  },
+  {
+    "world": "uk",
+    "id": 10,
+    "city": "Inverness",
+    "landmark": "Inverness Castle",
+    "prompt": "Use case: stylized-concept. Production game sprite, ONE isolated landmark emblem for Inverness, British/European transport map. Depict Inverness Castle, geographically grounded recognizable form. This is a small destination symbol used identically for station, waiting passenger and onboard cargo in an educational geography game. Bold simplified flat dark teal silhouette with minimal muted sage/gold accents on an entirely uniform warm ivory #fffdf0 background. Landmark fills central 80% of square canvas, generous 10% margin, no framing circle, no text, letters, numbers, map, people or vehicles unless the landmark itself is a station. Crisp strong outer contour, readable at 24 pixels, very few interior details. Natural landscape/craft entries show characteristic local landscape/craft, not invented buildings. Consistent clean atlas illustration style. ONE subject, no grid, no variants, no shadows, no gradients.",
+    "asset": "dist/coastal/assets/coastal/destinations/uk/10.webp"
+  },
+  {
+    "world": "uk",
+    "id": 11,
+    "city": "Aberdeen",
+    "landmark": "Marischal College",
+    "prompt": "Use case: stylized-concept. Production game sprite, ONE isolated landmark emblem for Aberdeen, British/European transport map. Depict Marischal College, geographically grounded recognizable form. This is a small destination symbol used identically for station, waiting passenger and onboard cargo in an educational geography game. Bold simplified flat dark teal silhouette with minimal muted sage/gold accents on an entirely uniform warm ivory #fffdf0 background. Landmark fills central 80% of square canvas, generous 10% margin, no framing circle, no text, letters, numbers, map, people or vehicles unless the landmark itself is a station. Crisp strong outer contour, readable at 24 pixels, very few interior details. Natural landscape/craft entries show characteristic local landscape/craft, not invented buildings. Consistent clean atlas illustration style. ONE subject, no grid, no variants, no shadows, no gradients.",
+    "asset": "dist/coastal/assets/coastal/destinations/uk/11.webp"
+  },
+  {
+    "world": "uk",
+    "id": 12,
+    "city": "Liverpool",
+    "landmark": "Royal Liver Building",
+    "prompt": "Use case: stylized-concept. Production game sprite, ONE isolated landmark emblem for Liverpool, British/European transport map. Depict Royal Liver Building, geographically grounded recognizable form. This is a small destination symbol used identically for station, waiting passenger and onboard cargo in an educational geography game. Bold simplified flat dark teal silhouette with minimal muted sage/gold accents on an entirely uniform warm ivory #fffdf0 background. Landmark fills central 80% of square canvas, generous 10% margin, no framing circle, no text, letters, numbers, map, people or vehicles unless the landmark itself is a station. Crisp strong outer contour, readable at 24 pixels, very few interior details. Natural landscape/craft entries show characteristic local landscape/craft, not invented buildings. Consistent clean atlas illustration style. ONE subject, no grid, no variants, no shadows, no gradients.",
+    "asset": "dist/coastal/assets/coastal/destinations/uk/12.webp"
+  },
+  {
+    "world": "uk",
+    "id": 13,
+    "city": "Holyhead",
+    "landmark": "St Cybi’s Church",
+    "prompt": "Use case: stylized-concept. Production game sprite, ONE isolated landmark emblem for Holyhead, British/European transport map. Depict St Cybi’s Church, geographically grounded recognizable form. This is a small destination symbol used identically for station, waiting passenger and onboard cargo in an educational geography game. Bold simplified flat dark teal silhouette with minimal muted sage/gold accents on an entirely uniform warm ivory #fffdf0 background. Landmark fills central 80% of square canvas, generous 10% margin, no framing circle, no text, letters, numbers, map, people or vehicles unless the landmark itself is a station. Crisp strong outer contour, readable at 24 pixels, very few interior details. Natural landscape/craft entries show characteristic local landscape/craft, not invented buildings. Consistent clean atlas illustration style. ONE subject, no grid, no variants, no shadows, no gradients.",
+    "asset": "dist/coastal/assets/coastal/destinations/uk/13.webp"
+  },
+  {
+    "world": "uk",
+    "id": 14,
+    "city": "Belfast",
+    "landmark": "Titanic Belfast",
+    "prompt": "Use case: stylized-concept. Production game sprite, ONE isolated landmark emblem for Belfast, British/European transport map. Depict Titanic Belfast, geographically grounded recognizable form. This is a small destination symbol used identically for station, waiting passenger and onboard cargo in an educational geography game. Bold simplified flat dark teal silhouette with minimal muted sage/gold accents on an entirely uniform warm ivory #fffdf0 background. Landmark fills central 80% of square canvas, generous 10% margin, no framing circle, no text, letters, numbers, map, people or vehicles unless the landmark itself is a station. Crisp strong outer contour, readable at 24 pixels, very few interior details. Natural landscape/craft entries show characteristic local landscape/craft, not invented buildings. Consistent clean atlas illustration style. ONE subject, no grid, no variants, no shadows, no gradients.",
+    "asset": "dist/coastal/assets/coastal/destinations/uk/14.webp"
+  },
+  {
+    "world": "uk",
+    "id": 15,
+    "city": "Dublin",
+    "landmark": "Ha’penny Bridge",
+    "prompt": "Use case: stylized-concept. Production game sprite, ONE isolated landmark emblem for Dublin, British/European transport map. Depict Ha’penny Bridge, geographically grounded recognizable form. This is a small destination symbol used identically for station, waiting passenger and onboard cargo in an educational geography game. Bold simplified flat dark teal silhouette with minimal muted sage/gold accents on an entirely uniform warm ivory #fffdf0 background. Landmark fills central 80% of square canvas, generous 10% margin, no framing circle, no text, letters, numbers, map, people or vehicles unless the landmark itself is a station. Crisp strong outer contour, readable at 24 pixels, very few interior details. Natural landscape/craft entries show characteristic local landscape/craft, not invented buildings. Consistent clean atlas illustration style. ONE subject, no grid, no variants, no shadows, no gradients.",
+    "asset": "dist/coastal/assets/coastal/destinations/uk/15.webp"
+  },
+  {
+    "world": "uk",
+    "id": 16,
+    "city": "Cork",
+    "landmark": "St Fin Barre’s Cathedral",
+    "prompt": "Use case: stylized-concept. Production game sprite, ONE isolated landmark emblem for Cork, British/European transport map. Depict St Fin Barre’s Cathedral, geographically grounded recognizable form. This is a small destination symbol used identically for station, waiting passenger and onboard cargo in an educational geography game. Bold simplified flat dark teal silhouette with minimal muted sage/gold accents on an entirely uniform warm ivory #fffdf0 background. Landmark fills central 80% of square canvas, generous 10% margin, no framing circle, no text, letters, numbers, map, people or vehicles unless the landmark itself is a station. Crisp strong outer contour, readable at 24 pixels, very few interior details. Natural landscape/craft entries show characteristic local landscape/craft, not invented buildings. Consistent clean atlas illustration style. ONE subject, no grid, no variants, no shadows, no gradients.",
+    "asset": "dist/coastal/assets/coastal/destinations/uk/16.webp"
+  },
+  {
+    "world": "uk",
+    "id": 17,
+    "city": "Galway",
+    "landmark": "Spanish Arch",
+    "prompt": "Use case: stylized-concept. Production game sprite, ONE isolated landmark emblem for Galway, British/European transport map. Depict Spanish Arch, geographically grounded recognizable form. This is a small destination symbol used identically for station, waiting passenger and onboard cargo in an educational geography game. Bold simplified flat dark teal silhouette with minimal muted sage/gold accents on an entirely uniform warm ivory #fffdf0 background. Landmark fills central 80% of square canvas, generous 10% margin, no framing circle, no text, letters, numbers, map, people or vehicles unless the landmark itself is a station. Crisp strong outer contour, readable at 24 pixels, very few interior details. Natural landscape/craft entries show characteristic local landscape/craft, not invented buildings. Consistent clean atlas illustration style. ONE subject, no grid, no variants, no shadows, no gradients.",
+    "asset": "dist/coastal/assets/coastal/destinations/uk/17.webp"
+  },
+  {
+    "world": "uk",
+    "id": 18,
+    "city": "Newcastle",
+    "landmark": "Tyne Bridge",
+    "prompt": "Use case: stylized-concept. Production game sprite, ONE isolated landmark emblem for Newcastle, British/European transport map. Depict Tyne Bridge, geographically grounded recognizable form. This is a small destination symbol used identically for station, waiting passenger and onboard cargo in an educational geography game. Bold simplified flat dark teal silhouette with minimal muted sage/gold accents on an entirely uniform warm ivory #fffdf0 background. Landmark fills central 80% of square canvas, generous 10% margin, no framing circle, no text, letters, numbers, map, people or vehicles unless the landmark itself is a station. Crisp strong outer contour, readable at 24 pixels, very few interior details. Natural landscape/craft entries show characteristic local landscape/craft, not invented buildings. Consistent clean atlas illustration style. ONE subject, no grid, no variants, no shadows, no gradients.",
+    "asset": "dist/coastal/assets/coastal/destinations/uk/18.webp"
+  },
+  {
+    "world": "uk",
+    "id": 19,
+    "city": "Derry / Londonderry",
+    "landmark": "Peace Bridge",
+    "prompt": "Use case: stylized-concept. Production game sprite, ONE isolated landmark emblem for Derry / Londonderry, British/European transport map. Depict Peace Bridge, geographically grounded recognizable form. This is a small destination symbol used identically for station, waiting passenger and onboard cargo in an educational geography game. Bold simplified flat dark teal silhouette with minimal muted sage/gold accents on an entirely uniform warm ivory #fffdf0 background. Landmark fills central 80% of square canvas, generous 10% margin, no framing circle, no text, letters, numbers, map, people or vehicles unless the landmark itself is a station. Crisp strong outer contour, readable at 24 pixels, very few interior details. Natural landscape/craft entries show characteristic local landscape/craft, not invented buildings. Consistent clean atlas illustration style. ONE subject, no grid, no variants, no shadows, no gradients.",
+    "asset": "dist/coastal/assets/coastal/destinations/uk/19.webp"
+  },
+  {
+    "world": "uk",
+    "id": 20,
+    "city": "Southampton",
+    "landmark": "Bargate",
+    "prompt": "Use case: stylized-concept. Production game sprite, ONE isolated landmark emblem for Southampton, British/European transport map. Depict Bargate, geographically grounded recognizable form. This is a small destination symbol used identically for station, waiting passenger and onboard cargo in an educational geography game. Bold simplified flat dark teal silhouette with minimal muted sage/gold accents on an entirely uniform warm ivory #fffdf0 background. Landmark fills central 80% of square canvas, generous 10% margin, no framing circle, no text, letters, numbers, map, people or vehicles unless the landmark itself is a station. Crisp strong outer contour, readable at 24 pixels, very few interior details. Natural landscape/craft entries show characteristic local landscape/craft, not invented buildings. Consistent clean atlas illustration style. ONE subject, no grid, no variants, no shadows, no gradients.",
+    "asset": "dist/coastal/assets/coastal/destinations/uk/20.webp"
+  },
+  {
+    "world": "uk",
+    "id": 21,
+    "city": "Paris",
+    "landmark": "Eiffel Tower",
+    "prompt": "Use case: stylized-concept. Production game sprite, ONE isolated landmark emblem for Paris, British/European transport map. Depict Eiffel Tower, geographically grounded recognizable form. This is a small destination symbol used identically for station, waiting passenger and onboard cargo in an educational geography game. Bold simplified flat dark teal silhouette with minimal muted sage/gold accents on an entirely uniform warm ivory #fffdf0 background. Landmark fills central 80% of square canvas, generous 10% margin, no framing circle, no text, letters, numbers, map, people or vehicles unless the landmark itself is a station. Crisp strong outer contour, readable at 24 pixels, very few interior details. Natural landscape/craft entries show characteristic local landscape/craft, not invented buildings. Consistent clean atlas illustration style. ONE subject, no grid, no variants, no shadows, no gradients.",
+    "asset": "dist/coastal/assets/coastal/destinations/uk/21.webp"
+  },
+  {
+    "world": "uk",
+    "id": 22,
+    "city": "Coquelles",
+    "landmark": "Channel Tunnel terminal",
+    "prompt": "Use case: stylized-concept. Production game sprite, ONE isolated landmark emblem for Coquelles, British/European transport map. Depict Channel Tunnel terminal, geographically grounded recognizable form. This is a small destination symbol used identically for station, waiting passenger and onboard cargo in an educational geography game. Bold simplified flat dark teal silhouette with minimal muted sage/gold accents on an entirely uniform warm ivory #fffdf0 background. Landmark fills central 80% of square canvas, generous 10% margin, no framing circle, no text, letters, numbers, map, people or vehicles unless the landmark itself is a station. Crisp strong outer contour, readable at 24 pixels, very few interior details. Natural landscape/craft entries show characteristic local landscape/craft, not invented buildings. Consistent clean atlas illustration style. ONE subject, no grid, no variants, no shadows, no gradients.",
+    "asset": "dist/coastal/assets/coastal/destinations/uk/22.webp"
+  },
+  {
+    "world": "uk",
+    "id": 23,
+    "city": "Folkestone",
+    "landmark": "Folkestone Harbour Arm",
+    "prompt": "Use case: stylized-concept. Production game sprite, ONE isolated landmark emblem for Folkestone, British/European transport map. Depict Folkestone Harbour Arm, geographically grounded recognizable form. This is a small destination symbol used identically for station, waiting passenger and onboard cargo in an educational geography game. Bold simplified flat dark teal silhouette with minimal muted sage/gold accents on an entirely uniform warm ivory #fffdf0 background. Landmark fills central 80% of square canvas, generous 10% margin, no framing circle, no text, letters, numbers, map, people or vehicles unless the landmark itself is a station. Crisp strong outer contour, readable at 24 pixels, very few interior details. Natural landscape/craft entries show characteristic local landscape/craft, not invented buildings. Consistent clean atlas illustration style. ONE subject, no grid, no variants, no shadows, no gradients.",
+    "asset": "dist/coastal/assets/coastal/destinations/uk/23.webp"
+  },
+  {
+    "world": "uk",
+    "id": 24,
+    "city": "Lyon",
+    "landmark": "Basilica of Notre-Dame de Fourvière",
+    "prompt": "Use case: stylized-concept. Production game sprite, ONE isolated landmark emblem for Lyon, British/European transport map. Depict Basilica of Notre-Dame de Fourvière, geographically grounded recognizable form. This is a small destination symbol used identically for station, waiting passenger and onboard cargo in an educational geography game. Bold simplified flat dark teal silhouette with minimal muted sage/gold accents on an entirely uniform warm ivory #fffdf0 background. Landmark fills central 80% of square canvas, generous 10% margin, no framing circle, no text, letters, numbers, map, people or vehicles unless the landmark itself is a station. Crisp strong outer contour, readable at 24 pixels, very few interior details. Natural landscape/craft entries show characteristic local landscape/craft, not invented buildings. Consistent clean atlas illustration style. ONE subject, no grid, no variants, no shadows, no gradients.",
+    "asset": "dist/coastal/assets/coastal/destinations/uk/24.webp"
+  },
+  {
+    "world": "uk",
+    "id": 25,
+    "city": "Bordeaux",
+    "landmark": "Place de la Bourse",
+    "prompt": "Use case: stylized-concept. Production game sprite, ONE isolated landmark emblem for Bordeaux, British/European transport map. Depict Place de la Bourse, geographically grounded recognizable form. This is a small destination symbol used identically for station, waiting passenger and onboard cargo in an educational geography game. Bold simplified flat dark teal silhouette with minimal muted sage/gold accents on an entirely uniform warm ivory #fffdf0 background. Landmark fills central 80% of square canvas, generous 10% margin, no framing circle, no text, letters, numbers, map, people or vehicles unless the landmark itself is a station. Crisp strong outer contour, readable at 24 pixels, very few interior details. Natural landscape/craft entries show characteristic local landscape/craft, not invented buildings. Consistent clean atlas illustration style. ONE subject, no grid, no variants, no shadows, no gradients.",
+    "asset": "dist/coastal/assets/coastal/destinations/uk/25.webp"
+  },
+  {
+    "world": "uk",
+    "id": 26,
+    "city": "Brussels",
+    "landmark": "Atomium",
+    "prompt": "Use case: stylized-concept. Production game sprite, ONE isolated landmark emblem for Brussels, British/European transport map. Depict Atomium, geographically grounded recognizable form. This is a small destination symbol used identically for station, waiting passenger and onboard cargo in an educational geography game. Bold simplified flat dark teal silhouette with minimal muted sage/gold accents on an entirely uniform warm ivory #fffdf0 background. Landmark fills central 80% of square canvas, generous 10% margin, no framing circle, no text, letters, numbers, map, people or vehicles unless the landmark itself is a station. Crisp strong outer contour, readable at 24 pixels, very few interior details. Natural landscape/craft entries show characteristic local landscape/craft, not invented buildings. Consistent clean atlas illustration style. ONE subject, no grid, no variants, no shadows, no gradients.",
+    "asset": "dist/coastal/assets/coastal/destinations/uk/26.webp"
+  },
+  {
+    "world": "uk",
+    "id": 27,
+    "city": "Antwerp",
+    "landmark": "Antwerp Central Station",
+    "prompt": "Use case: stylized-concept. Production game sprite, ONE isolated landmark emblem for Antwerp, British/European transport map. Depict Antwerp Central Station, geographically grounded recognizable form. This is a small destination symbol used identically for station, waiting passenger and onboard cargo in an educational geography game. Bold simplified flat dark teal silhouette with minimal muted sage/gold accents on an entirely uniform warm ivory #fffdf0 background. Landmark fills central 80% of square canvas, generous 10% margin, no framing circle, no text, letters, numbers, map, people or vehicles unless the landmark itself is a station. Crisp strong outer contour, readable at 24 pixels, very few interior details. Natural landscape/craft entries show characteristic local landscape/craft, not invented buildings. Consistent clean atlas illustration style. ONE subject, no grid, no variants, no shadows, no gradients.",
+    "asset": "dist/coastal/assets/coastal/destinations/uk/27.webp"
+  },
+  {
+    "world": "uk",
+    "id": 28,
+    "city": "Ghent",
+    "landmark": "Gravensteen",
+    "prompt": "Use case: stylized-concept. Production game sprite, ONE isolated landmark emblem for Ghent, British/European transport map. Depict Gravensteen, geographically grounded recognizable form. This is a small destination symbol used identically for station, waiting passenger and onboard cargo in an educational geography game. Bold simplified flat dark teal silhouette with minimal muted sage/gold accents on an entirely uniform warm ivory #fffdf0 background. Landmark fills central 80% of square canvas, generous 10% margin, no framing circle, no text, letters, numbers, map, people or vehicles unless the landmark itself is a station. Crisp strong outer contour, readable at 24 pixels, very few interior details. Natural landscape/craft entries show characteristic local landscape/craft, not invented buildings. Consistent clean atlas illustration style. ONE subject, no grid, no variants, no shadows, no gradients.",
+    "asset": "dist/coastal/assets/coastal/destinations/uk/28.webp"
+  },
+  {
+    "world": "uk",
+    "id": 29,
+    "city": "Amsterdam",
+    "landmark": "Amsterdam’s canal houses",
+    "prompt": "Use case: stylized-concept. Production game sprite, ONE isolated landmark emblem for Amsterdam, British/European transport map. Depict Amsterdam’s canal houses, geographically grounded recognizable form. This is a small destination symbol used identically for station, waiting passenger and onboard cargo in an educational geography game. Bold simplified flat dark teal silhouette with minimal muted sage/gold accents on an entirely uniform warm ivory #fffdf0 background. Landmark fills central 80% of square canvas, generous 10% margin, no framing circle, no text, letters, numbers, map, people or vehicles unless the landmark itself is a station. Crisp strong outer contour, readable at 24 pixels, very few interior details. Natural landscape/craft entries show characteristic local landscape/craft, not invented buildings. Consistent clean atlas illustration style. ONE subject, no grid, no variants, no shadows, no gradients.",
+    "asset": "dist/coastal/assets/coastal/destinations/uk/29.webp"
+  },
+  {
+    "world": "uk",
+    "id": 30,
+    "city": "Rotterdam",
+    "landmark": "Erasmus Bridge",
+    "prompt": "Use case: stylized-concept. Production game sprite, ONE isolated landmark emblem for Rotterdam, British/European transport map. Depict Erasmus Bridge, geographically grounded recognizable form. This is a small destination symbol used identically for station, waiting passenger and onboard cargo in an educational geography game. Bold simplified flat dark teal silhouette with minimal muted sage/gold accents on an entirely uniform warm ivory #fffdf0 background. Landmark fills central 80% of square canvas, generous 10% margin, no framing circle, no text, letters, numbers, map, people or vehicles unless the landmark itself is a station. Crisp strong outer contour, readable at 24 pixels, very few interior details. Natural landscape/craft entries show characteristic local landscape/craft, not invented buildings. Consistent clean atlas illustration style. ONE subject, no grid, no variants, no shadows, no gradients.",
+    "asset": "dist/coastal/assets/coastal/destinations/uk/30.webp"
+  },
+  {
+    "world": "uk",
+    "id": 31,
+    "city": "The Hague",
+    "landmark": "Binnenhof and Ridderzaal",
+    "prompt": "Use case: stylized-concept. Production game sprite, ONE isolated landmark emblem for The Hague, British/European transport map. Depict Binnenhof and Ridderzaal, geographically grounded recognizable form. This is a small destination symbol used identically for station, waiting passenger and onboard cargo in an educational geography game. Bold simplified flat dark teal silhouette with minimal muted sage/gold accents on an entirely uniform warm ivory #fffdf0 background. Landmark fills central 80% of square canvas, generous 10% margin, no framing circle, no text, letters, numbers, map, people or vehicles unless the landmark itself is a station. Crisp strong outer contour, readable at 24 pixels, very few interior details. Natural landscape/craft entries show characteristic local landscape/craft, not invented buildings. Consistent clean atlas illustration style. ONE subject, no grid, no variants, no shadows, no gradients.",
+    "asset": "dist/coastal/assets/coastal/destinations/uk/31.webp"
+  },
+  {
+    "world": "uk",
+    "id": 32,
+    "city": "Berlin",
+    "landmark": "Brandenburg Gate",
+    "prompt": "Use case: stylized-concept. Production game sprite, ONE isolated landmark emblem for Berlin, British/European transport map. Depict Brandenburg Gate, geographically grounded recognizable form. This is a small destination symbol used identically for station, waiting passenger and onboard cargo in an educational geography game. Bold simplified flat dark teal silhouette with minimal muted sage/gold accents on an entirely uniform warm ivory #fffdf0 background. Landmark fills central 80% of square canvas, generous 10% margin, no framing circle, no text, letters, numbers, map, people or vehicles unless the landmark itself is a station. Crisp strong outer contour, readable at 24 pixels, very few interior details. Natural landscape/craft entries show characteristic local landscape/craft, not invented buildings. Consistent clean atlas illustration style. ONE subject, no grid, no variants, no shadows, no gradients.",
+    "asset": "dist/coastal/assets/coastal/destinations/uk/32.webp"
+  },
+  {
+    "world": "uk",
+    "id": 33,
+    "city": "Cologne",
+    "landmark": "Cologne Cathedral",
+    "prompt": "Use case: stylized-concept. Production game sprite, ONE isolated landmark emblem for Cologne, British/European transport map. Depict Cologne Cathedral, geographically grounded recognizable form. This is a small destination symbol used identically for station, waiting passenger and onboard cargo in an educational geography game. Bold simplified flat dark teal silhouette with minimal muted sage/gold accents on an entirely uniform warm ivory #fffdf0 background. Landmark fills central 80% of square canvas, generous 10% margin, no framing circle, no text, letters, numbers, map, people or vehicles unless the landmark itself is a station. Crisp strong outer contour, readable at 24 pixels, very few interior details. Natural landscape/craft entries show characteristic local landscape/craft, not invented buildings. Consistent clean atlas illustration style. ONE subject, no grid, no variants, no shadows, no gradients.",
+    "asset": "dist/coastal/assets/coastal/destinations/uk/33.webp"
+  },
+  {
+    "world": "uk",
+    "id": 34,
+    "city": "Hamburg",
+    "landmark": "Elbphilharmonie",
+    "prompt": "Use case: stylized-concept. Production game sprite, ONE isolated landmark emblem for Hamburg, British/European transport map. Depict Elbphilharmonie, geographically grounded recognizable form. This is a small destination symbol used identically for station, waiting passenger and onboard cargo in an educational geography game. Bold simplified flat dark teal silhouette with minimal muted sage/gold accents on an entirely uniform warm ivory #fffdf0 background. Landmark fills central 80% of square canvas, generous 10% margin, no framing circle, no text, letters, numbers, map, people or vehicles unless the landmark itself is a station. Crisp strong outer contour, readable at 24 pixels, very few interior details. Natural landscape/craft entries show characteristic local landscape/craft, not invented buildings. Consistent clean atlas illustration style. ONE subject, no grid, no variants, no shadows, no gradients.",
+    "asset": "dist/coastal/assets/coastal/destinations/uk/34.webp"
+  },
+  {
+    "world": "kyrgyzstan",
+    "id": 0,
+    "city": "Bishkek",
+    "landmark": "Ala-Too Square",
+    "prompt": "Use case: stylized-concept. Production game sprite, ONE isolated landmark emblem for Bishkek, Kyrgyzstan. Depict Ala-Too Square, geographically grounded recognizable form. This is a small destination symbol used identically for station, waiting passenger and onboard cargo in an educational geography game. Bold simplified flat dark teal silhouette with minimal muted sage/gold accents on an entirely uniform warm ivory #fffdf0 background. Landmark fills central 80% of square canvas, generous 10% margin, no framing circle, no text, letters, numbers, map, people or vehicles unless the landmark itself is a station. Crisp strong outer contour, readable at 24 pixels, very few interior details. Natural landscape/craft entries show characteristic local landscape/craft, not invented buildings. Consistent clean atlas illustration style. ONE subject, no grid, no variants, no shadows, no gradients.",
+    "asset": "dist/coastal/assets/coastal/destinations/kyrgyzstan/0.webp"
+  },
+  {
+    "world": "kyrgyzstan",
+    "id": 1,
+    "city": "Tokmok",
+    "landmark": "Burana Tower",
+    "prompt": "Use case: stylized-concept. Production game sprite, ONE isolated landmark emblem for Tokmok, Kyrgyzstan. Depict Burana Tower, geographically grounded recognizable form. This is a small destination symbol used identically for station, waiting passenger and onboard cargo in an educational geography game. Bold simplified flat dark teal silhouette with minimal muted sage/gold accents on an entirely uniform warm ivory #fffdf0 background. Landmark fills central 80% of square canvas, generous 10% margin, no framing circle, no text, letters, numbers, map, people or vehicles unless the landmark itself is a station. Crisp strong outer contour, readable at 24 pixels, very few interior details. Natural landscape/craft entries show characteristic local landscape/craft, not invented buildings. Consistent clean atlas illustration style. ONE subject, no grid, no variants, no shadows, no gradients.",
+    "asset": "dist/coastal/assets/coastal/destinations/kyrgyzstan/1.webp"
+  },
+  {
+    "world": "kyrgyzstan",
+    "id": 2,
+    "city": "Kant",
+    "landmark": "Kant railway station",
+    "prompt": "Use case: stylized-concept. Production game sprite, ONE isolated landmark emblem for Kant, Kyrgyzstan. Depict Kant railway station, geographically grounded recognizable form. This is a small destination symbol used identically for station, waiting passenger and onboard cargo in an educational geography game. Bold simplified flat dark teal silhouette with minimal muted sage/gold accents on an entirely uniform warm ivory #fffdf0 background. Landmark fills central 80% of square canvas, generous 10% margin, no framing circle, no text, letters, numbers, map, people or vehicles unless the landmark itself is a station. Crisp strong outer contour, readable at 24 pixels, very few interior details. Natural landscape/craft entries show characteristic local landscape/craft, not invented buildings. Consistent clean atlas illustration style. ONE subject, no grid, no variants, no shadows, no gradients.",
+    "asset": "dist/coastal/assets/coastal/destinations/kyrgyzstan/2.webp"
+  },
+  {
+    "world": "kyrgyzstan",
+    "id": 3,
+    "city": "Kara-Balta",
+    "landmark": "Kara-Balta valley",
+    "prompt": "Use case: stylized-concept. Production game sprite, ONE isolated landmark emblem for Kara-Balta, Kyrgyzstan. Depict Kara-Balta valley, geographically grounded recognizable form. This is a small destination symbol used identically for station, waiting passenger and onboard cargo in an educational geography game. Bold simplified flat dark teal silhouette with minimal muted sage/gold accents on an entirely uniform warm ivory #fffdf0 background. Landmark fills central 80% of square canvas, generous 10% margin, no framing circle, no text, letters, numbers, map, people or vehicles unless the landmark itself is a station. Crisp strong outer contour, readable at 24 pixels, very few interior details. Natural landscape/craft entries show characteristic local landscape/craft, not invented buildings. Consistent clean atlas illustration style. ONE subject, no grid, no variants, no shadows, no gradients.",
+    "asset": "dist/coastal/assets/coastal/destinations/kyrgyzstan/3.webp"
+  },
+  {
+    "world": "kyrgyzstan",
+    "id": 4,
+    "city": "Sokuluk",
+    "landmark": "Sokuluk orchards",
+    "prompt": "Use case: stylized-concept. Production game sprite, ONE isolated landmark emblem for Sokuluk, Kyrgyzstan. Depict Sokuluk orchards, geographically grounded recognizable form. This is a small destination symbol used identically for station, waiting passenger and onboard cargo in an educational geography game. Bold simplified flat dark teal silhouette with minimal muted sage/gold accents on an entirely uniform warm ivory #fffdf0 background. Landmark fills central 80% of square canvas, generous 10% margin, no framing circle, no text, letters, numbers, map, people or vehicles unless the landmark itself is a station. Crisp strong outer contour, readable at 24 pixels, very few interior details. Natural landscape/craft entries show characteristic local landscape/craft, not invented buildings. Consistent clean atlas illustration style. ONE subject, no grid, no variants, no shadows, no gradients.",
+    "asset": "dist/coastal/assets/coastal/destinations/kyrgyzstan/4.webp"
+  },
+  {
+    "world": "kyrgyzstan",
+    "id": 5,
+    "city": "Balykchy",
+    "landmark": "Balykchy lakeshore",
+    "prompt": "Use case: stylized-concept. Production game sprite, ONE isolated landmark emblem for Balykchy, Kyrgyzstan. Depict Balykchy lakeshore, geographically grounded recognizable form. This is a small destination symbol used identically for station, waiting passenger and onboard cargo in an educational geography game. Bold simplified flat dark teal silhouette with minimal muted sage/gold accents on an entirely uniform warm ivory #fffdf0 background. Landmark fills central 80% of square canvas, generous 10% margin, no framing circle, no text, letters, numbers, map, people or vehicles unless the landmark itself is a station. Crisp strong outer contour, readable at 24 pixels, very few interior details. Natural landscape/craft entries show characteristic local landscape/craft, not invented buildings. Consistent clean atlas illustration style. ONE subject, no grid, no variants, no shadows, no gradients.",
+    "asset": "dist/coastal/assets/coastal/destinations/kyrgyzstan/5.webp"
+  },
+  {
+    "world": "kyrgyzstan",
+    "id": 6,
+    "city": "Cholpon-Ata",
+    "landmark": "Cholpon-Ata petroglyphs",
+    "prompt": "Use case: stylized-concept. Production game sprite, ONE isolated landmark emblem for Cholpon-Ata, Kyrgyzstan. Depict Cholpon-Ata petroglyphs, geographically grounded recognizable form. This is a small destination symbol used identically for station, waiting passenger and onboard cargo in an educational geography game. Bold simplified flat dark teal silhouette with minimal muted sage/gold accents on an entirely uniform warm ivory #fffdf0 background. Landmark fills central 80% of square canvas, generous 10% margin, no framing circle, no text, letters, numbers, map, people or vehicles unless the landmark itself is a station. Crisp strong outer contour, readable at 24 pixels, very few interior details. Natural landscape/craft entries show characteristic local landscape/craft, not invented buildings. Consistent clean atlas illustration style. ONE subject, no grid, no variants, no shadows, no gradients.",
+    "asset": "dist/coastal/assets/coastal/destinations/kyrgyzstan/6.webp"
+  },
+  {
+    "world": "kyrgyzstan",
+    "id": 7,
+    "city": "Karakol",
+    "landmark": "Dungan Mosque",
+    "prompt": "Use case: stylized-concept. Production game sprite, ONE isolated landmark emblem for Karakol, Kyrgyzstan. Depict Dungan Mosque, geographically grounded recognizable form. This is a small destination symbol used identically for station, waiting passenger and onboard cargo in an educational geography game. Bold simplified flat dark teal silhouette with minimal muted sage/gold accents on an entirely uniform warm ivory #fffdf0 background. Landmark fills central 80% of square canvas, generous 10% margin, no framing circle, no text, letters, numbers, map, people or vehicles unless the landmark itself is a station. Crisp strong outer contour, readable at 24 pixels, very few interior details. Natural landscape/craft entries show characteristic local landscape/craft, not invented buildings. Consistent clean atlas illustration style. ONE subject, no grid, no variants, no shadows, no gradients.",
+    "asset": "dist/coastal/assets/coastal/destinations/kyrgyzstan/7.webp"
+  },
+  {
+    "world": "kyrgyzstan",
+    "id": 8,
+    "city": "Talas",
+    "landmark": "Manas Ordo",
+    "prompt": "One simplified square brick mausoleum with pointed arch at Manas Ordo, Talas; no tower or invented monument.",
+    "asset": "dist/coastal/assets/coastal/destinations/kyrgyzstan/8.webp"
+  },
+  {
+    "world": "kyrgyzstan",
+    "id": 9,
+    "city": "Manas",
+    "landmark": "Talas valley farmland",
+    "prompt": "Use case: stylized-concept. Production game sprite, ONE isolated landmark emblem for Manas, Kyrgyzstan. Depict Talas valley farmland, geographically grounded recognizable form. This is a small destination symbol used identically for station, waiting passenger and onboard cargo in an educational geography game. Bold simplified flat dark teal silhouette with minimal muted sage/gold accents on an entirely uniform warm ivory #fffdf0 background. Landmark fills central 80% of square canvas, generous 10% margin, no framing circle, no text, letters, numbers, map, people or vehicles unless the landmark itself is a station. Crisp strong outer contour, readable at 24 pixels, very few interior details. Natural landscape/craft entries show characteristic local landscape/craft, not invented buildings. Consistent clean atlas illustration style. ONE subject, no grid, no variants, no shadows, no gradients.",
+    "asset": "dist/coastal/assets/coastal/destinations/kyrgyzstan/9.webp"
+  },
+  {
+    "world": "kyrgyzstan",
+    "id": 10,
+    "city": "Kyzyl-Adyr",
+    "landmark": "Kara-Buura valley",
+    "prompt": "Use case: stylized-concept. Production game sprite, ONE isolated landmark emblem for Kyzyl-Adyr, Kyrgyzstan. Depict Kara-Buura valley, geographically grounded recognizable form. This is a small destination symbol used identically for station, waiting passenger and onboard cargo in an educational geography game. Bold simplified flat dark teal silhouette with minimal muted sage/gold accents on an entirely uniform warm ivory #fffdf0 background. Landmark fills central 80% of square canvas, generous 10% margin, no framing circle, no text, letters, numbers, map, people or vehicles unless the landmark itself is a station. Crisp strong outer contour, readable at 24 pixels, very few interior details. Natural landscape/craft entries show characteristic local landscape/craft, not invented buildings. Consistent clean atlas illustration style. ONE subject, no grid, no variants, no shadows, no gradients.",
+    "asset": "dist/coastal/assets/coastal/destinations/kyrgyzstan/10.webp"
+  },
+  {
+    "world": "kyrgyzstan",
+    "id": 11,
+    "city": "Naryn",
+    "landmark": "Naryn river gorge",
+    "prompt": "Use case: stylized-concept. Production game sprite, ONE isolated landmark emblem for Naryn, Kyrgyzstan. Depict Naryn river gorge, geographically grounded recognizable form. This is a small destination symbol used identically for station, waiting passenger and onboard cargo in an educational geography game. Bold simplified flat dark teal silhouette with minimal muted sage/gold accents on an entirely uniform warm ivory #fffdf0 background. Landmark fills central 80% of square canvas, generous 10% margin, no framing circle, no text, letters, numbers, map, people or vehicles unless the landmark itself is a station. Crisp strong outer contour, readable at 24 pixels, very few interior details. Natural landscape/craft entries show characteristic local landscape/craft, not invented buildings. Consistent clean atlas illustration style. ONE subject, no grid, no variants, no shadows, no gradients.",
+    "asset": "dist/coastal/assets/coastal/destinations/kyrgyzstan/11.webp"
+  },
+  {
+    "world": "kyrgyzstan",
+    "id": 12,
+    "city": "Kochkor",
+    "landmark": "Kochkor felt craft",
+    "prompt": "Use case: stylized-concept. Production game sprite, ONE isolated landmark emblem for Kochkor, Kyrgyzstan. Depict Kochkor felt craft, geographically grounded recognizable form. This is a small destination symbol used identically for station, waiting passenger and onboard cargo in an educational geography game. Bold simplified flat dark teal silhouette with minimal muted sage/gold accents on an entirely uniform warm ivory #fffdf0 background. Landmark fills central 80% of square canvas, generous 10% margin, no framing circle, no text, letters, numbers, map, people or vehicles unless the landmark itself is a station. Crisp strong outer contour, readable at 24 pixels, very few interior details. Natural landscape/craft entries show characteristic local landscape/craft, not invented buildings. Consistent clean atlas illustration style. ONE subject, no grid, no variants, no shadows, no gradients.",
+    "asset": "dist/coastal/assets/coastal/destinations/kyrgyzstan/12.webp"
+  },
+  {
+    "world": "kyrgyzstan",
+    "id": 13,
+    "city": "At-Bashy",
+    "landmark": "At-Bashy mountain range",
+    "prompt": "Use case: stylized-concept. Production game sprite, ONE isolated landmark emblem for At-Bashy, Kyrgyzstan. Depict At-Bashy mountain range, geographically grounded recognizable form. This is a small destination symbol used identically for station, waiting passenger and onboard cargo in an educational geography game. Bold simplified flat dark teal silhouette with minimal muted sage/gold accents on an entirely uniform warm ivory #fffdf0 background. Landmark fills central 80% of square canvas, generous 10% margin, no framing circle, no text, letters, numbers, map, people or vehicles unless the landmark itself is a station. Crisp strong outer contour, readable at 24 pixels, very few interior details. Natural landscape/craft entries show characteristic local landscape/craft, not invented buildings. Consistent clean atlas illustration style. ONE subject, no grid, no variants, no shadows, no gradients.",
+    "asset": "dist/coastal/assets/coastal/destinations/kyrgyzstan/13.webp"
+  },
+  {
+    "world": "kyrgyzstan",
+    "id": 14,
+    "city": "Jalal-Abad",
+    "landmark": "Jalal-Abad mineral springs",
+    "prompt": "Use case: stylized-concept. Production game sprite, ONE isolated landmark emblem for Jalal-Abad, Kyrgyzstan. Depict Jalal-Abad mineral springs, geographically grounded recognizable form. This is a small destination symbol used identically for station, waiting passenger and onboard cargo in an educational geography game. Bold simplified flat dark teal silhouette with minimal muted sage/gold accents on an entirely uniform warm ivory #fffdf0 background. Landmark fills central 80% of square canvas, generous 10% margin, no framing circle, no text, letters, numbers, map, people or vehicles unless the landmark itself is a station. Crisp strong outer contour, readable at 24 pixels, very few interior details. Natural landscape/craft entries show characteristic local landscape/craft, not invented buildings. Consistent clean atlas illustration style. ONE subject, no grid, no variants, no shadows, no gradients.",
+    "asset": "dist/coastal/assets/coastal/destinations/kyrgyzstan/14.webp"
+  },
+  {
+    "world": "kyrgyzstan",
+    "id": 15,
+    "city": "Toktogul",
+    "landmark": "Toktogul Reservoir",
+    "prompt": "Use case: stylized-concept. Production game sprite, ONE isolated landmark emblem for Toktogul, Kyrgyzstan. Depict Toktogul Reservoir, geographically grounded recognizable form. This is a small destination symbol used identically for station, waiting passenger and onboard cargo in an educational geography game. Bold simplified flat dark teal silhouette with minimal muted sage/gold accents on an entirely uniform warm ivory #fffdf0 background. Landmark fills central 80% of square canvas, generous 10% margin, no framing circle, no text, letters, numbers, map, people or vehicles unless the landmark itself is a station. Crisp strong outer contour, readable at 24 pixels, very few interior details. Natural landscape/craft entries show characteristic local landscape/craft, not invented buildings. Consistent clean atlas illustration style. ONE subject, no grid, no variants, no shadows, no gradients.",
+    "asset": "dist/coastal/assets/coastal/destinations/kyrgyzstan/15.webp"
+  },
+  {
+    "world": "kyrgyzstan",
+    "id": 16,
+    "city": "Kara-Kul",
+    "landmark": "Kara-Kul hydropower landscape",
+    "prompt": "Use case: stylized-concept. Production game sprite, ONE isolated landmark emblem for Kara-Kul, Kyrgyzstan. Depict Kara-Kul hydropower landscape, geographically grounded recognizable form. This is a small destination symbol used identically for station, waiting passenger and onboard cargo in an educational geography game. Bold simplified flat dark teal silhouette with minimal muted sage/gold accents on an entirely uniform warm ivory #fffdf0 background. Landmark fills central 80% of square canvas, generous 10% margin, no framing circle, no text, letters, numbers, map, people or vehicles unless the landmark itself is a station. Crisp strong outer contour, readable at 24 pixels, very few interior details. Natural landscape/craft entries show characteristic local landscape/craft, not invented buildings. Consistent clean atlas illustration style. ONE subject, no grid, no variants, no shadows, no gradients.",
+    "asset": "dist/coastal/assets/coastal/destinations/kyrgyzstan/16.webp"
+  },
+  {
+    "world": "kyrgyzstan",
+    "id": 17,
+    "city": "Tash-Komur",
+    "landmark": "Tash-Komur river bridge",
+    "prompt": "Use case: stylized-concept. Production game sprite, ONE isolated landmark emblem for Tash-Komur, Kyrgyzstan. Depict Tash-Komur river bridge, geographically grounded recognizable form. This is a small destination symbol used identically for station, waiting passenger and onboard cargo in an educational geography game. Bold simplified flat dark teal silhouette with minimal muted sage/gold accents on an entirely uniform warm ivory #fffdf0 background. Landmark fills central 80% of square canvas, generous 10% margin, no framing circle, no text, letters, numbers, map, people or vehicles unless the landmark itself is a station. Crisp strong outer contour, readable at 24 pixels, very few interior details. Natural landscape/craft entries show characteristic local landscape/craft, not invented buildings. Consistent clean atlas illustration style. ONE subject, no grid, no variants, no shadows, no gradients.",
+    "asset": "dist/coastal/assets/coastal/destinations/kyrgyzstan/17.webp"
+  },
+  {
+    "world": "kyrgyzstan",
+    "id": 18,
+    "city": "Osh",
+    "landmark": "Sulaiman-Too",
+    "prompt": "Use case: stylized-concept. Production game sprite, ONE isolated landmark emblem for Osh, Kyrgyzstan. Depict Sulaiman-Too, geographically grounded recognizable form. This is a small destination symbol used identically for station, waiting passenger and onboard cargo in an educational geography game. Bold simplified flat dark teal silhouette with minimal muted sage/gold accents on an entirely uniform warm ivory #fffdf0 background. Landmark fills central 80% of square canvas, generous 10% margin, no framing circle, no text, letters, numbers, map, people or vehicles unless the landmark itself is a station. Crisp strong outer contour, readable at 24 pixels, very few interior details. Natural landscape/craft entries show characteristic local landscape/craft, not invented buildings. Consistent clean atlas illustration style. ONE subject, no grid, no variants, no shadows, no gradients.",
+    "asset": "dist/coastal/assets/coastal/destinations/kyrgyzstan/18.webp"
+  },
+  {
+    "world": "kyrgyzstan",
+    "id": 19,
+    "city": "Uzgen",
+    "landmark": "Uzgen minaret",
+    "prompt": "Use case: stylized-concept. Production game sprite, ONE isolated landmark emblem for Uzgen, Kyrgyzstan. Depict Uzgen minaret, geographically grounded recognizable form. This is a small destination symbol used identically for station, waiting passenger and onboard cargo in an educational geography game. Bold simplified flat dark teal silhouette with minimal muted sage/gold accents on an entirely uniform warm ivory #fffdf0 background. Landmark fills central 80% of square canvas, generous 10% margin, no framing circle, no text, letters, numbers, map, people or vehicles unless the landmark itself is a station. Crisp strong outer contour, readable at 24 pixels, very few interior details. Natural landscape/craft entries show characteristic local landscape/craft, not invented buildings. Consistent clean atlas illustration style. ONE subject, no grid, no variants, no shadows, no gradients.",
+    "asset": "dist/coastal/assets/coastal/destinations/kyrgyzstan/19.webp"
+  },
+  {
+    "world": "kyrgyzstan",
+    "id": 20,
+    "city": "Kara-Suu",
+    "landmark": "Kara-Suu bazaar",
+    "prompt": "Use case: stylized-concept. Production game sprite, ONE isolated landmark emblem for Kara-Suu, Kyrgyzstan. Depict Kara-Suu bazaar, geographically grounded recognizable form. This is a small destination symbol used identically for station, waiting passenger and onboard cargo in an educational geography game. Bold simplified flat dark teal silhouette with minimal muted sage/gold accents on an entirely uniform warm ivory #fffdf0 background. Landmark fills central 80% of square canvas, generous 10% margin, no framing circle, no text, letters, numbers, map, people or vehicles unless the landmark itself is a station. Crisp strong outer contour, readable at 24 pixels, very few interior details. Natural landscape/craft entries show characteristic local landscape/craft, not invented buildings. Consistent clean atlas illustration style. ONE subject, no grid, no variants, no shadows, no gradients.",
+    "asset": "dist/coastal/assets/coastal/destinations/kyrgyzstan/20.webp"
+  },
+  {
+    "world": "kyrgyzstan",
+    "id": 21,
+    "city": "Batken",
+    "landmark": "Aigul flower hills",
+    "prompt": "Use case: stylized-concept. Production game sprite, ONE isolated landmark emblem for Batken, Kyrgyzstan. Depict Aigul flower hills, geographically grounded recognizable form. This is a small destination symbol used identically for station, waiting passenger and onboard cargo in an educational geography game. Bold simplified flat dark teal silhouette with minimal muted sage/gold accents on an entirely uniform warm ivory #fffdf0 background. Landmark fills central 80% of square canvas, generous 10% margin, no framing circle, no text, letters, numbers, map, people or vehicles unless the landmark itself is a station. Crisp strong outer contour, readable at 24 pixels, very few interior details. Natural landscape/craft entries show characteristic local landscape/craft, not invented buildings. Consistent clean atlas illustration style. ONE subject, no grid, no variants, no shadows, no gradients.",
+    "asset": "dist/coastal/assets/coastal/destinations/kyrgyzstan/21.webp"
+  },
+  {
+    "world": "kyrgyzstan",
+    "id": 22,
+    "city": "Kyzyl-Kiya",
+    "landmark": "Kyzyl-Kiya foothills",
+    "prompt": "Use case: stylized-concept. Production game sprite, ONE isolated landmark emblem for Kyzyl-Kiya, Kyrgyzstan. Depict Kyzyl-Kiya foothills, geographically grounded recognizable form. This is a small destination symbol used identically for station, waiting passenger and onboard cargo in an educational geography game. Bold simplified flat dark teal silhouette with minimal muted sage/gold accents on an entirely uniform warm ivory #fffdf0 background. Landmark fills central 80% of square canvas, generous 10% margin, no framing circle, no text, letters, numbers, map, people or vehicles unless the landmark itself is a station. Crisp strong outer contour, readable at 24 pixels, very few interior details. Natural landscape/craft entries show characteristic local landscape/craft, not invented buildings. Consistent clean atlas illustration style. ONE subject, no grid, no variants, no shadows, no gradients.",
+    "asset": "dist/coastal/assets/coastal/destinations/kyrgyzstan/22.webp"
+  },
+  {
+    "world": "kyrgyzstan",
+    "id": 23,
+    "city": "Suluktu",
+    "landmark": "Suluktu mining landscape",
+    "prompt": "Use case: stylized-concept. Production game sprite, ONE isolated landmark emblem for Suluktu, Kyrgyzstan. Depict Suluktu mining landscape, geographically grounded recognizable form. This is a small destination symbol used identically for station, waiting passenger and onboard cargo in an educational geography game. Bold simplified flat dark teal silhouette with minimal muted sage/gold accents on an entirely uniform warm ivory #fffdf0 background. Landmark fills central 80% of square canvas, generous 10% margin, no framing circle, no text, letters, numbers, map, people or vehicles unless the landmark itself is a station. Crisp strong outer contour, readable at 24 pixels, very few interior details. Natural landscape/craft entries show characteristic local landscape/craft, not invented buildings. Consistent clean atlas illustration style. ONE subject, no grid, no variants, no shadows, no gradients.",
+    "asset": "dist/coastal/assets/coastal/destinations/kyrgyzstan/23.webp"
+  },
+  {
+    "world": "kyrgyzstan",
+    "id": 24,
+    "city": "Too-Ashuu",
+    "landmark": "Too-Ashuu road tunnel",
+    "prompt": "Use case: stylized-concept. Production game sprite, ONE isolated landmark emblem for Too-Ashuu, Kyrgyzstan. Depict Too-Ashuu road tunnel, geographically grounded recognizable form. This is a small destination symbol used identically for station, waiting passenger and onboard cargo in an educational geography game. Bold simplified flat dark teal silhouette with minimal muted sage/gold accents on an entirely uniform warm ivory #fffdf0 background. Landmark fills central 80% of square canvas, generous 10% margin, no framing circle, no text, letters, numbers, map, people or vehicles unless the landmark itself is a station. Crisp strong outer contour, readable at 24 pixels, very few interior details. Natural landscape/craft entries show characteristic local landscape/craft, not invented buildings. Consistent clean atlas illustration style. ONE subject, no grid, no variants, no shadows, no gradients.",
+    "asset": "dist/coastal/assets/coastal/destinations/kyrgyzstan/24.webp"
+  },
+  {
+    "world": "kyrgyzstan",
+    "id": 25,
+    "city": "Suusamyr",
+    "landmark": "Suusamyr valley yurts",
+    "prompt": "Use case: stylized-concept. Production game sprite, ONE isolated landmark emblem for Suusamyr, Kyrgyzstan. Depict Suusamyr valley yurts, geographically grounded recognizable form. This is a small destination symbol used identically for station, waiting passenger and onboard cargo in an educational geography game. Bold simplified flat dark teal silhouette with minimal muted sage/gold accents on an entirely uniform warm ivory #fffdf0 background. Landmark fills central 80% of square canvas, generous 10% margin, no framing circle, no text, letters, numbers, map, people or vehicles unless the landmark itself is a station. Crisp strong outer contour, readable at 24 pixels, very few interior details. Natural landscape/craft entries show characteristic local landscape/craft, not invented buildings. Consistent clean atlas illustration style. ONE subject, no grid, no variants, no shadows, no gradients.",
+    "asset": "dist/coastal/assets/coastal/destinations/kyrgyzstan/25.webp"
+  },
+  {
+    "world": "kyrgyzstan",
+    "id": 26,
+    "city": "Kazarman",
+    "landmark": "Kazarman mountain valley",
+    "prompt": "Use case: stylized-concept. Production game sprite, ONE isolated landmark emblem for Kazarman, Kyrgyzstan. Depict Kazarman mountain valley, geographically grounded recognizable form. This is a small destination symbol used identically for station, waiting passenger and onboard cargo in an educational geography game. Bold simplified flat dark teal silhouette with minimal muted sage/gold accents on an entirely uniform warm ivory #fffdf0 background. Landmark fills central 80% of square canvas, generous 10% margin, no framing circle, no text, letters, numbers, map, people or vehicles unless the landmark itself is a station. Crisp strong outer contour, readable at 24 pixels, very few interior details. Natural landscape/craft entries show characteristic local landscape/craft, not invented buildings. Consistent clean atlas illustration style. ONE subject, no grid, no variants, no shadows, no gradients.",
+    "asset": "dist/coastal/assets/coastal/destinations/kyrgyzstan/26.webp"
+  },
+  {
+    "world": "kyrgyzstan",
+    "id": 27,
+    "city": "Arslanbob",
+    "landmark": "Arslanbob walnut forest",
+    "prompt": "Use case: stylized-concept. Production game sprite, ONE isolated landmark emblem for Arslanbob, Kyrgyzstan. Depict Arslanbob walnut forest, geographically grounded recognizable form. This is a small destination symbol used identically for station, waiting passenger and onboard cargo in an educational geography game. Bold simplified flat dark teal silhouette with minimal muted sage/gold accents on an entirely uniform warm ivory #fffdf0 background. Landmark fills central 80% of square canvas, generous 10% margin, no framing circle, no text, letters, numbers, map, people or vehicles unless the landmark itself is a station. Crisp strong outer contour, readable at 24 pixels, very few interior details. Natural landscape/craft entries show characteristic local landscape/craft, not invented buildings. Consistent clean atlas illustration style. ONE subject, no grid, no variants, no shadows, no gradients.",
+    "asset": "dist/coastal/assets/coastal/destinations/kyrgyzstan/27.webp"
+  },
+  {
+    "world": "kyrgyzstan",
+    "id": 28,
+    "city": "Kyzyl-Unkur",
+    "landmark": "Kyzyl-Unkur forest village",
+    "prompt": "Use case: stylized-concept. Production game sprite, ONE isolated landmark emblem for Kyzyl-Unkur, Kyrgyzstan. Depict Kyzyl-Unkur forest village, geographically grounded recognizable form. This is a small destination symbol used identically for station, waiting passenger and onboard cargo in an educational geography game. Bold simplified flat dark teal silhouette with minimal muted sage/gold accents on an entirely uniform warm ivory #fffdf0 background. Landmark fills central 80% of square canvas, generous 10% margin, no framing circle, no text, letters, numbers, map, people or vehicles unless the landmark itself is a station. Crisp strong outer contour, readable at 24 pixels, very few interior details. Natural landscape/craft entries show characteristic local landscape/craft, not invented buildings. Consistent clean atlas illustration style. ONE subject, no grid, no variants, no shadows, no gradients.",
+    "asset": "dist/coastal/assets/coastal/destinations/kyrgyzstan/28.webp"
+  },
+  {
+    "world": "kyrgyzstan",
+    "id": 29,
+    "city": "Sary-Mogol",
+    "landmark": "Alay valley and Lenin Peak",
+    "prompt": "Use case: stylized-concept. Production game sprite, ONE isolated landmark emblem for Sary-Mogol, Kyrgyzstan. Depict Alay valley and Lenin Peak, geographically grounded recognizable form. This is a small destination symbol used identically for station, waiting passenger and onboard cargo in an educational geography game. Bold simplified flat dark teal silhouette with minimal muted sage/gold accents on an entirely uniform warm ivory #fffdf0 background. Landmark fills central 80% of square canvas, generous 10% margin, no framing circle, no text, letters, numbers, map, people or vehicles unless the landmark itself is a station. Crisp strong outer contour, readable at 24 pixels, very few interior details. Natural landscape/craft entries show characteristic local landscape/craft, not invented buildings. Consistent clean atlas illustration style. ONE subject, no grid, no variants, no shadows, no gradients.",
+    "asset": "dist/coastal/assets/coastal/destinations/kyrgyzstan/29.webp"
+  },
+  {
+    "world": "kyrgyzstan",
+    "id": 30,
+    "city": "Sary-Tash",
+    "landmark": "Sary-Tash mountain crossroads",
+    "prompt": "Use case: stylized-concept. Production game sprite, ONE isolated landmark emblem for Sary-Tash, Kyrgyzstan. Depict Sary-Tash mountain crossroads, geographically grounded recognizable form. This is a small destination symbol used identically for station, waiting passenger and onboard cargo in an educational geography game. Bold simplified flat dark teal silhouette with minimal muted sage/gold accents on an entirely uniform warm ivory #fffdf0 background. Landmark fills central 80% of square canvas, generous 10% margin, no framing circle, no text, letters, numbers, map, people or vehicles unless the landmark itself is a station. Crisp strong outer contour, readable at 24 pixels, very few interior details. Natural landscape/craft entries show characteristic local landscape/craft, not invented buildings. Consistent clean atlas illustration style. ONE subject, no grid, no variants, no shadows, no gradients.",
+    "asset": "dist/coastal/assets/coastal/destinations/kyrgyzstan/30.webp"
+  },
+  {
+    "world": "kyrgyzstan",
+    "id": 31,
+    "city": "Daroot-Korgon",
+    "landmark": "Western Alay valley",
+    "prompt": "Use case: stylized-concept. Production game sprite, ONE isolated landmark emblem for Daroot-Korgon, Kyrgyzstan. Depict Western Alay valley, geographically grounded recognizable form. This is a small destination symbol used identically for station, waiting passenger and onboard cargo in an educational geography game. Bold simplified flat dark teal silhouette with minimal muted sage/gold accents on an entirely uniform warm ivory #fffdf0 background. Landmark fills central 80% of square canvas, generous 10% margin, no framing circle, no text, letters, numbers, map, people or vehicles unless the landmark itself is a station. Crisp strong outer contour, readable at 24 pixels, very few interior details. Natural landscape/craft entries show characteristic local landscape/craft, not invented buildings. Consistent clean atlas illustration style. ONE subject, no grid, no variants, no shadows, no gradients.",
+    "asset": "dist/coastal/assets/coastal/destinations/kyrgyzstan/31.webp"
+  },
+  {
+    "world": "kyrgyzstan",
+    "id": 32,
+    "city": "Kadamjay",
+    "landmark": "Shakhimardan river valley",
+    "prompt": "Use case: stylized-concept. Production game sprite, ONE isolated landmark emblem for Kadamjay, Kyrgyzstan. Depict Shakhimardan river valley, geographically grounded recognizable form. This is a small destination symbol used identically for station, waiting passenger and onboard cargo in an educational geography game. Bold simplified flat dark teal silhouette with minimal muted sage/gold accents on an entirely uniform warm ivory #fffdf0 background. Landmark fills central 80% of square canvas, generous 10% margin, no framing circle, no text, letters, numbers, map, people or vehicles unless the landmark itself is a station. Crisp strong outer contour, readable at 24 pixels, very few interior details. Natural landscape/craft entries show characteristic local landscape/craft, not invented buildings. Consistent clean atlas illustration style. ONE subject, no grid, no variants, no shadows, no gradients.",
+    "asset": "dist/coastal/assets/coastal/destinations/kyrgyzstan/32.webp"
+  },
+  {
+    "world": "kyrgyzstan",
+    "id": 33,
+    "city": "Kemin",
+    "landmark": "Chon-Kemin valley",
+    "prompt": "Use case: stylized-concept. Production game sprite, ONE isolated landmark emblem for Kemin, Kyrgyzstan. Depict Chon-Kemin valley, geographically grounded recognizable form. This is a small destination symbol used identically for station, waiting passenger and onboard cargo in an educational geography game. Bold simplified flat dark teal silhouette with minimal muted sage/gold accents on an entirely uniform warm ivory #fffdf0 background. Landmark fills central 80% of square canvas, generous 10% margin, no framing circle, no text, letters, numbers, map, people or vehicles unless the landmark itself is a station. Crisp strong outer contour, readable at 24 pixels, very few interior details. Natural landscape/craft entries show characteristic local landscape/craft, not invented buildings. Consistent clean atlas illustration style. ONE subject, no grid, no variants, no shadows, no gradients.",
+    "asset": "dist/coastal/assets/coastal/destinations/kyrgyzstan/33.webp"
+  },
+  {
+    "world": "kyrgyzstan",
+    "id": 34,
+    "city": "Kok-Jangak",
+    "landmark": "Kok-Jangak green hills",
+    "prompt": "Use case: stylized-concept. Production game sprite, ONE isolated landmark emblem for Kok-Jangak, Kyrgyzstan. Depict Kok-Jangak green hills, geographically grounded recognizable form. This is a small destination symbol used identically for station, waiting passenger and onboard cargo in an educational geography game. Bold simplified flat dark teal silhouette with minimal muted sage/gold accents on an entirely uniform warm ivory #fffdf0 background. Landmark fills central 80% of square canvas, generous 10% margin, no framing circle, no text, letters, numbers, map, people or vehicles unless the landmark itself is a station. Crisp strong outer contour, readable at 24 pixels, very few interior details. Natural landscape/craft entries show characteristic local landscape/craft, not invented buildings. Consistent clean atlas illustration style. ONE subject, no grid, no variants, no shadows, no gradients.",
+    "asset": "dist/coastal/assets/coastal/destinations/kyrgyzstan/34.webp"
+  }
+]

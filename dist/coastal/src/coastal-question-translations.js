@@ -1,6 +1,6 @@
 import {registerTranslations,setLanguage,t} from './coastal-i18n.js';
 import {geoStops,regions} from './coastal-geography.js';
-import {cityQuestions} from './coastal-city-learning.js';
+import {cityQuestions} from './coastal-city-learning.js?v=unique-landmarks-2';
 import {countryQuestions} from './coastal-learning.js';
 import {stationArt} from './coastal-station-art.js';
 // Translate complete sentences so question grammar does not rely on word replacement.
@@ -10,13 +10,13 @@ export function registerQuestionTranslations(world,language){
   for(const q of cityQuestions(city.id)){
    const topic=q.id.split(':').at(-1);let pair;
    if(topic==='country')pair=[`В ${world==='kyrgyzstan'?'каком регионе':'какой стране'} находится ${ru}?`,`${ky} кайсы ${world==='kyrgyzstan'?'аймакта':'өлкөдө'} жайгашкан?`];
-   if(topic==='landmark')pair=[`Какая достопримечательность находится в городе ${ru}?`,`${ky}: кайсы көрүнүктүү жер ушул шаарга таандык?`];
+   if(topic==='landmark')pair=[`Какая достопримечательность связана с городом ${ru}?`,`${ky}: кайсы көрүнүктүү жер ушул шаарга таандык?`];
    if(topic==='type')pair=[`Что представляет собой ${rl}?`,`${kl}: көрүнүктүү жердин түрү кандай?`];
    if(topic==='water')pair=[`Какой ${q.prompt.startsWith('Which landscape')?'ландшафт':'водоём'} связан с городом ${ru}?`,`${ky}: кайсы ${q.prompt.startsWith('Which landscape')?'ландшафт':'суу объектиси'} ушул жерге таандык?`];
    if(topic==='fact'&&world==='kyrgyzstan')pair=[`В какой стране находится ${ru}?`,`${ky} кайсы өлкөдө жайгашкан?`];
    if(pair)registerTranslations(q.prompt,...pair);
    if(topic==='country')registerTranslations(q.explanation,`${ru} — ${rr}.`,`${ky} — ${kr}.`);
-   if(topic==='landmark')registerTranslations(q.explanation,`${rl} — достопримечательность города ${ru}.`,`${kl} — ${ky} шаарынын көрүнүктүү жери.`);
+   if(topic==='landmark')registerTranslations(q.explanation,`${rl} — достопримечательность, связанная с городом ${ru}.`,`${kl} — ${ky} шаарынын көрүнүктүү жери.`);
    if(topic==='type'){const [rt,kt]=names(q.options[0]);registerTranslations(q.explanation,`${rl}: ${rt}.`,`${kl}: ${kt}.`);}
    if(topic==='water'){const [rw,kw]=names(q.options[0]);registerTranslations(q.explanation,`${ru}: ${rw}.`,`${ky}: ${kw}.`);}
   }

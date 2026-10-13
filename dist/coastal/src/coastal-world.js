@@ -10,7 +10,8 @@ import {goodCards,badCards} from './coastal-cards.js';
 import {setLanguage,t,registerTranslations} from './coastal-i18n.js';
 import './coastal-i18n-content.js';
 import './coastal-i18n-geography.js';
-import {registerQuestionTranslations} from './coastal-question-translations.js';
+import {registerQuestionTranslations} from './coastal-question-translations.js?v=unique-landmarks-2';
+import {landmarkCatalog,landmarkDestinationUrl} from './coastal-landmark-catalog.js';
 const arrays={geoStops,regions,landmarks,waterways,rivers,stationArt,mapLandmarks};
 const objects={regionShapes,unlockRounds,vehicleLabels,countryLearning};
 const uk=Object.fromEntries([...Object.entries(arrays),...Object.entries(objects)].map(([k,v])=>[k,structuredClone(v)]));
@@ -42,6 +43,8 @@ export function activateWorld(world='uk',language='en'){
   const replacements={'Shipyard deal':['Off-road workshop','Mountain 4×4 routes cost 15% less.'],'Following wind':['All-terrain tyres','Mountain 4×4 vehicles move 15% faster.'],'Ferry benches':['Off-road seats','Every mountain 4×4 gains one seat.'],'Hull shortage':['Tyre shortage','Mountain 4×4 routes cost 15% more.'],'Headwind':['Rough tracks','Mountain 4×4 vehicles move 10% slower.'],'Busy ports':['Busy mountain stops','Mountain 4×4 vehicles move 5% slower; arrivals become 5% faster.']};
   for(const c of [...goodCards,...badCards])if(replacements[c.name])[c.name,c.description]=replacements[c.name];
  }
+ for(const entry of landmarkCatalog[world]){const art=stationArt[entry.id];Object.assign(art,{landmark:entry.landmark,type:entry.type,source:entry.source,locationNote:entry.locationNote,artRevision:entry.revision});if(entry.revision===2)art.image=landmarkDestinationUrl(world,entry.id);if(entry.ru)registerTranslations(entry.landmark,entry.ru,entry.ky);for(const place of mapLandmarks.filter(l=>l.city===entry.id)){place.name=entry.landmark;place.source=entry.source||place.source;place.description=entry.landmark+' · '+art.city+'. '+(entry.locationNote?entry.locationNote+'. ':'')+'Destination symbol: '+entry.type+'.';if(entry.revision===2){place.image=art.image;place.destinationArtwork=true;}place.natural=['Waterfall','Protected flower habitat','Walnut forest','Archaeological cave','Palaeontological site'].includes(entry.type);}}
+ if(world==='kyrgyzstan')for(const r of regions){countryLearning[r.id].landmarks=mapLandmarks.filter(l=>l.region===r.id).slice(0,3).map(l=>[l.name,r.name,l.description,'📍']);}
  registerQuestionTranslations(world,language);resetLandmarkAnchors();return world;
 }
 function inside(p,ring){let yes=false;for(let i=0,j=ring.length-1;i<ring.length;j=i++){const a=ring[i],b=ring[j];if((a[1]>p[1])!==(b[1]>p[1])&&p[0]<(b[0]-a[0])*(p[1]-a[1])/(b[1]-a[1])+a[0])yes=!yes;}return yes;}

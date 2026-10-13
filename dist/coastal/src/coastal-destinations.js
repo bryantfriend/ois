@@ -1,4 +1,5 @@
 import {stationArt,stationArtUrl} from './coastal-station-art.js';
+import {landmarkDestinationUrl} from './coastal-landmark-catalog.js';
 import {regions} from './coastal-geography.js';
 import {t,registerTranslations} from './coastal-i18n.js';
 for(const row of [
@@ -14,7 +15,7 @@ for(const row of [
  ['Match the landmark on a passenger to its city. The same symbol stays above the vehicle until arrival.','Сопоставьте значок пассажира с городом. Этот символ остаётся над транспортом до прибытия.','Жүргүнчүнүн белгисин шаар менен дал келтириңиз. Белги унаанын үстүндө жеткенге чейин турат.']
 ])registerTranslations(...row);
 
-export const destinationArtUrl=(world,id)=>new URL('../assets/coastal/destinations/'+world+'/'+id+'.webp',import.meta.url).href;
+export const destinationArtUrl=landmarkDestinationUrl;
 
 export function createDestinationArtwork(state,onLoad){
  state.destinationFilter='all';
@@ -43,7 +44,7 @@ export function installLandmarkPassport({state,stops,node,mapKey,draw}){
   content.replaceChildren();const intro=node('p',t('Match the landmark on a passenger to its city. The same symbol stays above the vehicle until arrival.'),'coastal-landmark-ref-intro');content.append(intro);
   const tabs=node('nav',null,'coastal-landmark-ref-tabs');tabs.setAttribute('aria-label',t('Passport regions'));for(const r of [{id:'all',name:state.world==='kyrgyzstan'?'Kyrgyzstan':'All countries'},...regions]){const tab=button(r.name,()=>{region=r.id;page=0;key='';refresh();});tab.setAttribute('aria-pressed',String(region===r.id));tabs.append(tab);}content.append(tabs);
   const entries=stops.filter(s=>region==='all'||s.region===region),pages=Math.max(1,Math.ceil(entries.length/6));page=Math.min(page,pages-1);const spread=node('div',null,'coastal-landmark-ref-spread');
-  for(const city of entries.slice(page*6,page*6+6)){const art=stationArt[city.id],card=node('article',null,'coastal-landmark-ref-stamp'),emblem=node('img'),picture=node('img'),text=node('div',null,'coastal-landmark-ref-caption');card.dataset.passportCity=city.id;emblem.src=destinationArtUrl(state.world,city.id);emblem.alt=t('Destination symbol')+' · '+t(art.landmark);emblem.className='coastal-landmark-ref-emblem';picture.src=state.world==='kyrgyzstan'&&city.id===8?emblem.src:stationArtUrl(city.id);picture.alt=t(art.landmark)+' · '+t(city.name);picture.className='coastal-landmark-ref-picture';picture.onerror=()=>{picture.onerror=null;picture.src=emblem.src;};text.append(node('h4',t(city.name)),node('p',t(art.landmark)),node('small',t(regions.find(r=>r.id===city.region).name)));card.append(emblem,picture,text);
+  for(const city of entries.slice(page*6,page*6+6)){const art=stationArt[city.id],card=node('article',null,'coastal-landmark-ref-stamp'),emblem=node('img'),picture=node('img'),text=node('div',null,'coastal-landmark-ref-caption');card.dataset.passportCity=city.id;emblem.src=destinationArtUrl(state.world,city.id);emblem.alt=t('Destination symbol')+' · '+t(art.landmark);emblem.className='coastal-landmark-ref-emblem';picture.src=state.world==='kyrgyzstan'&&city.id===8?emblem.src:stationArtUrl(city.id);picture.alt=t(art.landmark)+' · '+t(city.name);picture.className='coastal-landmark-ref-picture';picture.onerror=()=>{picture.onerror=null;picture.src=emblem.src;};text.append(node('h4',t(city.name)),node('p',t(art.landmark)),node('small',t(regions.find(r=>r.id===city.region).name)));if(art.locationNote)text.append(node('small',t(art.locationNote),'coastal-landmark-ref-location'));card.append(emblem,picture,text);
    const visit=state.expedition?.visits?.[city.id];if(visit)card.append(node('span',t('Visited')+' · '+t('Round')+' '+visit.round,'coastal-landmark-ref-visited'));
    if(state.activeStops.includes(city.id)){const find=button('Find city on map',()=>{state.destinationFilter=city.id;state.camera={zoom:Math.max(1,state.camera.zoom),x:0,y:0};state.camera.x=500-city.x*state.camera.zoom;state.camera.y=280-city.y*state.camera.zoom;state.cameraReady=true;mapKey.dialog.close();draw();});card.append(find);}else card.append(node('small',t('Opens in round')+' '+city.round,'coastal-landmark-ref-locked'));
    spread.append(card);

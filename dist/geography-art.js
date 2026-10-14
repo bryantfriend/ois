@@ -18,7 +18,7 @@ let geoArtSerial=0;
 function geoIdentity(lesson){const original=GEO_PACKS.findIndex(p=>p.id===lesson.id);let n=original>=0?Math.floor(original/2):GEO_PLAN.findIndex(t=>lesson.topic===t.group+' · '+t.topic);if(n<0)n=0;const w=GEO_WORLDS[GEO_WORLD_KEYS[n]],variant=original>=0?original%2:0;return {...w,key:GEO_WORLD_KEYS[n],topic:n,variant,hook:GEO_HOOKS[n],serial:n*2+variant+1};}
 // Retain archived worlds and packs so they can be restored without losing content.
 const GEO_ARCHIVED_WORLDS=new Set(['detective','workshop','heritage','ice','city']);
-function geoIsArchived(lesson){return lesson.subject==='geography'&&!['coastal-connections','uk-border-geography'].includes(lesson.format);}
+function geoIsArchived(lesson){return lesson.subject==='geography'&&!['coastal-connections','uk-border-geography','explorer-island'].includes(lesson.format);}
 function geoCompanion(w,mood='idle'){
  const face=w.animal==='penguin'?'#253d61':w.animal==='owl'?'#936044':w.animal==='otter'?'#986445':w.animal==='bird'?'#d7e4e8':'#e38743';
  const ears=w.animal==='fox'?'<path d="M-39-38-43-82-8-57 M9-57 44-82 39-34" fill="'+face+'" stroke="#593e45" stroke-width="4"/><path d="M-34-59-35-72-20-57 M23-58 36-72 34-57" fill="#ffc499"/>':w.animal==='owl'?'<path d="M-41-30-49-66-13-51 M13-51 49-66 41-30" fill="'+face+'"/>':w.animal==='penguin'?'':w.animal==='bird'?'<path d="M-9-49-23-81 M0-50 0-84 M10-48 26-74" stroke="#34435b" stroke-width="6" stroke-linecap="round"/>':'<circle cx="-31" cy="-39" r="14" fill="'+face+'"/><circle cx="31" cy="-39" r="14" fill="'+face+'"/>';

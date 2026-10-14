@@ -37,22 +37,21 @@ const reducedMotion=()=>saved.gentle||window.matchMedia('(prefers-reduced-motion
 // The Web Speech API exposes names and languages, not a gender field.
 function voiceScore(v){if(!/^ky(?:-|_|$)/i.test(v.lang))return -1000;let score=0;const name=v.name.toLowerCase();if(/female|zira|samantha|victoria|karen|moira|tessa|susan|hazel|aria|jenny|sonia|ava/.test(name))score+=100;if(/google.*female/.test(name))score+=100;if(/natural|neural|premium|enhanced/.test(name))score+=60;if(/google us english/.test(name))score+=85;if(/male|david|mark|george|daniel|james/.test(name)&&!/female/.test(name))score-=160;if(/en[-_]us/i.test(v.lang))score+=10;return score;}
 function loadVoices(){
- if(!('speechSynthesis' in window)){ $('voice-info').textContent='Кыргызча үн жеткиликсиз. Түзмөккө кыргызча үн орнотуңуз; үнсүз ойносо болот.';$('voice-preview').disabled=true;return; }
- voices=speechSynthesis.getVoices().filter(v=>/^ky(?:-|_|$)/i.test(v.lang));
- activeVoice=voices.find(v=>v.voiceURI===saved.voiceURI)||[...voices].sort((a,b)=>voiceScore(b)-voiceScore(a))[0]||null;
- const select=$('voice-choice');select.replaceChildren(new Option('Автоматтык кыргызча үн',''));
- [...voices].sort((a,b)=>voiceScore(b)-voiceScore(a)).forEach(v=>select.add(new Option(`${v.name} (${v.lang})`,v.voiceURI)));
- select.value=voices.some(v=>v.voiceURI===saved.voiceURI)?saved.voiceURI:'';
- $('voice-info').textContent=activeVoice?activeVoice.name:"Кыргызча үн жеткиликсиз. Түзмөккө кыргызча үн орнотуңуз; үнсүз ойносо болот.";
- if(pendingSpeech&&activeVoice){const text=pendingSpeech;pendingSpeech='';say(text);}
+ voices=('speechSynthesis' in window)?speechSynthesis.getVoices().filter(v=>/^ky(?:-|_|$)/i.test(v.lang)):[];
+ activeVoice=voices.find(v=>v.voiceURI===saved.voiceURI)||null;
+ const select=$('voice-choice');select.replaceChildren(new Option('Камтылган кыргызча үн',''));
+ voices.forEach(v=>select.add(new Option(v.name+' ('+v.lang+')',v.voiceURI)));select.value=activeVoice?.voiceURI||'';
+ $('voice-preview').disabled=false;
+ $('voice-info').textContent=activeVoice?activeVoice.name:'Камтылган кыргызча синтетикалык үн. Түзмөккө үн орнотуунун кереги жок.';
 }
 function say(text){
- if(!saved.voice||!('speechSynthesis' in window))return;
- if(!activeVoice){loadVoices();if(!activeVoice){pendingSpeech=text;return;}}
- try{const token=++speechToken;speechSynthesis.cancel();$('helper').classList.remove('speaking');const utterance=new SpeechSynthesisUtterance(text);utterance.voice=activeVoice;utterance.lang=activeVoice.lang;utterance.rate=.93;utterance.pitch=1;
+ if(!saved.voice)return;
+ speechToken++;pendingSpeech='';window.KyrgyzVoice.cancel();if('speechSynthesis' in window)speechSynthesis.cancel();
+ if(!activeVoice){window.KyrgyzVoice.speak(text).catch(()=>{$('voice-info').textContent='Үндү ойнотуу мүмкүн болгон жок. Үн баскычын басып, кайра аракет кылыңыз.';});return;}
+ try{const token=speechToken,utterance=new SpeechSynthesisUtterance(text);utterance.voice=activeVoice;utterance.lang=activeVoice.lang;utterance.rate=.93;
  utterance.onstart=()=>{if(token===speechToken)$('helper').classList.add('speaking');};
- const finish=()=>{if(token===speechToken)$('helper').classList.remove('speaking');};utterance.onend=finish;utterance.onerror=finish;speechSynthesis.speak(utterance);
- }catch{$('helper').classList.remove('speaking');}
+ const finish=()=>{if(token===speechToken)$('helper').classList.remove('speaking');};utterance.onend=finish;utterance.onerror=()=>{finish();if(token===speechToken)window.KyrgyzVoice.speak(text).catch(()=>{});};speechSynthesis.speak(utterance);
+ }catch{window.KyrgyzVoice.speak(text).catch(()=>{});}
 }
 function animateOnce(element,name){element.classList.remove(name);if(reducedMotion())return;void element.offsetWidth;element.classList.add(name);const finish=e=>{if(e.target!==element)return;element.classList.remove(name);element.removeEventListener('animationend',finish);};element.addEventListener('animationend',finish);}
 function particle(text,x,y,dx,dy,kind='spark'){if(reducedMotion())return;const p=document.createElement('span');p.className=`particle ${kind}`;p.textContent=text;p.style.left=x+'px';p.style.top=y+'px';p.style.setProperty('--dx',dx+'px');p.style.setProperty('--dy',dy+'px');p.style.setProperty('--turn',(Math.random()*120-60)+'deg');$('effects-layer').append(p);p.addEventListener('animationend',()=>p.remove(),{once:true});setTimeout(()=>p.remove(),2200);}
@@ -122,7 +121,7 @@ const originalChrome=updateChrome;updateChrome=function(){originalChrome();$('st
 $('next').onclick=next;$('continue').onclick=()=>{$('complete').close();if(saved.counts[stage]===8&&stage<2)stage++;newRound();};
 $('complete').addEventListener('close',()=>{$('effects-layer').replaceChildren();});new MutationObserver(()=>{if($('complete').open)confetti();}).observe($('complete'),{attributes:true,attributeFilter:['open']});
 $('listen').onclick=()=>say(promptText());$('hint').onclick=()=>{if(phase!=='ready')return;hints++;$('feedback').textContent=stage===2?`Сөз: ${target}. Тамгаларын кунт коюп кара.`:`${currentItem().name}: ${stage===1?target.toLowerCase():target} тамгасын тап.`;if(hints>1)[...$('choices').children].find(b=>b.dataset.answer===target)?.classList.add('hinted');say(stage===2?introduction():promptText());};
-$('sound').onclick=()=>{saved.voice=!saved.voice;if(!saved.voice){pendingSpeech='';speechToken++;$('helper').classList.remove('speaking');if('speechSynthesis' in window)speechSynthesis.cancel();}persist();chrome();if(saved.voice)say(promptText());};
+$('sound').onclick=()=>{saved.voice=!saved.voice;if(!saved.voice){window.KyrgyzVoice.cancel();pendingSpeech='';speechToken++;$('helper').classList.remove('speaking');if('speechSynthesis' in window)speechSynthesis.cancel();}persist();chrome();if(saved.voice)say(promptText());};
 $('voice-choice').onchange=e=>{saved.voiceURI=e.target.value;persist();loadVoices();say('Бул алма. Алма А тамгасынан башталат.');};$('voice-preview').onclick=()=>{saved.voice=true;persist();chrome();say('Салам! Бул алма. Алма А тамгасынан башталат.');};
 $('effects').checked=saved.effects;$('effects').onchange=e=>{saved.effects=e.target.checked;persist();if(saved.effects)chime();};$('motion').checked=saved.gentle;$('motion').onchange=e=>{saved.gentle=e.target.checked;persist();chrome();if(saved.gentle)$('effects-layer').replaceChildren();};
 const decors=[{id:'plant',name:'Дүкөн үчүн өсүмдүк',cost:3},{id:'sunshine',name:'Сары чатыр',cost:5},{id:'berry',name:'Кызгылт көк чатыр',cost:5}];
@@ -132,7 +131,7 @@ for(const letter of ["А","Б","В","Г","Д","Ж","З","И","К","Л","М","Ө"
 $('reset').onclick=()=>{if(!confirm('Кайра баштайсызбы? Бул түзмөктөгү тыйындар, жасалгалар жана окуу жыйынтыгы өчүрүлөт.'))return;saved={...blank(),voiceURI:saved.voiceURI,voice:saved.voice,effects:saved.effects,gentle:saved.gentle};persist();stage=teacherLesson?.stage??0;customerVisit=0;deck=[];practice=!!teacherLesson;$('practice').checked=practice;welcome();};
 function fullscreen(){if(document.fullscreenElement)document.exitFullscreen?.().catch(()=>{});else document.documentElement.requestFullscreen?.().catch(()=>{});}$('fullscreen').onclick=fullscreen;
 document.addEventListener('keydown',e=>{if(e.target.matches('input,summary,select')||document.querySelector('dialog[open]'))return;if(['1','2','3'].includes(e.key)&&phase==='ready'){e.preventDefault();answer(choices[Number(e.key)-1]);}if(e.key==='Enter'&&['welcome','receipt'].includes(phase)){e.preventDefault();next();}if(e.key.toLowerCase()==='f')fullscreen();});
-window.render_game_to_text=()=>JSON.stringify({mode:document.querySelector('dialog[open]')?.id||phase,phase,lessonTitle:teacherLesson?.title||null,lessonLetters:teacherLesson?.letters||null,lessonWords:teacherLesson?.words||null,retryRemaining:phase==='retry'?Math.max(0,durations.retry-phaseTime):0,stage,stageName:labels[stage],customer:customerVisit,basket:basket.map(x=>({name:x.name,letter:x.letter})),packed:packed.map(x=>x.name),itemIndex,item:currentItem()?.name||null,target,choices:phase==='ready'?choices.map((value,i)=>({value,keyboard:i+1})):[],correct,hints,coins:saved.coins,unlocked:saved.unlocked,counts:saved.counts,decorations:saved.owned,voice:saved.voice,selectedVoice:activeVoice?.name||null,gentle:saved.gentle,effects:saved.effects,focus,customerPose:customerMotion.stage,unloaded:[...$('belt-items').children].filter(e=>e.style.visibility==='visible').length,cashierPose:cashierMotion.stage,coordinateSystem:'DOM layout; belt travels left to right; scanner at the right end'});
+window.render_game_to_text=()=>JSON.stringify({mode:document.querySelector('dialog[open]')?.id||phase,phase,lessonTitle:teacherLesson?.title||null,lessonLetters:teacherLesson?.letters||null,lessonWords:teacherLesson?.words||null,retryRemaining:phase==='retry'?Math.max(0,durations.retry-phaseTime):0,stage,stageName:labels[stage],customer:customerVisit,basket:basket.map(x=>({name:x.name,letter:x.letter})),packed:packed.map(x=>x.name),itemIndex,item:currentItem()?.name||null,target,choices:phase==='ready'?choices.map((value,i)=>({value,keyboard:i+1})):[],correct,hints,coins:saved.coins,unlocked:saved.unlocked,counts:saved.counts,decorations:saved.owned,voice:saved.voice,selectedVoice:activeVoice?.name||'Камтылган кыргызча үн',speechBackend:activeVoice?'system':'bundled-ky',audioPlayed:window.KyrgyzVoice.playCount,gentle:saved.gentle,effects:saved.effects,focus,customerPose:customerMotion.stage,unloaded:[...$('belt-items').children].filter(e=>e.style.visibility==='visible').length,cashierPose:cashierMotion.stage,coordinateSystem:'DOM layout; belt travels left to right; scanner at the right end'});
 window.advanceTime=ms=>{update(ms);return Promise.resolve();};let lastFrame=performance.now();function frame(now){if(!document.querySelector('dialog[open]'))update(Math.min(100,now-lastFrame));lastFrame=now;requestAnimationFrame(frame);}requestAnimationFrame(frame);
 if(teacherLesson){$('practice').checked=true;$('letter-focus').value='all';}$('shelves').innerHTML=['APPLE','BANANA','MILK','EGG','JAM','CUP'].map(x=>products[x]).join('');loadVoices();if('speechSynthesis' in window)speechSynthesis.addEventListener('voiceschanged',loadVoices);welcome();
 

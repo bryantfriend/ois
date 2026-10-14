@@ -30,8 +30,8 @@ const missions = [
 let state={mode:'ready',mission:0,step:0,pieces:0,mistakes:0,hints:0,hintLevel:0,visited:[],discovered:[],current:null,selected:null,sound:false,t:0};
 let focused=0, audio;
 const canvas=$('scene'), ctx=canvas.getContext('2d'), image=new Image();
-image.src='assets/island.png';image.onload=()=>draw();
-const landmarks=new Image();landmarks.src='assets/landmarks.png';landmarks.onload=()=>draw();
+image.src='assets/island.webp';image.onload=()=>draw();
+const landmarks=new Image();landmarks.src='assets/landmarks.webp';landmarks.onload=()=>draw();
 function node(id){return nodes.find(n=>n.id===id);}
 function connected(a,b){return links.some(([x,y])=>(x===a&&y===b)||(x===b&&y===a));}
 function sound(success=true){if(!state.sound)return;try{audio??=new (window.AudioContext||window.webkitAudioContext)();audio.resume();[0,1,2].forEach((i)=>{const o=audio.createOscillator(),g=audio.createGain();o.type='sine';o.frequency.value=(success?[440,554,659]:[220,196,165])[i];g.gain.setValueAtTime(0,audio.currentTime+i*.09);g.gain.linearRampToValueAtTime(.055,audio.currentTime+i*.09+.02);g.gain.exponentialRampToValueAtTime(.001,audio.currentTime+i*.09+.3);o.connect(g);g.connect(audio.destination);o.start(audio.currentTime+i*.09);o.stop(audio.currentTime+i*.09+.32);});}catch{}}

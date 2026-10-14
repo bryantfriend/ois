@@ -40,13 +40,14 @@ function loadVoices(){
  if(!('speechSynthesis' in window)){ $('voice-info').textContent='Speech is not available in this browser. The game still works without audio.';$('voice-preview').disabled=true;return; }
  voices=speechSynthesis.getVoices().filter(v=>/^en(?:-|_)/i.test(v.lang));
  activeVoice=voices.find(v=>v.voiceURI===saved.voiceURI)||[...voices].sort((a,b)=>voiceScore(b)-voiceScore(a))[0]||null;
- const select=$('voice-choice');select.replaceChildren(new Option('Automatic · prefer a female English voice',''));
+ const select=$('voice-choice');select.replaceChildren(new Option('Sonia · natural British English',''));
  [...voices].sort((a,b)=>voiceScore(b)-voiceScore(a)).forEach(v=>select.add(new Option(`${v.name} (${v.lang})`,v.voiceURI)));
  select.value=voices.some(v=>v.voiceURI===saved.voiceURI)?saved.voiceURI:'';
- $('voice-info').textContent=activeVoice?`Using ${activeVoice.name}. Try the voice on your smartboard; available voices come from Chrome and the connected device.`:'Waiting for Chrome’s voices. Tap the speaker to enable audio. If no English voice appears, enable English text-to-speech on the connected device.';
+ $('voice-info').textContent=window.ClassroomVoice&&!saved.voiceURI?'Using Sonia · natural British English.':activeVoice?`Using ${activeVoice.name}. Try the voice on your smartboard; available voices come from Chrome and the connected device.`:'Waiting for Chrome’s voices. Tap the speaker to enable audio. If no English voice appears, enable English text-to-speech on the connected device.';
  if(pendingSpeech&&activeVoice){const text=pendingSpeech;pendingSpeech='';say(text);}
 }
 function say(text){
+ if(saved.voice&&window.ClassroomVoice&&!saved.voiceURI){const token=++speechToken;const finish=()=>{if(token===speechToken)$("helper").classList.remove("speaking");};return ClassroomVoice.speak(text,{onstart:()=>{if(token===speechToken)$("helper").classList.add("speaking");},onend:finish,onerror:finish}).finally(finish);}
  if(!saved.voice||!('speechSynthesis' in window))return;
  if(!activeVoice){loadVoices();if(!activeVoice){pendingSpeech=text;return;}}
  try{const token=++speechToken;speechSynthesis.cancel();$('helper').classList.remove('speaking');const utterance=new SpeechSynthesisUtterance(text);utterance.voice=activeVoice;utterance.lang=activeVoice.lang;utterance.rate=.93;utterance.pitch=1;

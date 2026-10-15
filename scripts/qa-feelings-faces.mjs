@@ -12,7 +12,7 @@ const {chromium}=await import(pathToFileURL(playwright));
 const types={'.html':'text/html','.js':'text/javascript','.css':'text/css','.json':'application/json','.mp3':'audio/mpeg','.png':'image/png','.webp':'image/webp','.svg':'image/svg+xml'};
 const server=http.createServer(async(req,res)=>{try{const url=new URL(req.url,'http://localhost'),pathname=url.pathname==='/'?'/index.html':decodeURIComponent(url.pathname),file=path.resolve(root,'dist','.'+pathname);if(!file.startsWith(path.join(root,'dist')+path.sep)){res.writeHead(403);return res.end();}let body;try{body=await fs.readFile(file);}catch(error){if(!process.env.OXFORD_RELEASE_FALLBACK)throw error;const remote=await fetch(new URL(pathname.slice(1),process.env.OXFORD_RELEASE_FALLBACK));if(!remote.ok)throw Error('Missing remote asset '+pathname);body=Buffer.from(await remote.arrayBuffer());}res.writeHead(200,{'Content-Type':types[path.extname(file)]||'application/octet-stream'});res.end(body);}catch{res.writeHead(404);res.end();}});
 await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
-const base='http://127.0.0.1:'+server.address().port;
+const base=process.env.OXFORD_TEST_URL||'http://127.0.0.1:'+server.address().port;
 await fs.mkdir(output,{recursive:true});
 let browser;
 try{

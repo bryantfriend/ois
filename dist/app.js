@@ -12,6 +12,7 @@ function confirmAction(title,text,action){$('#confirm-title').textContent=title;
 $('#confirm-cancel').onclick=()=>$('#confirm').close();
 $('#confirm-ok').onclick=()=>{const action=decision;$('#confirm').close();decision=null;action?.();};
 function textField(value,name,max=1500){if(typeof value!=='string'||!value.trim()||value.length>max)throw Error(`${name} is required (maximum ${max} characters).`);return value.trim();}
+function lessonItemLimit(format){return LAB_GAMES[format]?.engine==='physics'?80:40;}
 function validateLesson(raw){
  raw=gxUpgradeLesson(raw);
  if(!raw||typeof raw!=='object')throw Error('Choose a valid Oxford lesson file.');
@@ -19,7 +20,7 @@ function validateLesson(raw){
  if(!SUBJECTS.some(s=>s.id===raw.subject&&s.id!=='all'))throw Error('Choose a valid subject.');
  if(!Number.isInteger(raw.grade)||raw.grade<1||raw.grade>12)throw Error('Choose a grade from 1 to 12.');
  if(!Object.hasOwn(FORMATS,raw.format))throw Error('This game format is not supported.');
- if(!Array.isArray(raw.items)||raw.items.length<2||raw.items.length>40)throw Error('Use between 2 and 40 questions.');
+ if(!Array.isArray(raw.items)||raw.items.length<2||raw.items.length>lessonItemLimit(raw.format))throw Error('Use between 2 and '+lessonItemLimit(raw.format)+' activities.');
  const items=raw.items.map((item,i)=>{
   if(!item||typeof item!=='object')throw Error(`Check question ${i+1}.`);
   const prompt=textField(item.prompt,`Question ${i+1}`),answer=textField(item.answer,`Answer ${i+1}`);
@@ -36,6 +37,11 @@ function validateLesson(raw){
  validateActivityLesson(raw,items);
  if(raw.format==='match' && new Set(items.map(x=>x.answer.toLocaleLowerCase())).size!==items.length)throw Error('Matching games need a different answer for each pair.');
  const settings={...activitySettings(raw.settings),teamOne:String(raw.settings?.teamOne||'Player 1').slice(0,30),teamTwo:String(raw.settings?.teamTwo||'Player 2').slice(0,30),shuffle:raw.settings?.shuffle===true};
+ if(raw.format==='board-treasure-takeaway'){
+ const min=raw.settings?.treasureMin??10,max=raw.settings?.treasureMax??20;
+ if(!Number.isInteger(min)||!Number.isInteger(max)||min<1||max>60||min>max)throw Error('Choose whole gem counts from 1 to 60, with minimum no greater than maximum.');
+ Object.assign(settings,{treasureMin:min,treasureMax:max});
+ }
  Object.assign(settings,boozledSettings(raw.settings));
  settings.participants=raw.settings?.participants??12;settings.impostors=raw.settings?.impostors??1;settings.minutes=raw.settings?.minutes??10;if(!Number.isInteger(settings.participants)||settings.participants<4||settings.participants>40||![1,2].includes(settings.impostors)||!Number.isInteger(settings.minutes)||settings.minutes<5||settings.minutes>30)throw Error('Use 4–40 participants, 1–2 impostors, and 5–30 minutes.');
  const count=raw.settings?.teamCount??4;if(!Number.isInteger(count)||count<2||count>6)throw Error('Choose 2–6 teams.');settings.teamCount=count;settings.teamNames=Array.from({length:count},(_,i)=>String(raw.settings?.teamNames?.[i]||['Red','Blue','Green','Yellow','Purple','Orange'][i]).trim().slice(0,30));
@@ -53,20 +59,21 @@ function renderSubjectMenu(){
 }
 function subjectEditorOptions(){const option=id=>{const s=SUBJECTS.find(s=>s.id===id);return `<option value="${id}">${s.name}</option>`;};return SUBJECT_MENU.filter(e=>e!=='all').map(entry=>typeof entry==='string'?option(entry):`<optgroup label="${entry.name}">${entry.children.map(option).join('')}</optgroup>`).join('');}
 function renderLibrary(){
- $('#saved-count').textContent=saved.length;$('#lesson-total').textContent=GAMES.length;$('#format-total').textContent=Object.keys(FORMATS).length;
+ const activeGames=GAMES.filter(g=>!geoIsArchived(g)&&!LAB_GAMES[g.format]?.archived);
+ $('#saved-count').textContent=saved.length;$('#lesson-total').textContent=activeGames.length;$('#format-total').textContent=Object.keys(FORMATS).length;
  $('#players').value=ui.players;
  $('#mode-description').textContent=Object.values(GAME_MODES).find(m=>m.key===ui.players)?.description||'Choose who owns the challenge: a student, a pair, a team, or the whole classroom.';
  document.querySelectorAll('.header .nav-link').forEach(b=>b.classList.toggle('active',b.dataset.action===(ui.collection==='saved'?'saved':'library')));
  renderSubjectMenu();
  $('#grades').innerHTML=['all',1,2,3,7,8].map(n=>`<button class="grade ${ui.grade===n?'active':''}" data-grade="${n}" aria-pressed="${ui.grade===n}">${n==='all'?'All grades':`Grade ${n}`}</button>`).join('');
  $('#other-grade').value=[1,2,3,7,8,'all'].includes(ui.grade)?'':String(ui.grade);
- const source=ui.collection==='saved'?saved:GAMES;
+ const source=ui.collection==='saved'?saved:activeGames;
  const filtered=source.filter(g=>boardGradeMatches(g,ui.grade)&&(ui.subject==='all'||g.subject===ui.subject)&&(ui.players==='all'||playerModes(g.format).includes(ui.players))&&`${g.title} ${g.topic} ${FORMATS[g.format].name} ${FORMATS[g.format].sourceTitle||''} ${LAB_GAMES[g.format]?'PlayMath':''} ${window.OXFORD_WORLDS?.[g.format]?.name||""}`.toLowerCase().includes(ui.search.toLowerCase()));
  $('#library-title').textContent=ui.collection==='saved'?'My lessons':ui.subject==='all'?'Your game library':SUBJECTS.find(s=>s.id===ui.subject).name;
  $('#collection-label').textContent=ui.collection==='saved'?'SAVED ON THIS DEVICE':'READY TO TEACH';
  $('#results').textContent=`${filtered.length} lesson${filtered.length===1?'':'s'} · ${ui.grade==='all'?'All grades':`Grade ${ui.grade}`}${ui.players==='all'?'':` · ${PLAYER_LABELS[ui.players]}`}`;
  $('#library-note').innerHTML=ui.subject==='geography'&&ui.collection!=='saved'?'New Geography adventures · Navigate, build, sculpt and investigate. <strong>No multiple-choice activities.</strong> <a href="./geography-guide.html" target="_blank" rel="noopener">Explore the teacher guide ↗</a>':ui.collection==='saved'?'These copies are saved in this browser. <strong>Download a lesson file</strong> to back up or move your work.':'Start with a prepared lesson, or select <strong>Edit & play</strong> to customize questions, instructions or puzzle settings. No student logins needed.';
- $('#games').innerHTML=filtered.map(g=>`<article class="game-card ${g.subject==='math'?'math':'english'}"><div class="card-art art-${g.format}" aria-hidden="true"><span class="art-symbol">${FORMATS[g.format].icon}</span><span class="art-mini">${g.subject==='math'?'x + y':g.subject==='physics'?'⚛':'Aa'}</span><span class="format-tag">${FORMATS[g.format].name}</span></div><div class="card-body"><div class="card-meta"><span>${esc(SUBJECTS.find(s=>s.id===g.subject).name)}</span><span>${boardGradeLabel(g)}</span></div><h3>${esc(g.title)}</h3><p>${esc(g.topic)}</p>${g.subject==='geography'?`<span class="gx-release-label">NEW · ${g.items.map(q=>esc(GX_TYPES[q.geo?.kind?.slice(3)]||'Creation studio')).join(' + ')}</span>`:''}<div class="player-tags">${playerModes(g.format).map(mode=>`<span>${PLAYER_LABELS[mode]}</span>`).join('')}</div><div class="card-details"><span>◷ ${g.minutes} min</span><span>${FORMATS[g.format].standalone?'Free play':`${g.items.length} ${GEO_FORMATS[g.format]?'missions':LAB_GAMES[g.format]?'challenges':g.format==='match'?'pairs':'questions'}`}</span></div><div class="card-actions"><button class="edit-card" data-edit="${esc(g.id)}">${FORMATS[g.format].standalone?'Play game':'Edit & play'} <span>↗</span></button><button class="quick-play" data-play="${esc(g.id)}" aria-label="Play ${esc(g.title)} grade ${g.grade}">▶</button></div>${ui.collection==='saved'?`<div class="saved-actions" aria-label="Manage ${esc(g.title)}"><button data-rename="${esc(g.id)}">Rename</button><button data-duplicate="${esc(g.id)}">Duplicate &amp; edit</button><button data-delete-lesson="${esc(g.id)}">Remove</button></div>`:''}</div></article>`).join('');
+ $('#games').innerHTML=filtered.map(g=>`<article class="game-card ${g.subject==='math'?'math':'english'}"><div class="card-art art-${g.format}" aria-hidden="true"><span class="art-symbol">${FORMATS[g.format].icon}</span><span class="art-mini">${g.subject==='math'?'x + y':g.subject==='physics'?'⚛':'Aa'}</span><span class="format-tag">${FORMATS[g.format].name}</span></div><div class="card-body"><div class="card-meta"><span>${esc(SUBJECTS.find(s=>s.id===g.subject).name)}</span><span>${boardGradeLabel(g)}</span></div><h3>${esc(g.title)}</h3><p>${esc(g.topic)}</p>${g.subject==='geography'?`<span class="gx-release-label">NEW · ${g.items.map(q=>esc(GX_TYPES[q.geo?.kind?.slice(3)]||'Creation studio')).join(' + ')}</span>`:''}<div class="player-tags">${playerModes(g.format).map(mode=>`<span>${PLAYER_LABELS[mode]}</span>`).join('')}</div><div class="card-details"><span>◷ ${g.minutes} min</span><span>${FORMATS[g.format].standalone?(g.format==='factory-maths'?'12 levels':'Free play'):`${g.items.length} ${GEO_FORMATS[g.format]?'missions':LAB_GAMES[g.format]?'challenges':g.format==='match'?'pairs':'questions'}`}</span></div><div class="card-actions"><button class="edit-card" data-edit="${esc(g.id)}">${FORMATS[g.format].standalone?'Play game':'Edit & play'} <span>↗</span></button><button class="quick-play" data-play="${esc(g.id)}" aria-label="Play ${esc(g.title)} grade ${g.grade}">▶</button></div>${ui.collection==='saved'?`<div class="saved-actions" aria-label="Manage ${esc(g.title)}"><button data-rename="${esc(g.id)}">Rename</button><button data-duplicate="${esc(g.id)}">Duplicate &amp; edit</button><button data-delete-lesson="${esc(g.id)}">Remove</button></div>`:''}</div></article>`).join('');
  $('#empty').hidden=filtered.length!==0;
  $('#empty-title').textContent=ui.collection==='saved'?'Your lessons belong here.':'This shelf is ready to grow.';
  $('#empty-message').textContent=ui.collection==='saved'?'Save a copy from the teacher editor. Try All grades if you already saved a lesson.':ui.subject==='russian'||ui.subject==='kyrgyz'?'This language has its own section now. To make a lesson, edit any existing game and change its subject here.':'No lessons match these filters. To create one for this subject, edit an existing game and choose its subject in Lesson details.';
@@ -112,7 +119,7 @@ $('#games').addEventListener('click',e=>{
  openEditor(copy);notify('Copy saved. Change its title and questions, then save your lesson.');
 });
 function openEditor(lesson){
- if(FORMATS[lesson.format]?.standalone){location.href=FORMATS[lesson.format].standalone;return;}
+ if(FORMATS[lesson.format]?.standalone){const target=new URL(FORMATS[lesson.format].standalone,location.href);if(lesson.format==='pathtrace')target.searchParams.set('level',lesson.grade);location.href=target.href;return;}
  lesson=gxUpgradeLesson(lesson);
  draft=clone(lesson);draft.settings ||= {teamOne:'Player 1',teamTwo:'Player 2',shuffle:false};dirty=false;
  $('#lesson-title').value=draft.title;$('#lesson-topic').value=draft.topic;
@@ -132,14 +139,14 @@ function renderRows(){
 }
 $('#editor').addEventListener('input',e=>{dirty=true;const field=e.target.dataset.field;if(field){const i=Number(e.target.closest('[data-row]').dataset.row);draft.items[i][field]=field==='options'?e.target.value.split('\n').map(s=>s.trim()).filter(Boolean):e.target.value;}});
 $('#question-rows').onclick=e=>{const b=e.target.closest('[data-remove]');if(!b)return;const i=Number(b.dataset.remove);confirmAction('Remove this question?',draft.items[i].prompt||'This row will be removed from the draft.',()=>{draft.items.splice(i,1);dirty=true;renderRows();});};
-$('#add-question').onclick=()=>{if(draft.items.length>=40)return notify('A lesson can contain up to 40 questions.');draft.items.push({prompt:'',answer:'',options:[],hint:'',explanation:''});dirty=true;renderRows();$('#question-rows').lastElementChild.querySelector('textarea').focus();};
+$('#add-question').onclick=()=>{if(draft.items.length>=lessonItemLimit(draft.format))return notify('A lesson can contain up to '+lessonItemLimit(draft.format)+' activities.');draft.items.push({prompt:'',answer:'',options:[],hint:'',explanation:''});dirty=true;renderRows();$('#question-rows').lastElementChild.querySelector('textarea').focus();};
 $('#paste-toggle').onclick=()=>{$('#paste-panel').hidden=!$('#paste-panel').hidden;};
 function pasteQuestions(replace=false){
  const lines=$('#bulk-input').value.trim().split('\n').filter(s=>s.trim());
  if(!lines.length||!lines[0].includes('\t'))return notify('Paste at least two spreadsheet columns: question and answer, separated by a tab.');
  const rows=lines.map(line=>{const [prompt='',answer='',wrong='',hint='']=line.split('\t');return {prompt:prompt.trim(),answer:answer.trim(),options:wrong.split(';').map(s=>s.trim()).filter(Boolean),hint:hint.trim(),explanation:''};});
  if(rows.some(r=>!r.prompt||!r.answer))return notify('Each pasted row needs both a question and an answer. Nothing was added.');
- if((replace?0:draft.items.length)+rows.length>40)return notify('That would exceed 40 questions. Remove some rows first.');
+ if((replace?0:draft.items.length)+rows.length>lessonItemLimit(draft.format))return notify('That would exceed '+lessonItemLimit(draft.format)+' activities. Remove some rows first.');
  const apply=()=>{draft.items=replace?rows:[...draft.items,...rows];dirty=true;$('#bulk-input').value='';renderRows();notify(`${rows.length} questions ${replace?'loaded':'added'}. Review them below.`);};
  if(replace)confirmAction('Replace the question list?',`Replace the current ${draft.items.length} questions with your ${rows.length} pasted questions?`,apply);else apply();
 }
@@ -265,7 +272,7 @@ window.render_game_to_text=()=>JSON.stringify(game&&ui.view==='player'?{view:gam
 window.advanceTime=()=>{if(game&&ui.view==='player')drawCanvas();};
 // Read-only runtime inspection hooks above support repeatable classroom-game QA.
 renderLibrary();
-const requested=new URLSearchParams(location.search).get('game');if(requested){const lesson=findLesson(requested);if(lesson){openEditor(lesson);if(FORMATS[lesson.format].mode==='TEAM')openTeamSetup();}else notify('That lesson is unavailable. Choose one from the library.');}
+const requested=new URLSearchParams(location.search).get('game');if(requested){const lesson=findLesson(requested);if(lesson){openEditor(lesson);if(!FORMATS[lesson.format].standalone&&FORMATS[lesson.format].mode==='TEAM')openTeamSetup();}else notify('That lesson is unavailable. Choose one from the library.');}
 if(document.modelContext?.registerTool){const lifecycle=new AbortController();try{Promise.resolve(document.modelContext.registerTool({name:'filter_classroom_games',description:'Filter the Oxford game library by grade, subject, and players. Does not launch a lesson or overwrite teacher work.',inputSchema:{type:'object',properties:{grade:{enum:['all',1,2,3,4,5,6,7,8,9,10,11,12]},subject:{enum:SUBJECTS.map(s=>s.id)},players:{enum:Object.keys(PLAYER_LABELS)}},required:['grade','subject'],additionalProperties:false},annotations:{readOnlyHint:false,untrustedContentHint:false},execute(input){if(!input||!['all',1,2,3,4,5,6,7,8,9,10,11,12].includes(input.grade)||!SUBJECTS.some(s=>s.id===input.subject)||(input.players!==undefined&&!Object.hasOwn(PLAYER_LABELS,input.players))||Object.keys(input).some(k=>!['grade','subject','players'].includes(k)))throw Error('Choose a valid grade and subject.');if(ui.view!=='home')throw Error('Return to the library before filtering.');ui.grade=input.grade;ui.subject=input.subject;ui.players=input.players??'all';renderLibrary();return {summary:$('#results').textContent};}},{signal:lifecycle.signal})).catch(()=>{});}catch{}window.addEventListener('pagehide',()=>lifecycle.abort(),{once:true});}
 
 $("#lab-browse").onclick=()=>{ui.collection="library";resetFilters();ui.search="PlayMath";$("#search").value=ui.search;renderLibrary();$("#library-title").scrollIntoView({behavior:"smooth",block:"start"});};

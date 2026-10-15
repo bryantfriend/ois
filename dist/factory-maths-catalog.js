@@ -1,0 +1,2 @@
+FORMATS['factory-maths']={name:'Factory Maths',icon:'🏭',emoji:'🏭',color:'#29994c',accent:'#f1b347',mode:'TEAM',standalone:'./factory-maths.html',description:'Predict, build and optimise production lines. Thirteen unlockable maths puzzles with production planning, ratio splitters, live flow graphs and team upgrades.'};
+for(const grade of [7,8])GAMES.push({id:`math-${grade}-factory-maths`,format:'factory-maths',grade,subject:'math',title:'Factory Maths',topic:'Factory puzzles · rates, ratios, fractions and optimisation',minutes:'10–30',items:[]});

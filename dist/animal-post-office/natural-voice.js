@@ -1,0 +1,2 @@
+// Compatibility adapter: all narration now uses the shared classroom voice.
+(() => {const voice=window.ClassroomVoice;window.PostNaturalVoice={speak:text=>voice.speak(text).then(result=>{if(result.reason==='error')throw Error('Narration clip could not load');}),cancel:()=>voice.cancel(),has:text=>voice.has(text),get playCount(){return voice.playCount;},get lastPlayed(){return voice.lastPlayed;},get playing(){return voice.playing;},get currentTime(){return voice.currentTime;},get source(){return voice.source;}};})();

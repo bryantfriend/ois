@@ -69,21 +69,21 @@ const chessCelebration=celebrationIntercept;celebrationIntercept=function(render
  }
  return intercepted;
 };
-const chessResultRender=labRender;labRender=function(){chessResultRender();if(game?.done&&game.session?.config.variant==='chess'&&$('.board-result')&&!$('.chess-captures'))$('.board-result').insertAdjacentHTML('beforeend',chessCaptureTrays(game.session.data));};
-document.addEventListener('DOMContentLoaded',()=>{const original=window.render_game_to_text;window.render_game_to_text=()=>{const state=JSON.parse(original());if(game?.session?.config.variant==='chess')state.chess={captures:chessCaptures(game.session.data),winner:game.session.data.winner??null};return JSON.stringify(state);};});
-function chessPaint(){const d=game?.session?.data;if(game?.session?.config.variant!=='chess')return;const plane=$('.chess-plane');if(!plane)return;plane.style.transform=chessTransform(d.viewAngle);plane.querySelectorAll('.chess-upright').forEach(el=>el.setAttribute('transform','rotate('+(-d.viewAngle)+')'));
+const chessResultRender=labRender;labRender=function(){chessResultRender();if(game?.done&&game.session?.config?.variant==='chess'&&$('.board-result')&&!$('.chess-captures'))$('.board-result').insertAdjacentHTML('beforeend',chessCaptureTrays(game.session.data));};
+document.addEventListener('DOMContentLoaded',()=>{const original=window.render_game_to_text;window.render_game_to_text=()=>{const state=JSON.parse(original());if(game?.session?.config?.variant==='chess')state.chess={captures:chessCaptures(game.session.data),winner:game.session.data.winner??null};return JSON.stringify(state);};});
+function chessPaint(){const d=game?.session?.data;if(game?.session?.config?.variant!=='chess')return;const plane=$('.chess-plane');if(!plane)return;plane.style.transform=chessTransform(d.viewAngle);plane.querySelectorAll('.chess-upright').forEach(el=>el.setAttribute('transform','rotate('+(-d.viewAngle)+')'));
  const m=d.motion;if(!m)return;const t=Math.min(1,m.age/m.travel),ease=t*t*(3-2*t);
  const place=(id,from,to,jump=0)=>{const a=classicPoint(from,d),b=classicPoint(to,d);$(id)?.setAttribute('transform','translate('+(a.x+(b.x-a.x)*ease)+' '+(a.y+(b.y-a.y)*ease-Math.sin(Math.PI*t)*jump)+')');};
  place('#chess-mover',m.from,m.to,m.piece.type==='n'?65:0);if(m.rookTo!==null)place('#chess-rook',m.rookFrom,m.rookTo);
  $('#chess-captured')?.setAttribute('opacity',Math.max(0,1-Math.max(0,t-.5)*2));
 }
-const chessPaintClassic=classicPaintMotion;classicPaintMotion=function(){if(game?.session?.config.variant==='chess')chessPaint();else chessPaintClassic();};
+const chessPaintClassic=classicPaintMotion;classicPaintMotion=function(){if(game?.session?.config?.variant==='chess')chessPaint();else chessPaintClassic();};
 const chessHandle=labHandle;labHandle=function(button){if(game?.session?.data?.rotation)return;chessHandle(button);chessPaint();};
 const chessStep=stepArcade;stepArcade=function(dt){
  const s=game?.session,d=s?.data,m=d?.motion;
  // The shared movement clock completes slides first; rotate only after landing.
  chessStep(dt);
- if(ui.view!=='player'||s!==game?.session||s?.config.variant!=='chess')return;
+ if(ui.view!=='player'||s!==game?.session||s?.config?.variant!=='chess')return;
  if(m&&!d.motion&&!game.done){chessStartRotation(d);renderGame();}
  if(d.rotation){const r=d.rotation;r.age+=dt;const t=Math.min(1,r.age/r.duration);d.viewAngle=r.from+(r.to-r.from)*(t*t*(3-2*t));chessPaint();if(t===1||arcade.reduced){d.viewAngle=r.to;d.rotation=null;renderGame();}}
 };

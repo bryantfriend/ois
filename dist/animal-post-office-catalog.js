@@ -1,0 +1,2 @@
+FORMATS['animal-post-office']={name:'Animal Post Office',icon:'✉️',emoji:'✉️',color:'#286f65',accent:'#fff0c6',mode:'SOLO',standalone:'./animal-post-office/editor.html',description:'Animal customers bring picture packages. Drag each package into its matching letter or word bin.'};
+GAMES.push({id:'english-1-animal-post-office',format:'animal-post-office',grade:1,subject:'english',title:'Animal Post Office',topic:'Picture packages · first-letter bins A–Z · 100 picture words in 5 categories',minutes:'10–15',items:[]});

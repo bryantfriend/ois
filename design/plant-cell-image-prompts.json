@@ -1,0 +1,55 @@
+{
+  "mode": "Built-in image_gen",
+  "useCase": "scientific-educational",
+  "style": "Friendly premium 3D biology textbook illustrations for ages 12–14, bright colours, soft shading and crisp contours, large centered composition, pale ivory background, square with generous edges; no text, arrows, labels, letters, numbers, logos, frames, faces or anthropomorphism; scientific accuracy matters.",
+  "assets": [
+    {
+      "file": "plant/cell-wall.webp",
+      "prompt": "A cutaway corner of a plant cell wall: a thick pale green layered cellulose wall surrounding a thin pink plasma membrane on its inner face. Visible interwoven cellulose fibers in the thick outer wall. Focus on the rigid wall, no whole cell."
+    },
+    {
+      "file": "plant/cell-membrane.webp",
+      "prompt": "A curved cutaway patch of a plant cell plasma membrane: two layers of pink phospholipid heads with golden paired tails facing inward and teal transport proteins crossing the bilayer. A faint green cellulose cell wall strip outside the membrane provides plant context, but emphasize the thin bilayer."
+    },
+    {
+      "file": "plant/cytoplasm.webp",
+      "prompt": "A rectangular green plant cell cutaway with a very large translucent pale blue central vacuole. Highlight the thin golden cytoplasm lining the interior cell edge around the vacuole, holding a purple nucleus and several green chloroplasts. Cytoplasm is the continuous jelly-like material, not a separate organelle."
+    },
+    {
+      "file": "plant/nucleus.webp",
+      "prompt": "One isolated purple plant-cell nucleus cutaway showing a double nuclear envelope with pores, pale coiled chromatin inside, and a smaller dark purple nucleolus. Same nucleus anatomy as an animal cell. No whole cell, no text."
+    },
+    {
+      "file": "plant/chloroplast.webp",
+      "prompt": "One isolated green chloroplast cutaway with a double envelope. Inside, show multiple tidy stacks of flat green thylakoid discs, connected by thin stroma lamellae, suspended in pale green stroma. Disc stacks (grana) must be visually distinct from mitochondrial folds."
+    },
+    {
+      "file": "plant/central-vacuole.webp",
+      "prompt": "A rectangular plant cell cutaway with thick pale green wall and thin pink membrane: one enormous translucent pale blue central vacuole takes most of the interior, enclosed by a thin tonoplast membrane. A narrow yellow cytoplasm band and small subdued purple nucleus at one side show scale. Strongly emphasize the large central vacuole."
+    },
+    {
+      "file": "plant/mitochondrion.webp",
+      "prompt": "One isolated orange plant-cell mitochondrion cutaway: smooth outer membrane, inner membrane folded into clear continuous cristae, pale golden matrix. Plant mitochondrion has the same anatomy as animal mitochondria. No chloroplast disc stacks, no whole cell."
+    },
+    {
+      "file": "plant/ribosome.webp",
+      "prompt": "One isolated plant-cell ribosome with a large blue lobed subunit above and small teal subunit below, thin purple mRNA passing through the groove, and a short gold amino-acid bead chain emerging from the large subunit. No enclosing membrane, no whole cell."
+    },
+    {
+      "file": "plant/golgi-apparatus.webp",
+      "prompt": "One isolated plant-cell Golgi stack (dictyosome): five golden orange curved flattened membrane sacs with clear gaps, a few small spherical transport vesicles budding from the edges. No whole cell."
+    },
+    {
+      "file": "plant/rough-er.webp",
+      "prompt": "An isolated plant-cell rough endoplasmic reticulum: connected folded teal membrane sheets with numerous tiny dark blue ribosomes on the outside. Emphasize connected sheets covered with ribosomes. No whole cell."
+    },
+    {
+      "file": "plant/smooth-er.webp",
+      "prompt": "An isolated plant-cell smooth endoplasmic reticulum: smooth teal branching interconnected membrane tubules with a few open ends visible. No ribosome dots, no nucleus, no whole cell."
+    },
+    {
+      "file": "plant/nucleolus.webp",
+      "prompt": "A purple plant-cell nucleus cutaway with one small dense dark violet nucleolus clearly emphasized at its center. Pale chromatin threads and the nuclear envelope softly subdued around it for context. The nucleolus itself has no surrounding membrane."
+    }
+  ]
+}

@@ -1,0 +1,2 @@
+FORMATS['uk-border-geography']={name:'UK Border Geography',icon:'🛂',emoji:'🛂',color:'#92400e',mode:'SOLO',standalone:'./uk-border-geography/index.html',description:'Inspect travel papers, question travelers and consult the UK atlas in a fictional airport booth.'};
+GAMES.push({id:'geography-7-uk-border',format:'uk-border-geography',grade:7,subject:'geography',title:'UK Border Geography: The First Shift',topic:'Ten investigations · UK nations, capitals, rivers, mountains and travel routes',minutes:'20–30',items:[]});

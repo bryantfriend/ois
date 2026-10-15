@@ -1,0 +1,31 @@
+{
+  "mode": "Built-in image_gen",
+  "useCase": "scientific-educational",
+  "style": "Premium biology textbook 3D illustrations for ages 12–14, soft shading and crisp contours, pale ivory background, centered square composition, no text or arrows.",
+  "assets": [
+    {
+      "file": "golgi-apparatus.webp",
+      "prompt": "An isolated Golgi apparatus: a stack of five gently curved flattened golden orange membrane sacs (cisternae), with a few small round budding transport vesicles beside the edges. Clearly separate stacked sacs with subtle gaps."
+    },
+    {
+      "file": "rough-er.webp",
+      "prompt": "An isolated rough endoplasmic reticulum: an interconnected folded network of teal flattened membrane sheets, studded with many tiny dark blue ribosome dots on their outside surfaces. Emphasize the ribosomes and connected folded sheets; do not include the entire cell."
+    },
+    {
+      "file": "smooth-er.webp",
+      "prompt": "An isolated smooth endoplasmic reticulum: an interconnected branching network of smooth teal tubular membranes, with gently curved tubules and visible openings at a few ends. No ribosome dots, no nucleus, no entire cell."
+    },
+    {
+      "file": "nucleolus.webp",
+      "prompt": "A cutaway purple animal cell nucleus with one small dense dark violet nucleolus clearly highlighted at its center and the surrounding pale purple chromatin threads and nuclear envelope softly subdued for context. The nucleolus has no membrane surrounding it."
+    },
+    {
+      "file": "lysosome.webp",
+      "prompt": "One isolated small round pink coral lysosome with a cutaway membrane revealing tiny enzyme particles digesting a few irregular broken-down cell fragments inside. A single surrounding membrane, warm pink interior, no nucleus or entire cell."
+    },
+    {
+      "file": "centrioles.webp",
+      "prompt": "An isolated pair of animal cell centrioles: two short cylindrical bundles at right angles to each other. Show each cylinder as nine groups of three parallel microtubules arranged in a ring, with one open end clearly visible. Friendly pale blue and turquoise tubes, no whole cell, no nucleus."
+    }
+  ]
+}

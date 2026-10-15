@@ -112,7 +112,7 @@ Expandable groups organize Language (English, Russian, Kyrgyz), Science (Chemist
 Twenty-two additional formats contribute 70 editable Grade 7–8 starter packs, bringing the library to 176 packs / 54 formats.
 
 - **Teams:** Gameshow Quiz (turns, streaks, one 50:50 per team), Win or Lose Quiz (25/50/100-point stakes). Both use the shared 2–6-team setup.
-- **Whole Class:** Flip Tiles (reveal and revisit), Labelled Diagram (place labels on an animal cell), Watch and Memorize (recall a sequence).
+- **Whole Class:** Flip Tiles (reveal and revisit), Cell Structures (choose an animal or plant cell, then label 6, 9 or 12 structures), Watch and Memorize (recall a sequence).
 - **Solo:** Type the Answer, Wordsearch, Spell the Word, Hangman, Crossword, Maze Chase, True or False, Flying Fruit, Pair or No Pair, Balloon Pop, Airplane, Image Quiz, Whack-a-mole, Rank Order, Speed Sorting, Maths Generator, Word Magnets.
 
 English word puzzles use grade-specific vocabulary; sentence magnets use word-level sentence construction. Math packs cover arithmetic, comparisons and geometry. Labelled Diagram starts in Biology with cell structures/functions. Most question-driven formats have both English and Math banks; teachers can reassign custom content to any supported subject.

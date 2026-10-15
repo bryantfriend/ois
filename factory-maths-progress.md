@@ -93,6 +93,3 @@ Final validation: tutorial and live-edit regression suites passed, npm run check
 Official skill browser loop also passed after sprite isolation; inspected normal factory production screenshot with no browser errors.
 
 2026-10-09 — R preview rotation: R now gives priority to the visible grey placement preview, rotating its direction clockwise without changing an existing selected machine. The placed piece keeps that direction. Editable inputs/modifier shortcuts and key-repeat are ignored; on-board selected-building rotation controls remain available. Immediate redraw and R hints added. Dedicated QA verified rotation, four-direction wraparound, selected-machine protection, correct placed direction and all existing placement/fullscreen checks. Syntax check and official game skill client passed with no browser errors; inspected rotated ghost and normal production screenshots.
-
-2026-10-09: Published complete Factory Maths to OIS in release 0.3.18 (c77577b1351e2199e8ce93e90431fc956228f61c). Fixed invalid extractor ghost rendering on resource-free tiles during final release QA; full Factory regression passed. GitHub Pages deployment 37881817087 succeeded.
-

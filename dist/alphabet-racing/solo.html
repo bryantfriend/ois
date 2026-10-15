@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#eef5ee"><title>Alphabet Racing Champions</title><link rel="stylesheet" href="style.css"></head>
+<body>
+<header class="topbar"><a class="brand" href="./index.html" aria-label="Alphabet Racing home"><span class="brand-icon">a<span>b</span>c</span><span>ALPHABET RACING<small>Little learners. Big adventures.</small></span></a><div class="top-actions"><button id="sound" aria-label="Toggle narration">♫ Sound on</button><button id="garage">▣ My garage</button><button id="grownups" aria-label="Grown-up settings">⚙</button></div></header>
+<main>
+ <section class="hero"><div><div class="eyebrow"><span></span> READY, SET, LEARN!</div><h1>Small letters.<br><span>Big adventures.</span></h1><p>Pick a letter. Power up your car.<br>Become an Alphabet Racing Champion!</p></div><div class="hero-note"><span>★</span><div>Every little win counts.<small>Take your time. You’ve got this!</small></div></div></section>
+ <section class="race-shell" aria-label="Racing game">
+  <div class="race-top"><div><span class="track-label" id="track-name">TRACK 01 / SUNNY MEADOW</span><h2 id="race-title">Your adventure starts here</h2></div><div class="race-tools"><span id="race-counter">8 little challenges · 1 big race</span><button id="pause" hidden>Ⅱ Pause</button><button id="fullscreen" aria-label="Full screen">⛶</button></div></div>
+  <div class="stage"><canvas id="track" width="1200" height="470" aria-label="Animated race track with your car and two friendly racers"></canvas><div class="scene-caption"><span class="pill">☀ <span id="scene-name">Sunny Meadow</span></span><span class="pill" id="buddy-label">Meet Pip &amp; Coco!</span></div>
+   <div class="start-card" id="start-card"><span class="flag">⚑</span><h2>Let’s race the alphabet!</h2><p>Listen, then tap the matching letter.<br>Every answer helps you zoom ahead.</p><button class="primary" id="start">Start your engines <span>→</span></button><small>Tap to play · or use ← → and Enter</small></div>
+   <div class="finish-card" id="finish-card" hidden></div>
+   <div class="pause-card" id="pause-card" hidden><h2>Pit stop!</h2><p>Your race will wait for you.</p><button class="primary" id="resume">Keep racing →</button><button id="quit">Back to the track menu</button></div>
+   <div class="race-meter" id="race-meter" hidden><span>START</span><div><i id="meter-fill"></i></div><span>⚑ FINISH</span></div>
+  </div>
+  <div class="challenge" id="challenge" hidden><div class="prompt-row"><div><div class="eyebrow" id="challenge-kind">LETTER LANES</div><h2 id="prompt">Listen for your letter!</h2><p id="hint"></p></div><button class="listen" id="listen">◖)) Listen again</button></div><div id="picture" hidden></div><div id="bridge" hidden></div><div class="choices" id="choices"></div><div class="feedback-row"><p id="feedback" role="status" aria-live="polite">You’ve got this! Pick your lane.</p><button class="primary" id="next" hidden>Keep racing →</button><button id="undo" hidden>↶ Try a different letter</button></div></div>
+  <div class="race-bottom"><div><span class="dot yellow"></span> YOU <span class="dot teal"></span> PIP <span class="dot pink"></span> COCO</div><span id="bottom-note">A friendly race. A little learning. A lot of fun.</span></div>
+ </section>
+ <section class="journey"><div class="section-heading"><div><div class="eyebrow">YOUR LEARNING ROAD TRIP</div><h2>One adventure at a time.</h2></div><span id="trophy-count">🏆 0 races finished</span></div><div class="courses" id="courses"></div></section>
+ <footer><span>Made for little racers with big imaginations.</span><span>Listen · Learn · Zoom!</span></footer>
+</main>
+<dialog id="modal"><div id="modal-content"></div><button class="modal-close" id="close-modal" aria-label="Close dialog">×</button></dialog>
+<script src="../shared/voice/manifest.js"></script><script src="../shared/voice/runtime.js"></script><script src="game.js"></script>
+</body></html>

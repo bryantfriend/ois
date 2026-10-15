@@ -16,3 +16,5 @@ body[data-world^="geo"] #arena{background:radial-gradient(circle at 5% 10%,color
 body[data-world^="geo"] #arena{position:relative;isolation:isolate}.geo-ambient-stage{position:absolute;bottom:0;right:0;width:420px;height:155px;z-index:-1;pointer-events:none;opacity:.85;border-radius:26px;overflow:hidden}.geo-ambient-stage>svg{height:100%;width:100%}.geo-panels,.geo-result,.geo-team-tabs{position:relative}.geo-ambient-stage .geo-scene *{animation:none!important}
 @media(min-width:1000px){.geo-panel:has([data-mode-action="geo-hide"]) .geo-map-surface{max-width:390px}.geo-dual .geo-panel:has([data-mode-action="geo-project"]) .geo-choices button{padding:7px 10px}.geo-dual .geo-panel:has([data-mode-action="geo-project"]) .geo-needs span{padding:5px;font-size:16px}}
 @media(max-width:700px){.geo-ambient-stage{display:none}}
+
+.card-art.landmark-network-art{background:#e2eee4;padding:0;overflow:hidden}.landmark-network-art>svg{display:block;width:100%;height:100%;position:absolute;inset:0}.landmark-network-art .format-tag{z-index:1;background:#fffdf2ed;color:#214f57}

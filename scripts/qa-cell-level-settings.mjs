@@ -1,4 +1,4 @@
-import assert from 'node:assert/strict';import {chromium} from 'file:///C:/Users/fangb_kyiapn1/.codex/skills/develop-web-game/node_modules/playwright/index.mjs';const b=await chromium.launch(),p=await b.newPage({viewport:{width:1366,height:768}}),errors=[];p.on('pageerror',e=>errors.push(e.message));const url='http://127.0.0.1:4174/?game=biology-7-diagram';
+import assert from 'node:assert/strict';import {chromium} from 'file:///C:/Users/fangb_kyiapn1/.codex/skills/develop-web-game/node_modules/playwright/index.mjs';const b=await chromium.launch(),p=await b.newPage({viewport:{width:1366,height:768}}),errors=[];p.on('pageerror',e=>errors.push(e.message));const url=(process.env.OXFORD_TEST_URL||'http://127.0.0.1:4174')+'/?game=biology-7-diagram';
 async function details(){if(await p.locator('#lesson-editor-toggle').textContent()==='Detailed editor')await p.locator('#lesson-editor-toggle').click();}
 try{
 for(const [level,n] of [['easy',6],['medium',9],['hard',12]]){

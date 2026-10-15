@@ -5,12 +5,12 @@ import path from 'node:path';
 import {fileURLToPath,pathToFileURL} from 'node:url';
 import {spawn} from 'node:child_process';
 
-const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
+const root=process.env.OXFORD_RELEASE_ROOT||path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const output=path.resolve(root,'../output/feelings-faces-qa');
 const playwright=process.env.OXFORD_PLAYWRIGHT_MODULE||'C:/Users/fangb_kyiapn1/.codex/skills/develop-web-game/node_modules/playwright/index.mjs';
 const {chromium}=await import(pathToFileURL(playwright));
 const types={'.html':'text/html','.js':'text/javascript','.css':'text/css','.json':'application/json','.mp3':'audio/mpeg','.png':'image/png','.webp':'image/webp','.svg':'image/svg+xml'};
-const server=http.createServer(async(req,res)=>{try{const url=new URL(req.url,'http://localhost'),file=path.resolve(root,'dist','.'+(url.pathname==='/'?'/index.html':decodeURIComponent(url.pathname)));if(!file.startsWith(path.join(root,'dist')+path.sep)){res.writeHead(403);return res.end();}const body=await fs.readFile(file);res.writeHead(200,{'Content-Type':types[path.extname(file)]||'application/octet-stream'});res.end(body);}catch{res.writeHead(404);res.end();}});
+const server=http.createServer(async(req,res)=>{try{const url=new URL(req.url,'http://localhost'),pathname=url.pathname==='/'?'/index.html':decodeURIComponent(url.pathname),file=path.resolve(root,'dist','.'+pathname);if(!file.startsWith(path.join(root,'dist')+path.sep)){res.writeHead(403);return res.end();}let body;try{body=await fs.readFile(file);}catch(error){if(!process.env.OXFORD_RELEASE_FALLBACK)throw error;const remote=await fetch(new URL(pathname.slice(1),process.env.OXFORD_RELEASE_FALLBACK));if(!remote.ok)throw Error('Missing remote asset '+pathname);body=Buffer.from(await remote.arrayBuffer());}res.writeHead(200,{'Content-Type':types[path.extname(file)]||'application/octet-stream'});res.end(body);}catch{res.writeHead(404);res.end();}});
 await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
 const base='http://127.0.0.1:'+server.address().port;
 await fs.mkdir(output,{recursive:true});

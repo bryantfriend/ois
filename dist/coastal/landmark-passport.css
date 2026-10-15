@@ -1,0 +1,32 @@
+.coastal-destination-filter select{width:100%;padding:8px;border:1px solid #c6c5ae;border-radius:8px;background:#fffdf0;color:#174c59;font:inherit}
+.coastal-destination-filter p{font-size:12px;line-height:1.5}
+.coastal-landmark-passport{position:relative;width:min(1080px,94vw);max-width:1080px;max-height:90dvh;box-sizing:border-box;padding:28px!important;border:2px solid #b6aa85!important;border-radius:24px!important;background:linear-gradient(90deg,#f9f4df 0%,#fffdf1 48%,#ddd4b6 50%,#fffdf1 52%,#f9f4df 100%)!important;color:#174c59;box-shadow:0 20px 80px #092f4955}
+.coastal-landmark-passport::backdrop{background:#143f4b99}
+.coastal-landmark-passport>h3{font:700 clamp(22px,3vw,34px) Georgia,serif;margin:0 46px 8px 0}
+.coastal-landmark-ref-close{position:absolute;right:15px;top:12px;font-size:25px!important;padding:4px 12px!important}
+.coastal-landmark-ref-intro{font-size:14px;line-height:1.5;margin:8px 0 16px;max-width:750px}
+.coastal-landmark-ref-tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px}
+.coastal-landmark-ref-tabs button{font-size:12px;padding:6px 10px;border-radius:8px;background:#eee9d4;color:#174c59;border:1px solid #c2b896}
+.coastal-landmark-ref-tabs button[aria-pressed=true]{background:#174c59;color:#fffdf0}
+.coastal-landmark-ref-spread{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 36px}
+.coastal-landmark-ref-stamp{position:relative;display:grid;grid-template-columns:72px minmax(0,1fr) 100px;gap:10px;align-items:center;min-height:150px;padding:14px;background:#fffdf2;border:1px dashed #afa886;border-radius:12px;box-shadow:0 3px 5px #66552c0b}
+.coastal-landmark-ref-emblem{width:70px;height:70px;object-fit:contain;border:2px solid #174c59;border-radius:50%;background:#fffdf0}
+.coastal-landmark-ref-picture{grid-column:3;grid-row:1;width:100px;height:90px;object-fit:cover;border-radius:7px}
+.coastal-landmark-ref-caption{grid-column:2;grid-row:1;min-width:0}
+.coastal-landmark-ref-caption h4{font:700 21px Georgia,serif;margin:0 0 6px}
+.coastal-landmark-ref-caption p{font-size:12px;line-height:1.4;margin:0 0 7px}
+.coastal-landmark-ref-caption small{font-size:11px;color:#657568}
+.coastal-landmark-ref-stamp button{grid-column:2 / 4;justify-self:start;font-size:12px;padding:6px 10px;background:#deeee9;border:1px solid #8bb7b0;border-radius:6px;color:#174c59}
+.coastal-landmark-ref-visited{position:absolute;right:8px;bottom:8px;transform:rotate(-8deg);padding:3px 7px;border:2px solid #4d7e66;color:#4d7e66;font:700 12px Georgia,serif;text-transform:uppercase;background:#fffdf0e8}
+.coastal-landmark-ref-locked{grid-column:2 / 4;color:#786d50;font-size:12px}
+.coastal-landmark-ref-pages{display:flex;justify-content:center;align-items:center;gap:22px;margin-top:22px}
+.coastal-landmark-ref-pages button{background:#deeee9;color:#174c59;border:1px solid #8bb7b0;padding:8px 14px;border-radius:9px}
+.coastal-landmark-ref-pages button:disabled{opacity:.4}
+@media(max-width:760px){.coastal-landmark-passport{padding:18px!important}.coastal-landmark-ref-spread{gap:12px;grid-template-columns:1fr}.coastal-landmark-ref-stamp{grid-template-columns:64px minmax(0,1fr) 80px;min-height:128px;padding:10px}.coastal-landmark-ref-emblem{width:60px;height:60px}.coastal-landmark-ref-picture{width:80px;height:78px}.coastal-landmark-ref-caption h4{font-size:19px}}
+
+.coastal-landmark-passport>.coastal-landmark-ref-close:first-child{position:absolute!important;width:auto!important;margin:0!important;display:block;right:15px;top:12px}
+
+.coastal-landmark-ref-location{display:block;margin-top:5px;font-style:italic;line-height:1.4}.coastal-landmark-ref-picture{object-fit:contain;background:#fffdf0}
+
+.coastal-tourist-itinerary{padding-left:24px}.coastal-tourist-itinerary li{display:flex;align-items:center;gap:12px;margin:10px 0;padding:12px;border:1px solid #c5d3bd;border-radius:12px;background:#fffdf0;flex-wrap:wrap}.coastal-tourist-itinerary img{width:52px;height:52px;object-fit:contain}.coastal-tourist-itinerary span{flex:1;min-width:140px}.coastal-tourist-itinerary strong{font-size:12px;color:#607368}.coastal-tourist-itinerary [data-visit=next]{border:2px solid #dca438;background:#fff4d6}.coastal-tourist-itinerary [data-visit=visited]{opacity:.65}
+.coastal-network-shop>button:first-child{margin-inline:0}

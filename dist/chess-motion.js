@@ -58,7 +58,7 @@ const chessBaseAction=LAB_ENGINES.classics.action;LAB_ENGINES.classics.action=fu
 // Give the winning side its own king and name during the shared celebration.
 const chessCelebration=celebrationIntercept;celebrationIntercept=function(render){
  const intercepted=chessCelebration(render),d=game?.session?.data;
- if(intercepted&&game.session.config?.variant==='chess'&&!$('#chess-victory')){
+ if(intercepted&&game.session?.config?.variant==='chess'&&!$('#chess-victory')){
   const layer=$('#victory-layer'),won=d.winner!==null&&d.winner!==undefined;
   const card=document.createElement('div');card.id='chess-victory';card.className='chess-victory';
   card.innerHTML=(won?'<svg viewBox="-65 -75 130 145" aria-hidden="true"><g class="chess-victory-king">'+chessShape('k',d.winner?'b':'w')+'</g><path d="M-40 -60L-28 -47L-15 -63L-2 -47L10 -60" fill="none" stroke="#dfaa29" stroke-width="5"/></svg>':'<span class="chess-draw-icon">½ : ½</span>')+'<h2>'+(won?esc(labPlayer(d.winner))+' wins!':'Draw — well played!')+'</h2><p>'+(won?(d.winner?'Black':'White')+' · '+(labChess(d).isCheckmate()?'Checkmate':'Victory by resignation'):'Both sides share the honours.')+'</p>';

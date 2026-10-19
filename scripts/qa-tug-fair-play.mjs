@@ -8,7 +8,7 @@ async function open(manual=true){await p.goto(base+'/?game=math-7-tug');await p.
 async function selector(side,good=true){const n=await p.evaluate(({side,good})=>{const s=game.tug[side];return s.choices.findIndex(a=>(a===game.items[s.question].answer)===good);},{side,good});return `[data-player="${side}"][data-tug-answer="${n}"]`;}
 async function answer(side,good=true){await p.locator(await selector(side,good)).click();}
 async function tick(ms){await p.evaluate(ms=>advanceTime(ms),ms);}
-async function rects(){return p.evaluate(()=>[...document.querySelectorAll('.tug-side,.tug-answers button,#game-canvas')].map(el=>{const r=el.getBoundingClientRect();return [r.x,r.y,r.width,r.height];}));}
+async function rects(){return p.evaluate(()=>[...document.querySelectorAll('.tug-side,.tug-answers button,#game-canvas')].map(el=>{const r=el.getBoundingClientRect();return [r.x+scrollX,r.y+scrollY,r.width,r.height];}));}
 try{
  await open();const before=await rects();await p.evaluate(()=>window.opponentButton=document.querySelector('[data-player="1"]'));
  await answer(0);await tick(1101);assert.deepEqual((await state()).teams,[1,0]);

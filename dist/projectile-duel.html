@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Projectile Duel | Oxford Physics</title><link rel="icon" href="./assets/oxford-logo.png"><link rel="stylesheet" href="./projectile-duel.css?v=e1b013303090"></head><body><div id="smartboard">
+<html lang="en"><head><script src="./shared/loading/manifest.js?v=1"></script><script src="./shared/loading/runtime.js?v=1" data-mode="standalone" data-page="projectile-duel"></script><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Projectile Duel | Oxford Physics</title><link rel="icon" href="./assets/oxford-logo.png"><link rel="stylesheet" href="./projectile-duel.css?v=e1b013303090"></head><body><div id="smartboard">
 <nav class="toolbar" aria-label="Game controls"><a href="./?subject=physics">← Physics games</a><button onclick="restartGame()">Restart scores</button><button id="fullscreen-btn" onclick="toggleFullScreen()">⛶ Fullscreen</button></nav>
 <p class="instructions">Drag the sliders or hold + / − to aim, then fire. Hit the other cannon to score! Each cannon reloads for 5 seconds. New terrain follows every hit.</p>
         <!-- ================= GAME VIEW ================= -->
@@ -13,10 +13,10 @@
             <!-- Main Battle Area -->
             <div id="game-area">
                 <svg id="game-svg" viewBox="0 0 1000 500" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Two cannons facing across a mountain">
-                    
+
                     <!-- Ground -->
                     <rect x="0" y="450" width="1000" height="50" fill="#22c55e" />
-                    
+
                     <!-- The Mountain Barrier -->
                     <polygon id="mountain-polygon" points="350,450 500,200 650,450" fill="#475569" stroke="#334155" stroke-width="5"/>
 
@@ -54,13 +54,13 @@
                     <g id="projectile-layer"></g>
 
                 </svg>
-                
+
                 <div id="message-overlay" role="status" aria-live="polite">Direct Hit!</div>
             </div>
 
             <!-- Dual Controls Area -->
             <div class="dual-controls">
-                
+
                 <!-- Player 1 Controls -->
                 <div class="player-panel p1-panel">
                     <div class="control-row">
@@ -100,4 +100,4 @@
 
     </div>
 
-<script src="./projectile-duel.js?v=08242779942e"></script></body></html>
+<script src="./projectile-duel.js?v=08242779942e" type="text/plain" data-loading-script="classic"></script></body></html>

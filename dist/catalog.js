@@ -187,7 +187,7 @@ I repeat initial consonant sounds. ~ alliteration ~~ Silver snakes slid silently
 I exaggerate for effect. ~ hyperbole ~~ I have told you a million times.
 I am a sound-imitating word. ~ onomatopoeia ~~ Buzz, hiss, and bang are examples.
 `);
-lesson('math',7,'quiz','Integer Sprint','Operations with integers',`
+lesson('math',7,'quiz','Starbridge Rescue','Integer operations · recover stranded crews',`
 −8 + 13 = ? ~ 5 ~ −5 / 21 / −21
 6 − (−4) = ? ~ 10 ~ 2 / −10 / −2
 −7 × 3 = ? ~ −21 ~ 21 / −4 / −10

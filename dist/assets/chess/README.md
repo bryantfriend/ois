@@ -1,6 +1,6 @@
 # Chess appearance artwork
 
-Generated 20 October 2026 with the built-in image generation tool. Five boards and five transparent sprite atlases, used directly by chess-motion.js. Each atlas has six columns (king, queen, rook, bishop, knight, pawn) and two rows (white, black). All 25 combinations are supported.
+Generated 20 October 2026 with the built-in image generation tool. The current settings offer five boards, Traditional pieces, and independently chosen Fantasy armies. See [factions/README.md](factions/README.md) for the ten character armies and sixty role designs. The first five conventional piece atlases below are retained as earlier artwork; Traditional mode uses `pieces-classic.png`.
 
 ## Board prompt template
 

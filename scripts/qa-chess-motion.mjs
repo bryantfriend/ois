@@ -5,11 +5,12 @@ const {chromium}=await import(pathToFileURL(process.env.OXFORD_PLAYWRIGHT_MODULE
 const browser=await chromium.launch(),page=await browser.newPage({viewport:{width:1366,height:768}}),errors=[];
 page.on('pageerror',e=>errors.push(e.stack));
 const base=process.env.OXFORD_TEST_URL||'http://127.0.0.1:4186';
+if(process.env.CHESS_TEST_FANTASY)await page.addInitScript(()=>localStorage.setItem('ois.chess.appearance',JSON.stringify({board:'marble',mode:'fantasy',white:'protoss',black:'zerg'})));
 const state=()=>page.evaluate(()=>game.session.data);
 const advance=ms=>page.evaluate(ms=>advanceTime(ms),ms);
 const index=s=>(8-Number(s[1]))*8+'abcdefgh'.indexOf(s[0]);
 const cell=n=>page.locator(`[data-mode-action="lab-cell"][data-value="${n}"]`).click();
-async function start(variant){await page.evaluate(v=>{openEditor(GAMES.find(g=>LAB_GAMES[g.format]?.variant===v));startGame();arcade.manual=true;},variant);await page.waitForTimeout(200);}
+async function start(variant){await page.evaluate(async v=>{openEditor(GAMES.find(g=>LAB_GAMES[g.format]?.variant===v));await startGame();arcade.manual=true;},variant);await page.waitForTimeout(200);}
 async function move(from,to,ms=1300){await cell(index(from));await cell(index(to));if(ms)await advance(ms);}
 async function watch(){await page.evaluate(()=>{window.testStage=document.querySelector('.classic-layout');window.testSVG=document.querySelector('.classic-svg');window.testRect=testStage.getBoundingClientRect().toJSON();window.testVisual=document.querySelector('.classic-visual').getBoundingClientRect().toJSON();});}
 async function stable(){assert.ok(await page.evaluate(()=>{const now=document.querySelector('.classic-layout').getBoundingClientRect(),visual=document.querySelector('.classic-visual').getBoundingClientRect();return testStage===document.querySelector('.classic-layout')&&testSVG===document.querySelector('.classic-svg')&&Math.abs(testRect.height-now.height)<1&&Math.abs(testRect.y-now.y)<1&&['x','y','width','height'].every(key=>Math.abs(testVisual[key]-visual[key])<1);}),'Stage/SVG must remain mounted and stable');}

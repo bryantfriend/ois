@@ -1,6 +1,7 @@
 // Run checks separately so Windows does not exceed its command-line length limit.
 const {execFileSync}=require('node:child_process');
 const files=[
+"dist/chess-appearance.js","dist/starbridge-rescue.js","dist/shared/loading/runtime.js","dist/shared/loading/library.js","dist/shared/loading/manifest.js","scripts/build-loading.cjs","scripts/qa-loading.mjs","scripts/qa-chess-factions.mjs","scripts/qa-starbridge-rescue.mjs",
 "dist/tug-plush.js",
 "scripts/qa-tug-plush.mjs",
 "dist/treasure-cove.js",

@@ -1,0 +1,11 @@
+#player.starbridge-rescue .starbridge-briefing{display:flex;align-items:center;justify-content:space-between;gap:16px;background:#e2f5ef;border:1px solid #b6dccc;border-radius:12px;padding:10px 16px;flex:none;color:#205f64}
+#player.starbridge-rescue .starbridge-briefing strong{font-size:13px;letter-spacing:1px;white-space:nowrap}#player.starbridge-rescue .starbridge-briefing span{font-size:14px;line-height:1.4}
+/* The shared fit routine adjusts other games to question height. This flight deck
+   has a fixed viewport-based height, so feedback cannot resize the spacecraft. */
+#player.starbridge-rescue[data-presentation=scene] #game-canvas{height:clamp(190px,30vh,330px)!important;min-height:0!important;max-height:none!important;aspect-ratio:auto!important;width:100%;object-fit:contain;background:#10283e!important;border-radius:18px;flex:none}
+#player.starbridge-rescue #arena.answer-hit,#player.starbridge-rescue #arena.answer-miss{animation:none}
+#player.starbridge-rescue #arena .feedback{margin:8px 0;padding:12px 16px}#player.starbridge-rescue #arena .feedback p{margin:7px 0;font-size:16px;line-height:1.35}
+#player.starbridge-rescue .starbridge-feedback{font-size:15px;color:#3e686b;margin:8px 0 0}
+#player.starbridge-rescue .starbridge-report{padding:18px;background:#e2f5ef;border:1px solid #b6dccc;border-radius:16px;margin-bottom:18px;color:#205f64}#player.starbridge-rescue .starbridge-report strong{font-size:26px}#player.starbridge-rescue .starbridge-report p{margin:8px 0 0;line-height:1.5}
+.starbridge-card .card-art{background:radial-gradient(at 80% 20%,#3f7780,transparent 65%),linear-gradient(125deg,#10283e,#244858)!important}.starbridge-card .preview-orbit{border-style:dashed}.starbridge-card .preview-character{font-size:76px}
+@media(max-width:760px){#player.starbridge-rescue .starbridge-briefing{display:block;padding:10px 12px;margin-bottom:8px}#player.starbridge-rescue .starbridge-briefing strong{display:block;font-size:11px;margin-bottom:3px}#player.starbridge-rescue .starbridge-briefing span{display:block;font-size:12px}#player.starbridge-rescue[data-presentation=scene] #game-canvas{height:clamp(160px,26vh,230px)!important;border-radius:12px}#player.starbridge-rescue .arcade-controls{flex-wrap:wrap}#player.starbridge-rescue .starbridge-report strong{font-size:21px}}

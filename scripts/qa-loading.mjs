@@ -13,7 +13,7 @@ async function ready(){await page.waitForFunction(()=>window.ClassroomLoading&&!
 try{
  await fs.mkdir('output/loading',{recursive:true});
  let release;const held=new Promise(resolve=>{release=resolve;});
- await page.route('**/vocabulary-sprint/assets/forest.png',async route=>{await held;await route.continue();});
+ await page.route('**/vocabulary-sprint/assets/forest.webp',async route=>{await held;await route.continue();});
  await page.goto(base+'/vocabulary-sprint/index.html',{waitUntil:'domcontentloaded'});
  await screen().waitFor({state:'visible'});await page.waitForFunction(()=>ClassroomLoading.state.loaded===4);
  assert.equal(await page.evaluate(()=>typeof window.render_game_to_text),'undefined');
@@ -24,7 +24,7 @@ try{
  await page.setViewportSize({width:390,height:844});await page.screenshot({path:'output/loading/slow-mobile.png',animations:'disabled'});assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
  release();await ready();assert.equal(await page.evaluate(()=>JSON.parse(render_game_to_text()).time),6);assert.equal(await page.evaluate(()=>JSON.parse(render_game_to_text()).elapsed),0);await page.locator('#start').click();await page.waitForFunction(()=>JSON.parse(render_game_to_text()).phase==='question');
  await page.screenshot({path:'output/loading/race-ready.png'});
- await page.unroute('**/vocabulary-sprint/assets/forest.png');
+ await page.unroute('**/vocabulary-sprint/assets/forest.webp');
  // An image failure must stay recoverable, and retry must actually request it again.
  let fail=true,requests=0;
  await page.route('**/magic-icing/assets/counter.webp',async route=>{requests++;if(fail)await route.abort('failed');else await route.continue();});
@@ -34,18 +34,18 @@ try{
  await page.unroute('**/magic-icing/assets/counter.webp');
  // The shared library must leave game clocks and match state untouched until ready.
  await page.setViewportSize({width:1366,height:768});let releaseBoard;const heldBoard=new Promise(resolve=>{releaseBoard=resolve;});
- await page.route('**/assets/chess/board-walnut.png',async route=>{await heldBoard;await route.continue();});
+ await page.route('**/assets/chess/board-walnut.webp',async route=>{await heldBoard;await route.continue();});
  await page.goto(base,{waitUntil:'domcontentloaded'});await page.evaluate(()=>{openEditor(GAMES.find(g=>g.format==='lab-chess'));void startGame();});
  await screen().waitFor({state:'visible'});assert.equal(await page.evaluate(()=>ui.view),'editor');
  await page.locator('#start-game').evaluate(el=>el.click());await page.screenshot({path:'output/loading/library-chess.png'});
  releaseBoard();await page.waitForFunction(()=>ui.view==='player'&&!ClassroomLoading.state.visible);assert.equal(await page.locator('.classic-inputs button').count(),64);
  assert.equal(await page.evaluate(()=>game.session.data.history.length),0);
- await page.unroute('**/assets/chess/board-walnut.png');
+ await page.unroute('**/assets/chess/board-walnut.webp');
  await page.evaluate(async()=>{show('editor');await startGame();});assert.equal(await page.evaluate(()=>ui.view),'player');assert.equal(await screen().isVisible(),false);
  let releaseScene;const heldScene=new Promise(resolve=>{releaseScene=resolve;});
- await page.route('**/assets/chess/board-marble.png',async route=>{await heldScene;await route.continue();});
- await page.evaluate(()=>{arcade.manual=true;void ClassroomLoading.prepare(['assets/chess/board-marble.png'],{title:'Next scene',onCancel:()=>{}});});await screen().waitFor({state:'visible'});
- assert.ok(await page.evaluate(()=>{const time=arcade.time;advanceTime(1000);return arcade.time===time;}));releaseScene();await page.waitForFunction(()=>!ClassroomLoading.state.visible);await page.unroute('**/assets/chess/board-marble.png');
+ await page.route('**/assets/chess/board-marble.webp',async route=>{await heldScene;await route.continue();});
+ await page.evaluate(()=>{arcade.manual=true;void ClassroomLoading.prepare(['assets/chess/board-marble.webp'],{title:'Next scene',onCancel:()=>{}});});await screen().waitFor({state:'visible'});
+ assert.ok(await page.evaluate(()=>{const time=arcade.time;advanceTime(1000);return arcade.time===time;}));releaseScene();await page.waitForFunction(()=>!ClassroomLoading.state.visible);await page.unroute('**/assets/chess/board-marble.webp');
  // A canceled load cannot start an old lesson after navigation.
  await page.evaluate(()=>{show('editor');const native=ClassroomLoadingAssets.games.blocks;window.savedLoadingAssets=native;ClassroomLoadingAssets.games.blocks=['assets/loading-cancel-test.png'];openEditor(GAMES.find(g=>g.format==='blocks'));void startGame();});
  await screen().waitFor({state:'visible'});await page.locator('#classroom-loading .back').click();assert.equal(await page.evaluate(()=>ui.view),'home');

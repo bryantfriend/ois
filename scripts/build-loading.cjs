@@ -1,7 +1,7 @@
 // Run after adding raster artwork or a new standalone game.
 const fs=require('node:fs'),path=require('node:path');
 const root=path.resolve(__dirname,'../dist');
-function pictures(folder){const dir=path.join(root,folder);if(!fs.existsSync(dir))return [];return fs.readdirSync(dir,{withFileTypes:true}).flatMap(entry=>entry.isDirectory()?pictures(folder+'/'+entry.name):/\.(png|webp|jpe?g|gif|avif)$/i.test(entry.name)?[folder+'/'+entry.name]:[]).sort();}
+function pictures(folder){const dir=path.join(root,folder);if(!fs.existsSync(dir))return [];return fs.readdirSync(dir,{withFileTypes:true}).filter(entry=>entry.isDirectory()||!(/\.png$/i.test(entry.name)&&fs.existsSync(path.join(dir,entry.name.replace(/\.png$/i,".webp"))))).flatMap(entry=>entry.isDirectory()?pictures(folder+'/'+entry.name):/\.(png|webp|jpe?g|gif|avif)$/i.test(entry.name)?[folder+'/'+entry.name]:[]).sort();}
 const folders=['alphabet-racing','animal-post-office','coastal','explorer-island','magic-icing','shape-detective','supermarket','supermarket-ru','supermarket-ky','uk-border-geography','vocabulary-sprint'];
 const pages={};
 for(const folder of folders)pages[folder]=folder==='coastal'?[]:pictures(folder+'/assets');

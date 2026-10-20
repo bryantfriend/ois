@@ -1,6 +1,6 @@
 /* Generated plush art; rules and independent touch panels remain in tug.js. */
 const plushArt={ready:false,failed:false,images:{},frames:{},paused:false};
-const plushFiles={background:'jailoo.png',coral:'coral-hamster.png',teal:'teal-hamster.png',rope:'rope.png'};
+const plushFiles={background:'jailoo.webp',coral:'coral-hamster.webp',teal:'teal-hamster.webp',rope:'rope.webp'};
 function plushBounds(image,columns=1,rows=1){
  const c=document.createElement('canvas');c.width=image.naturalWidth;c.height=image.naturalHeight;
  const context=c.getContext('2d',{willReadFrequently:true});context.drawImage(image,0,0);

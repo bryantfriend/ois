@@ -1,7 +1,7 @@
 /* Forest Trail: isolated race engine, shared by direct preview and the lesson library. */
 const $=s=>document.querySelector(s),canvas=$('#track'),ctx=canvas.getContext('2d');
-const forest=new Image(),sprite=new Image();forest.src='assets/forest.png';sprite.src='assets/runner.png';
-const runners=[sprite,...['red','violet','blue'].map(color=>{const img=new Image();img.src='assets/runner-kyrgyz-'+color+'.png';return img;})];
+const forest=new Image(),sprite=new Image();forest.src='assets/forest.webp';sprite.src='assets/runner.webp';
+const runners=[sprite,...['red','violet','blue'].map(color=>{const img=new Image();img.src='assets/runner-kyrgyz-'+color+'.webp';return img;})];
 let items=[
  ['The path was treacherous after the storm. What does treacherous mean?','dangerous','comfortable','familiar','short'],
  ['Mira was reluctant to speak. She was…','unwilling','excited','unable to hear','confident'],

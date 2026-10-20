@@ -6,7 +6,7 @@ import {lineColour} from './coastal-lines.js?v=map-callouts-1';
 
 import {expedition,recordKnowledge} from './coastal-expedition.js?v=map-callouts-1';
 import {mapLandmarks} from './coastal-landmarks.js?v=map-callouts-1';
-const asset=name=>new URL('../assets/coastal/passport/'+name+'.png',import.meta.url).href;
+const asset=name=>new URL('../assets/coastal/passport/'+name+'.webp',import.meta.url).href;
 export function renderPassportReview({content,state,review,region,question,stops,lineStops,node,makeButton,refresh,close}){
  const country=regions.find(r=>r.id===region),learning=countryLearning[region],capital=stops.find(s=>s.region===region&&s.capital),art=stationArt[capital.id];
  content.className='coastal-passport';content.replaceChildren();

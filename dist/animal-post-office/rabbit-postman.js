@@ -3,7 +3,7 @@
  'use strict';
  const host=document.getElementById('rabbit-postman');
  const names=['idle','wave','point','celebrate','blink','talk'];
- const frames=names.map((_,i)=>{const image=new Image();image.src='assets/rabbit/'+String(i+1).padStart(2,'0')+'.png';return image;});
+ const frames=names.map((_,i)=>{const image=new Image();image.src='assets/rabbit/'+String(i+1).padStart(2,'0')+'.webp';return image;});
  let time=0,override=null,until=0,lastFrame=-1,ready=false;
  Promise.all(frames.map(image=>image.decode())).then(()=>{ready=true;host.hidden=false;setFrame(0);}).catch(()=>{host.hidden=true;});
  function setFrame(index){if(!ready||index===lastFrame)return;lastFrame=index;host.style.backgroundImage=`url("${frames[index].src}")`;host.dataset.pose=names[index];}

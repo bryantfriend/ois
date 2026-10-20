@@ -1,0 +1,626 @@
+[
+  {
+    "file": "animal-post-office/assets/customers-empty.png",
+    "originalBytes": 1716181,
+    "webBytes": 130788,
+    "originalSize": [
+      2038,
+      772
+    ],
+    "webSize": [
+      1280,
+      485
+    ]
+  },
+  {
+    "file": "animal-post-office/assets/customers.png",
+    "originalBytes": 1717737,
+    "webBytes": 130754,
+    "originalSize": [
+      2038,
+      772
+    ],
+    "webSize": [
+      1280,
+      485
+    ]
+  },
+  {
+    "file": "animal-post-office/assets/parcel.png",
+    "originalBytes": 1768544,
+    "webBytes": 97338,
+    "originalSize": [
+      1448,
+      1086
+    ],
+    "webSize": [
+      1280,
+      960
+    ]
+  },
+  {
+    "file": "animal-post-office/assets/post-office-empty.png",
+    "originalBytes": 2008671,
+    "webBytes": 121964,
+    "originalSize": [
+      1672,
+      941
+    ],
+    "webSize": [
+      1280,
+      720
+    ]
+  },
+  {
+    "file": "animal-post-office/assets/post-office.png",
+    "originalBytes": 2228302,
+    "webBytes": 137816,
+    "originalSize": [
+      1672,
+      941
+    ],
+    "webSize": [
+      1280,
+      720
+    ]
+  },
+  {
+    "file": "animal-post-office/assets/rabbit/01.png",
+    "originalBytes": 246102,
+    "webBytes": 35678,
+    "originalSize": [
+      512,
+      512
+    ],
+    "webSize": [
+      512,
+      512
+    ]
+  },
+  {
+    "file": "animal-post-office/assets/rabbit/02.png",
+    "originalBytes": 256367,
+    "webBytes": 37102,
+    "originalSize": [
+      512,
+      512
+    ],
+    "webSize": [
+      512,
+      512
+    ]
+  },
+  {
+    "file": "animal-post-office/assets/rabbit/03.png",
+    "originalBytes": 238450,
+    "webBytes": 35248,
+    "originalSize": [
+      512,
+      512
+    ],
+    "webSize": [
+      512,
+      512
+    ]
+  },
+  {
+    "file": "animal-post-office/assets/rabbit/04.png",
+    "originalBytes": 257568,
+    "webBytes": 38420,
+    "originalSize": [
+      512,
+      512
+    ],
+    "webSize": [
+      512,
+      512
+    ]
+  },
+  {
+    "file": "animal-post-office/assets/rabbit/05.png",
+    "originalBytes": 244294,
+    "webBytes": 34716,
+    "originalSize": [
+      512,
+      512
+    ],
+    "webSize": [
+      512,
+      512
+    ]
+  },
+  {
+    "file": "animal-post-office/assets/rabbit/06.png",
+    "originalBytes": 247975,
+    "webBytes": 35696,
+    "originalSize": [
+      512,
+      512
+    ],
+    "webSize": [
+      512,
+      512
+    ]
+  },
+  {
+    "file": "animal-post-office/assets/sorting-office.png",
+    "originalBytes": 2088904,
+    "webBytes": 127898,
+    "originalSize": [
+      1672,
+      941
+    ],
+    "webSize": [
+      1280,
+      720
+    ]
+  },
+  {
+    "file": "assets/chess/board-garden.png",
+    "originalBytes": 2860165,
+    "webBytes": 95178,
+    "originalSize": [
+      1254,
+      1254
+    ],
+    "webSize": [
+      768,
+      768
+    ]
+  },
+  {
+    "file": "assets/chess/board-marble.png",
+    "originalBytes": 2635415,
+    "webBytes": 89836,
+    "originalSize": [
+      1254,
+      1254
+    ],
+    "webSize": [
+      768,
+      768
+    ]
+  },
+  {
+    "file": "assets/chess/board-ocean.png",
+    "originalBytes": 2138308,
+    "webBytes": 48534,
+    "originalSize": [
+      1254,
+      1254
+    ],
+    "webSize": [
+      768,
+      768
+    ]
+  },
+  {
+    "file": "assets/chess/board-royal.png",
+    "originalBytes": 2123915,
+    "webBytes": 29278,
+    "originalSize": [
+      1254,
+      1254
+    ],
+    "webSize": [
+      768,
+      768
+    ]
+  },
+  {
+    "file": "assets/chess/board-walnut.png",
+    "originalBytes": 2447587,
+    "webBytes": 56374,
+    "originalSize": [
+      1254,
+      1254
+    ],
+    "webSize": [
+      768,
+      768
+    ]
+  },
+  {
+    "file": "assets/chess/factions/dwarves.png",
+    "originalBytes": 2918996,
+    "webBytes": 142132,
+    "originalSize": [
+      1536,
+      1024
+    ],
+    "webSize": [
+      768,
+      512
+    ]
+  },
+  {
+    "file": "assets/chess/factions/elves.png",
+    "originalBytes": 2700969,
+    "webBytes": 159384,
+    "originalSize": [
+      1536,
+      1024
+    ],
+    "webSize": [
+      768,
+      512
+    ]
+  },
+  {
+    "file": "assets/chess/factions/goblins.png",
+    "originalBytes": 2838935,
+    "webBytes": 161002,
+    "originalSize": [
+      1536,
+      1024
+    ],
+    "webSize": [
+      768,
+      512
+    ]
+  },
+  {
+    "file": "assets/chess/factions/humans.png",
+    "originalBytes": 2367703,
+    "webBytes": 113908,
+    "originalSize": [
+      1536,
+      1024
+    ],
+    "webSize": [
+      768,
+      512
+    ]
+  },
+  {
+    "file": "assets/chess/factions/mechs.png",
+    "originalBytes": 2614071,
+    "webBytes": 148080,
+    "originalSize": [
+      1536,
+      1024
+    ],
+    "webSize": [
+      768,
+      512
+    ]
+  },
+  {
+    "file": "assets/chess/factions/military.png",
+    "originalBytes": 2133070,
+    "webBytes": 91046,
+    "originalSize": [
+      1536,
+      1024
+    ],
+    "webSize": [
+      768,
+      512
+    ]
+  },
+  {
+    "file": "assets/chess/factions/orcs.png",
+    "originalBytes": 2793165,
+    "webBytes": 151226,
+    "originalSize": [
+      1536,
+      1024
+    ],
+    "webSize": [
+      768,
+      512
+    ]
+  },
+  {
+    "file": "assets/chess/factions/protoss.png",
+    "originalBytes": 2650842,
+    "webBytes": 163208,
+    "originalSize": [
+      1536,
+      1024
+    ],
+    "webSize": [
+      768,
+      512
+    ]
+  },
+  {
+    "file": "assets/chess/factions/robots.png",
+    "originalBytes": 2362856,
+    "webBytes": 128430,
+    "originalSize": [
+      1536,
+      1024
+    ],
+    "webSize": [
+      768,
+      512
+    ]
+  },
+  {
+    "file": "assets/chess/factions/zerg.png",
+    "originalBytes": 2765034,
+    "webBytes": 159520,
+    "originalSize": [
+      1536,
+      1024
+    ],
+    "webSize": [
+      768,
+      512
+    ]
+  },
+  {
+    "file": "assets/chess/pieces-candy.png",
+    "originalBytes": 1910905,
+    "webBytes": 141568,
+    "originalSize": [
+      1536,
+      1024
+    ],
+    "webSize": [
+      960,
+      640
+    ]
+  },
+  {
+    "file": "assets/chess/pieces-classic.png",
+    "originalBytes": 1130689,
+    "webBytes": 98578,
+    "originalSize": [
+      1774,
+      887
+    ],
+    "webSize": [
+      960,
+      480
+    ]
+  },
+  {
+    "file": "assets/chess/pieces-crystal.png",
+    "originalBytes": 2167053,
+    "webBytes": 172768,
+    "originalSize": [
+      1536,
+      1024
+    ],
+    "webSize": [
+      960,
+      640
+    ]
+  },
+  {
+    "file": "assets/chess/pieces-space.png",
+    "originalBytes": 2165116,
+    "webBytes": 168368,
+    "originalSize": [
+      1536,
+      1024
+    ],
+    "webSize": [
+      960,
+      640
+    ]
+  },
+  {
+    "file": "assets/chess/pieces-woodland.png",
+    "originalBytes": 2089248,
+    "webBytes": 136706,
+    "originalSize": [
+      1536,
+      1024
+    ],
+    "webSize": [
+      960,
+      640
+    ]
+  },
+  {
+    "file": "assets/oxford-logo.png",
+    "originalBytes": 91118,
+    "webBytes": 33372,
+    "originalSize": [
+      888,
+      304
+    ],
+    "webSize": [
+      888,
+      304
+    ]
+  },
+  {
+    "file": "assets/treasure-cove/cove-background.png",
+    "originalBytes": 2291214,
+    "webBytes": 149774,
+    "originalSize": [
+      1536,
+      1024
+    ],
+    "webSize": [
+      1280,
+      853
+    ]
+  },
+  {
+    "file": "assets/treasure-cove/student-portraits.png",
+    "originalBytes": 2301911,
+    "webBytes": 122590,
+    "originalSize": [
+      1774,
+      887
+    ],
+    "webSize": [
+      1280,
+      640
+    ]
+  },
+  {
+    "file": "coastal/assets/coastal/passport/passport-compass.png",
+    "originalBytes": 1997024,
+    "webBytes": 449446,
+    "originalSize": [
+      1254,
+      1254
+    ],
+    "webSize": [
+      1254,
+      1254
+    ]
+  },
+  {
+    "file": "coastal/assets/coastal/passport/passport-spread.png",
+    "originalBytes": 2549566,
+    "webBytes": 92862,
+    "originalSize": [
+      1536,
+      1024
+    ],
+    "webSize": [
+      1280,
+      853
+    ]
+  },
+  {
+    "file": "explorer-island/assets/island.png",
+    "originalBytes": 2690414,
+    "webBytes": 320776,
+    "originalSize": [
+      1536,
+      1024
+    ],
+    "webSize": [
+      1536,
+      1024
+    ]
+  },
+  {
+    "file": "explorer-island/assets/landmarks.png",
+    "originalBytes": 2363703,
+    "webBytes": 321172,
+    "originalSize": [
+      1536,
+      1024
+    ],
+    "webSize": [
+      1536,
+      1024
+    ]
+  },
+  {
+    "file": "tug-assets/coral-hamster.png",
+    "originalBytes": 1716987,
+    "webBytes": 203500,
+    "originalSize": [
+      1774,
+      887
+    ],
+    "webSize": [
+      1152,
+      576
+    ]
+  },
+  {
+    "file": "tug-assets/jailoo.png",
+    "originalBytes": 2622128,
+    "webBytes": 134102,
+    "originalSize": [
+      2055,
+      765
+    ],
+    "webSize": [
+      1280,
+      476
+    ]
+  },
+  {
+    "file": "tug-assets/rope.png",
+    "originalBytes": 510190,
+    "webBytes": 49946,
+    "originalSize": [
+      2172,
+      724
+    ],
+    "webSize": [
+      1280,
+      427
+    ]
+  },
+  {
+    "file": "tug-assets/teal-hamster.png",
+    "originalBytes": 2336584,
+    "webBytes": 230162,
+    "originalSize": [
+      1536,
+      1024
+    ],
+    "webSize": [
+      1152,
+      768
+    ]
+  },
+  {
+    "file": "vocabulary-sprint/assets/forest.png",
+    "originalBytes": 2950775,
+    "webBytes": 271600,
+    "originalSize": [
+      1672,
+      940
+    ],
+    "webSize": [
+      1280,
+      720
+    ]
+  },
+  {
+    "file": "vocabulary-sprint/assets/runner-kyrgyz-blue.png",
+    "originalBytes": 1083428,
+    "webBytes": 144916,
+    "originalSize": [
+      1774,
+      887
+    ],
+    "webSize": [
+      1152,
+      576
+    ]
+  },
+  {
+    "file": "vocabulary-sprint/assets/runner-kyrgyz-red.png",
+    "originalBytes": 1129283,
+    "webBytes": 161214,
+    "originalSize": [
+      1774,
+      887
+    ],
+    "webSize": [
+      1152,
+      576
+    ]
+  },
+  {
+    "file": "vocabulary-sprint/assets/runner-kyrgyz-violet.png",
+    "originalBytes": 1004053,
+    "webBytes": 143682,
+    "originalSize": [
+      1774,
+      887
+    ],
+    "webSize": [
+      1152,
+      576
+    ]
+  },
+  {
+    "file": "vocabulary-sprint/assets/runner.png",
+    "originalBytes": 1106930,
+    "webBytes": 172862,
+    "originalSize": [
+      1774,
+      887
+    ],
+    "webSize": [
+      1152,
+      576
+    ]
+  }
+]

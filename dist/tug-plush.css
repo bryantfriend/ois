@@ -29,8 +29,8 @@ body[data-world=tug] #player .tug-player-heading strong{background:#fae0d3;color
 body[data-world=tug] #player .tug-side[data-side="1"] .tug-player-heading strong{background:#d8efE7;color:#086d72}
 body[data-world=tug] #player .tug-feedback{color:#994839}
 body[data-world=tug] #player .tug-side[data-side="1"] .tug-feedback{color:#086d72}
-.game-card .art-tug{background:url('./tug-assets/jailoo.png') center/cover!important}
-.game-card .art-tug .preview-character{font-size:0!important;display:block;width:125px;height:125px;background:url('./tug-assets/coral-hamster.png') left top/400% 200% no-repeat;animation:none}
-.game-card .art-tug .preview-small{font-size:0!important;display:block;width:85px;height:115px;background:url('./tug-assets/teal-hamster.png') left top/400% 200% no-repeat;animation:none;transform:scaleX(-1)}
+.game-card .art-tug{background:url('./tug-assets/jailoo.webp') center/cover!important}
+.game-card .art-tug .preview-character{font-size:0!important;display:block;width:125px;height:125px;background:url('./tug-assets/coral-hamster.webp') left top/400% 200% no-repeat;animation:none}
+.game-card .art-tug .preview-small{font-size:0!important;display:block;width:85px;height:115px;background:url('./tug-assets/teal-hamster.webp') left top/400% 200% no-repeat;animation:none;transform:scaleX(-1)}
 .game-card .art-tug .preview-orbit,.game-card .art-tug .preview-star{display:none}
 @media(max-width:700px){.plush-mascot .tug-point-pop{font-size:16px}}

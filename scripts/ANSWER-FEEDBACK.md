@@ -1,0 +1,9 @@
+Shared answer feedback
+
+`dist/answer-overlay.js` runs after the existing game modules. It retains the actual playfield DOM nodes when a shared activity, template, primary activity or lab puzzle enters its feedback/retry phase. The existing feedback markup and Continue/Retry buttons move into a native dialog inside the arena, so delegated game actions and scoring stay with their original handlers. Base question games use their existing answer/Continue block.
+
+The dialog has a translucent surface, a lightly dimmed backdrop without blur, a game-colour border, and native keyboard/input isolation. The preserved board is inert and hidden from assistive navigation while the dialog is open. Long explanations start at the top and scroll within the card. Back to games respects unsaved-draft confirmation. Escape keeps focus on the continuation action rather than silently discarding the feedback.
+
+Shared simulation time pauses during manual feedback. Speed Sorting retains its existing timed automatic transition. Existing inline feedback in Tug/Relay/Treasure duels, Picture Vocabulary, Whack-a-mole, Feelings Faces and Starbridge remains intact. Geography's independent panels, board-game endings, strategic planning phases and standalone iframe games keep their dedicated feedback flows. Final results and victory sequences retain their existing behavior. This layer changes presentation, not answer evaluation or points, and adds no narration.
+
+`scripts/qa-answer-overlay.mjs` checks actual Airplane correct/incorrect flight flow, board DOM identity, transparency, input locking and clock pause, keyboard focus, Continue/Retry, text submission, primary/template/lab/base quiz families, illustrated cell feedback, phone layout, full completion/replay, restart/navigation cleanup, timed sorting and inline-game exclusions.

@@ -1,0 +1,17 @@
+import assert from 'node:assert/strict';
+import {pathToFileURL} from 'node:url';
+import fs from 'node:fs/promises';
+const {chromium}=await import(pathToFileURL(process.env.OXFORD_PLAYWRIGHT_MODULE).href);
+const browser=await chromium.launch();const page=await browser.newPage({viewport:{width:1366,height:768}});const errors=[];page.on('pageerror',e=>errors.push(e.message));
+const tick=ms=>page.evaluate(ms=>advanceTime(ms),ms);
+const state=()=>page.evaluate(()=>JSON.parse(render_game_to_text()));
+async function send(good){await page.evaluate(good=>{const i=game.choices.findIndex(a=>(a===current().answer)===good);document.querySelector(`[data-courier-route="${i}"]`).click();document.querySelector('[data-courier-send]').click();},good);await tick(2700);}
+try{
+await fs.mkdir('output/cloud-courier-flow',{recursive:true});await page.goto((process.env.OXFORD_TEST_URL||'http://127.0.0.1:4201')+'/?game=english-7-airplane');await page.locator('#start-game').click();await page.locator('[data-courier-begin]').click();await page.evaluate(()=>{arcade.manual=true;window.savedCourierCanvas=document.querySelector('#courier-canvas');});
+await send(true);assert.equal((await state()).score,100);assert.equal(await page.locator('.answer-overlay[open]').count(),0);assert.equal(await page.locator('.courier-feedback').isVisible(),true);await page.screenshot({path:'output/cloud-courier-flow/delivered.png'});
+const before=(await state()).cloudCourier.plane;await tick(1100);assert.equal((await state()).cloudCourier.phase,'returning');assert.equal((await state()).session.round,0);assert.ok(await page.evaluate(()=>savedCourierCanvas===document.querySelector('#courier-canvas')));const after=(await state()).cloudCourier.plane;assert.ok(Math.abs(after.x-before.x)<35);assert.ok(Math.abs(after.y-before.y)<35);const returnX=(await state()).cloudCourier.plane.x;await tick(550);assert.ok((await state()).cloudCourier.plane.x<returnX);await page.screenshot({path:'output/cloud-courier-flow/transition.png'});await tick(1000);assert.equal((await state()).cloudCourier.phase,'pickup');assert.equal((await state()).session.round,0);await tick(600);assert.equal((await state()).session.round,1);
+await send(false);assert.equal((await state()).cloudCourier.shields,2);assert.match(await page.locator('.courier-feedback').innerText(),/Wrong address/);await page.keyboard.press('p');const t=(await state()).cloudCourier.time;await tick(5000);assert.equal((await state()).cloudCourier.time,t);await page.keyboard.press('Escape');await page.keyboard.press('Enter');await tick(2200);assert.equal((await state()).session.round,2);
+while(!(await state()).done&&!await page.locator('.courier-report[open]').count()){await send(true);await tick(3400);}
+assert.equal(await page.locator('.courier-report[open]').count(),1);await page.locator('[data-replay]').click();await page.locator('[data-courier-begin]').click();await page.setViewportSize({width:390,height:844});await send(false);await page.screenshot({path:'output/cloud-courier-flow/mobile.png',fullPage:true});assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));assert.deepEqual(errors,[]);console.log('PASS: automatic progression, turnaround flight, depot pickup before next question, continuous plane position, persistent canvas, inline correction, pause, keyboard skip, final report, replay, mobile, no page errors');
+}finally{await browser.close();}
+

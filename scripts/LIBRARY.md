@@ -1,0 +1,7 @@
+The public library is organized by game style in `dist/library-browser.js`, with 24 cards per page. Categories describe how the activity plays; player mode and text search refine the list. Grade/subject filtering remains available for teachers' saved lessons.
+
+Each style keeps all original GAMES records as selectable starting examples. Nothing is deleted from the catalogs, saved storage, imports, or old lesson URLs. Choose Make it yours to select an example and open the existing teacher editor; Try runs the example with the existing game launch flow. Standalone games retain their own settings and entry points.
+
+Grouping uses format IDs, with explicit exceptions for Forest Trail and Starbridge Rescue because their gameplay differs despite both using the quiz format. Supermarket language editions share one card. Puzzle aliases sharing an engine, variant, and player mode share one card, with all alternatives retained in its example selector. New game styles should get a category in gameStyleCategory; genuinely different gameplay should have a different grouping key.
+
+Validation: `scripts/qa-library-styles.mjs` checks complete catalog coverage, unique cards across pagination, category/search/mode filtering, language editions, examples, editing and saving without modifying built-ins, quick play, empty states and keyboard/mobile behavior. `scripts/qa-library-layout.mjs` checks phone overflow and visible modal actions. Both use OXFORD_TEST_URL and OXFORD_PLAYWRIGHT_MODULE.

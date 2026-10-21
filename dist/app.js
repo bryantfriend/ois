@@ -60,6 +60,10 @@ function renderSubjectMenu(){
 }
 function subjectEditorOptions(){const option=id=>{const s=SUBJECTS.find(s=>s.id===id);return `<option value="${id}">${s.name}</option>`;};return SUBJECT_MENU.filter(e=>e!=='all').map(entry=>typeof entry==='string'?option(entry):`<optgroup label="${entry.name}">${entry.children.map(option).join('')}</optgroup>`).join('');}
 function renderLibrary(){
+ if(ui.collection!=='saved')return renderStyleLibrary();
+ document.body.classList.remove('style-browser');
+ $('.sidebar>.eyebrow').textContent='SUBJECTS';
+ $('#search').placeholder='Search your saved lessons';
  const activeGames=GAMES.filter(g=>!geoIsArchived(g)&&!LAB_GAMES[g.format]?.archived);
  $('#saved-count').textContent=saved.length;$('#lesson-total').textContent=activeGames.length;$('#format-total').textContent=Object.keys(FORMATS).length;
  $('#players').value=ui.players;
@@ -85,11 +89,11 @@ $('#grades').onclick=e=>{const b=e.target.closest('[data-grade]');if(b){ui.grade
 $('#other-grade').onchange=e=>{if(e.target.value){ui.grade=Number(e.target.value);renderLibrary();}};
 $('#players').onchange=e=>{ui.players=e.target.value;renderLibrary();};
 $('#search').oninput=e=>{ui.search=e.target.value;renderLibrary();};
-function resetFilters(){ui.grade='all';ui.subject='all';ui.players='all';ui.search='';$('#search').value='';renderLibrary();}
+function resetFilters(){stylePage=1;ui.styleCategory='all';ui.grade='all';ui.subject='all';ui.players='all';ui.search='';$('#search').value='';renderLibrary();}
 $('#reset').onclick=resetFilters;
 document.addEventListener('click',e=>{const b=e.target.closest('[data-action]');if(!b)return;if(b.dataset.action==='library')library();if(b.dataset.action==='saved')library('saved');if(b.dataset.action==='reset'){ui.collection='library';resetFilters();}if(b.dataset.action==='import')leaveEditor(()=>$('#import-file').click());});
 function findLesson(id){return [...saved,...GAMES].find(g=>g.id===id);}
-$('#games').onclick=e=>{const b=e.target.closest('[data-edit],[data-play]');if(!b)return;const lesson=(ui.collection==='saved'?saved:GAMES).find(g=>g.id===(b.dataset.edit||b.dataset.play));if(!lesson)return;if(FORMATS[lesson.format]?.standalone){openEditor(lesson);if(FORMATS[lesson.format].editableStandalone&&b.dataset.play)startGame();return;}openEditor(lesson);if(FORMATS[lesson.format].mode==='TEAM')openTeamSetup();else if(b.dataset.play)startGame();};
+$('#games').onclick=e=>{const style=e.target.closest('[data-style-open]');if(style){openGameStyle(style.dataset.styleOpen);return;}const b=e.target.closest('[data-edit],[data-play]');if(!b)return;const lesson=(ui.collection==='saved'?saved:GAMES).find(g=>g.id===(b.dataset.edit||b.dataset.play));if(!lesson)return;if(FORMATS[lesson.format]?.standalone){openEditor(lesson);if(FORMATS[lesson.format].editableStandalone&&b.dataset.play)startGame();return;}openEditor(lesson);if(FORMATS[lesson.format].mode==='TEAM')openTeamSetup();else if(b.dataset.play)startGame();};
 // Commit storage before changing the visible collection.
 function storeLessons(next){
  try{localStorage.setItem(storageKey,JSON.stringify(next));saved=next;$('#saved-count').textContent=saved.length;return true;}

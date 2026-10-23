@@ -21,7 +21,7 @@ try {
   await page.locator('[data-start-journey]').click();
   await page.waitForFunction(()=>typeof render_game_to_text==='function');
    const state=await page.evaluate(()=>JSON.parse(render_game_to_text()));
-  assert.equal(state.credits,20);
+  assert.equal(state.credits,40);
   assert.equal(state.round,1);
   assert.equal(await page.locator('canvas').count(),1);
   assert.ok(await page.locator('canvas').isVisible());

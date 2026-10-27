@@ -124,7 +124,7 @@ $('#games').addEventListener('click',e=>{
  openEditor(copy);notify('Copy saved. Change its title and questions, then save your lesson.');
 });
 function openEditor(lesson){
- if(FORMATS[lesson.format]?.standalone&&!FORMATS[lesson.format].editableStandalone){const target=new URL(FORMATS[lesson.format].standalone,location.href);if(lesson.format==='pathtrace')target.searchParams.set('level',lesson.grade);location.href=target.href;return;}
+ if(FORMATS[lesson.format]?.standalone&&!FORMATS[lesson.format].editableStandalone){const target=new URL(FORMATS[lesson.format].standalone,location.href);if(lesson.format==='pathtrace')target.searchParams.set('level',lesson.grade);if(lesson.format==='space-cargo')target.searchParams.set('grade',lesson.grade);location.href=target.href;return;}
  lesson=gxUpgradeLesson(lesson);
  draft=clone(lesson);draft.settings ||= {teamOne:'Player 1',teamTwo:'Player 2',shuffle:false};dirty=false;
  $('#lesson-title').value=draft.title;$('#lesson-topic').value=draft.topic;

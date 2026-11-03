@@ -178,3 +178,11 @@ Run `qa-geography-adventures.mjs`, `qa-geography-adventure-layout.mjs` and `qa-g
 ## Coastal Connections
 
 Standalone Geography transport-network game for Grades 7 and 8, ported from Learn version 2.6.4. Each grade has a direct-play catalogue entry. Includes drag routes, expanding stops, one-seat fleets, station construction and upgrades, zoom/pan, passenger income, queue emergencies and 30 benefit plus 30 challenge cards. Source: dist/coastal/. Test registration and launching with scripts/qa-coastal.mjs. Return to the library using OIS Geography games in the sidebar.
+
+## Classroom experiments release — 3 November 2026
+
+Added Treasure Radar (seeded 5×5 deduction hunt), Bridge Battle (drag-and-drop materials and fair tests), Market Mayhem (Grades 1–11 illustrated maths), and Robot Rescue: Code Lab (nine rooms with nested programming blocks). The OIS library offers a card and working launch path for each. Market Mayhem grade examples preselect the opening modal.
+
+Published the pending Shape Detective garden casebook, Block Builder workshop and Landmark Connections atlas/passenger/local-express service improvements. Preserved the latest Starport Cargo, Oxford-Boozled tile selector, chess artwork loading, Cloud Courier and three-city starting-budget releases. Shared Sonia recordings are bundled.
+
+Validation: npm run check; scripts/qa-classroom-experiments.cjs; full Shape Detective campaign/custom-lesson QA; standard web-game client. Release browser tests cover library launch, grade propagation, 20-question completion, 1,980 diagrams, 297 bridge rules, radar replay and duplicate protection, Robot Rescue completion, Landmark Connections startup, phone layouts and missing resources.

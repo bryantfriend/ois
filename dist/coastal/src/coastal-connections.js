@@ -1,3 +1,5 @@
+import {servesStop,serviceEdges,nextServiceStop,setServicePattern} from './express-service.js';
+import {drawPersonBadge,drawAtlasAtmosphere} from './atlas-play.js';
 import {createCoastalArtwork,trainStationVisual} from './coastal-art.js?v=map-callouts-1';
 import {cardArtwork} from './coastal-card-art.js?v=map-callouts-1';
 import {goodCards,badCards,drawCards,chooseCard,migrateRefundCards} from './coastal-cards.js?v=map-callouts-1';
@@ -16,7 +18,7 @@ import {flagUrl} from './coastal-learning.js?v=map-callouts-1';
 import {landRouteClear,roadSegmentsConflict} from './coastal-route-geography.js?v=map-callouts-1';
 import {cameraForNewStops} from './coastal-camera.js?v=map-callouts-1';
 import {planEvent,eventActive,eventSpeed} from './coastal-events.js?v=map-callouts-1';
-import {installNetworkFeatures} from './coastal-network-ui.js?v=map-callouts-1';
+import {installNetworkFeatures} from './coastal-network-ui.js?v=classroom-experiments-2026-11-03';
 import {installDestinationFilter,createDestinationArtwork,installLandmarkPassport} from './coastal-destinations.js?v=map-callouts-1';
 import {ensureLineSlots,freeLineSlot,lineColour,lineName,installLineDock} from './coastal-lines.js?v=map-callouts-1';
 import {routeGeometry,pointAlong,traceSegment,curveHit} from './coastal-route-curves.js?v=map-callouts-1';
@@ -37,8 +39,9 @@ function returnExtraVehicles(state,link){for(const v of lineVehicles(link).slice
 export function buyLineVehicle(state,index){const link=state.links[index];if(!link||!vehicleUnlocked(state,link.type))return false;const cost=routeCost(state,link.type);if(state.credits<cost)return false;const nodes=lineStops(link),segment=isLoop(link)?Math.floor((nodes.length-1)/2):nodes.length-2;state.credits-=cost;(link.vehicles??=[]).push({a:nodes[segment],b:nodes[segment+1],segment,position:0,direction:isLoop(link)?1:-1,cargo:[],paid:cost});return true;}
 export const lineSegments=link=>lineStops(link).slice(1).map((b,i)=>({a:lineStops(link)[i],b,type:link.type,link}));
 const networkEdges=state=>state.links.flatMap(lineSegments);
+const routingEdges=state=>state.links.flatMap(parent=>lineVehicles(parent).flatMap(v=>serviceEdges(v).map(e=>({...e,link:parent}))));
 const lineStats=link=>link.stats??=( {delivered:0,credits:0,travel:0,service:0,boarded:0} );
-export function passengerJourney(state,p){const route=findRoute(state,p.at,p.destination);if(!route)return null;const legs=route.slice(1).map((b,i)=>{const a=route[i],options=networkEdges(state).filter(e=>(e.a===a&&e.b===b||e.a===b&&e.b===a)&&!(e.type==='ferry'&&state.ferryClosed)&&(!isLoop(e.link)||(e.link.direction===1?e.a===a&&e.b===b:e.b===a&&e.a===b))).sort((x,y)=>vehicleStats(state,y.type).speed*eventSpeed(state,y.type,a,b)-vehicleStats(state,x.type).speed*eventSpeed(state,x.type,a,b));return {a,b,line:state.links.indexOf(options[0]?.link),type:options[0]?.type};});return {route,legs,transfers:route.filter((_,i)=>i>0&&i<route.length-1&&legs[i-1].line!==legs[i].line)};}
+export function passengerJourney(state,p){const route=findRoute(state,p.at,p.destination);if(!route)return null;const legs=route.slice(1).map((b,i)=>{const a=route[i],options=routingEdges(state).filter(e=>(e.a===a&&e.b===b||e.a===b&&e.b===a)&&!(e.type==='ferry'&&state.ferryClosed)&&(!isLoop(e.link)||(e.link.direction===1?e.a===a&&e.b===b:e.b===a&&e.a===b))).sort((x,y)=>vehicleStats(state,y.type).speed*eventSpeed(state,y.type,a,b)-vehicleStats(state,x.type).speed*eventSpeed(state,x.type,a,b));return {a,b,line:state.links.indexOf(options[0]?.link),type:options[0]?.type};});return {route,legs,transfers:route.filter((_,i)=>i>0&&i<route.length-1&&legs[i-1].line!==legs[i].line)};}
 export function roundReview(state){const stats=state.roundStats??{queues:{},wait:0},busiest=Object.entries(stats.queues).sort((a,b)=>b[1]-a[1])[0],best=[...state.links.map((link,index)=>({index,...lineStats(link),stops:lineStops(link)})),...(stats.retired??[])].sort((a,b)=>b.delivered-a.delivered)[0];return {busiest:busiest?{id:Number(busiest[0]),name:stops[busiest[0]].name,queue:busiest[1]}:null,longestWait:Math.round(stats.wait),best:best?.delivered?best:null,tip:stats.wait>25?'Improve handling at your busiest interchange or shorten a long line.':best?.service>best?.travel?'Station upgrades can cut boarding time on your busiest line.':'Use shared stops to connect lines and keep transfers short.'};}
 export function routeAllowed(type,a,b,state){
  if(a===b)return false;
@@ -149,18 +152,18 @@ export function findShapeRoute(state,start,destinationShape){
 function searchRoute(state,start,reached){
  const queue=[{route:[start],cost:0}],seen=new Set();
  while(queue.length){queue.sort((a,b)=>a.cost-b.cost);const {route,cost}=queue.shift(),at=route.at(-1);if(seen.has(at))continue;seen.add(at);if(reached(at))return route;
-  for(const link of networkEdges(state)){if(link.type==='ferry'&&state.ferryClosed)continue;
+  for(const link of routingEdges(state)){if(link.type==='ferry'&&state.ferryClosed)continue;
    const directed=isLoop(link.link),next=link.a===at&&(!directed||link.link.direction===1)?link.b:link.b===at&&(!directed||link.link.direction===-1)?link.a:null;
    if(next!==null&&!seen.has(next)){const a=stops[at],b=stops[next];queue.push({route:[...route,next],cost:cost+Math.hypot(a.x-b.x,a.y-b.y)/(vehicleStats(state,link.type).speed*eventSpeed(state,link.type,at,next))});}
   }
  }return null;
 }
-const lineCanDeliverDestination=(state,link,at,destination)=>lineStops(link).some(id=>id!==at&&state.activeStops.includes(id)&&id===destination);
+const lineCanDeliverDestination=(state,link,at,destination)=>lineStops(link).some(id=>id!==at&&servesStop(link,id)&&state.activeStops.includes(id)&&id===destination);
 function boardingPassenger(state,link,at,next){
  if(link.cargo.length>=vehicleStats(state,link.type).capacity)return null;
  // Prefer a faster competing service only if it is actually at this stop,
  // heading along the same section and has room. Never wait for a distant one.
- const available=networkVehicles(state).filter(v=>v.position===0&&(v.direction===1?v.a:v.b)===at&&(v.direction===1?v.b:v.a)===next&&v.cargo.length+(v.service?.passenger!=null?1:0)<vehicleStats(state,v.type).capacity&&!(v.type==='ferry'&&state.ferryClosed));
+ const available=networkVehicles(state).filter(v=>servesStop(v,at)&&v.position===0&&(v.direction===1?v.a:v.b)===at&&nextServiceStop(v,at)===next&&v.cargo.length+(v.service?.passenger!=null?1:0)<vehicleStats(state,v.type).capacity&&!(v.type==='ferry'&&state.ferryClosed));
  const waiting=state.passengers.filter(p=>p.mode==='waiting'&&p.at===at);
  const ready=p=>{const destination=p.destination,transfer=findRoute(state,at,destination)?.[1]===next;return !available.some(v=>v.type!==link.type&&(lineCanDeliverDestination(state,v,at,destination)||transfer)&&vehicleStats(state,v.type).speed*eventSpeed(state,v.type,at,next)>vehicleStats(state,link.type).speed*eventSpeed(state,link.type,at,next));};
  // A vehicle that is here can serve its own destinations immediately, even
@@ -168,7 +171,7 @@ function boardingPassenger(state,link,at,next){
  return waiting.find(p=>lineCanDeliverDestination(state,link,at,p.destination)&&ready(p))??waiting.find(p=>findRoute(state,at,p.destination)?.[1]===next&&ready(p))??null;
 }
 function serviceStation(state,link,dt){
- reverseAtStop(link);const service=link.service,next=link.direction===1?link.b:link.a;
+ reverseAtStop(link);const service=link.service,next=nextServiceStop(link,link.service.at);if(!servesStop(link,service.at)){link.service=null;return;}
  const unloadIndex=()=>link.cargo.findIndex(id=>{const p=state.passengers[id],destination=p.destination;return !link.nodes||service.at===destination||!lineCanDeliverDestination(state,link,service.at,destination)&&findRoute(state,service.at,destination)?.[1]!==next;});
  if(service.phase==='unload'&&unloadIndex()<0){for(const id of link.cargo)state.passengers[id].at=service.at;service.phase='board';}
  if(service.phase==='board'&&service.passenger==null){const p=boardingPassenger(state,link,service.at,next);if(!p){link.service=null;return;}p.mode='boarding';service.passenger=p.id;}
@@ -203,14 +206,14 @@ export function advanceGame(state,seconds){
   for(const link of networkVehicles(state)){
    if(link.type==='ferry'&&state.ferryClosed)continue;
    const start=link.direction===1?link.a:link.b,end=link.direction===1?link.b:link.a;
-   if(link.service===undefined)link.service=link.position===0?{at:start,phase:'board',clock:0,passenger:null}:null;
+   if(link.service===undefined)link.service=link.position===0&&servesStop(link,start)?{at:start,phase:'board',clock:0,passenger:null}:null;
    if(link.service){serviceStation(state,link,dt);continue;}
    const parent=state.links.find(l=>l===link||l.vehicles?.includes(link));if(departureHeld(parent,link,dt))continue;
    const a=stops[link.a],b=stops[link.b],length=state.world==='kyrgyzstan'?routeGeometry(link,stops)[link.segment??0].length:Math.hypot(a.x-b.x,a.y-b.y);
    lineStats(link).travel+=dt;link.position+=dt*vehicleStats(state,link.type).speed*eventSpeed(state,link.type,start,end)*kgTerrainSpeed(state,link.type,start,end)/length;
    if(link.position>=1){
     for(const id of link.cargo){const p=state.passengers[id];p.crossings??=[];if(link.type==='ferry'&&stops[start].land!==stops[end].land&&[stops[start].land,stops[end].land].includes('ireland')&&!p.crossings.includes('irish-sea'))p.crossings.push('irish-sea');if(link.type==='tunnel'&&!p.crossings.includes('channel'))p.crossings.push('channel');}
-    if(link.nodes){const next=(link.segment??0)+link.direction;if(isLoop(link))link.segment=(next+link.nodes.length-1)%(link.nodes.length-1);else if(next>=0&&next<link.nodes.length-1)link.segment=next;else link.direction*=-1;[link.a,link.b]=link.nodes.slice(link.segment,link.segment+2);}else link.direction*=-1;link.position=0;link.service={at:end,from:start,phase:'unload',clock:0,passenger:null};
+    if(link.nodes){const next=(link.segment??0)+link.direction;if(isLoop(link))link.segment=(next+link.nodes.length-1)%(link.nodes.length-1);else if(next>=0&&next<link.nodes.length-1)link.segment=next;else link.direction*=-1;[link.a,link.b]=link.nodes.slice(link.segment,link.segment+2);}else link.direction*=-1;link.position=0;link.service=servesStop(link,end)?{at:end,from:start,phase:'unload',clock:0,passenger:null}:null;
    }
   }
   if(state.round===1&&state.delivered>=3&&!state.starterGrantPaid){state.starterGrantPaid=true;state.credits+=11;}
@@ -240,7 +243,7 @@ function createWorldGame(saved,onRestore){
  ensureLineSlots(state);
  let inspected=null,removing=false,completionShown=Boolean(state.complete&&state.celebrationDismissed),routeListKey='',features=null,shapeFilterUI=null,lineDock=null,journal=null,expeditionUI=null,passportUI=null;
  const destinationArt=createDestinationArtwork(state,()=>{if(alive)draw();});
- function drawPassenger(p,x,y,r){destinationArt.draw(ctx,p.destination,x,y,r);if(p.itinerary){ctx.save();ctx.fillStyle='#dca438';ctx.strokeStyle='#fffdf0';ctx.lineWidth=1/state.camera.zoom;const size=Math.max(2,4/state.camera.zoom),cx=x+r*.8,cy=y-r*.8;ctx.beginPath();ctx.moveTo(cx,cy-size);ctx.lineTo(cx+size,cy);ctx.lineTo(cx,cy+size);ctx.lineTo(cx-size,cy);ctx.closePath();ctx.fill();ctx.stroke();ctx.restore();}}
+ function drawPassenger(p,x,y,r){destinationArt.draw(ctx,p.destination,x,y,r);drawPersonBadge(ctx,p,x,y,r,state.camera.zoom);if(p.itinerary){ctx.save();ctx.fillStyle='#dca438';ctx.strokeStyle='#fffdf0';ctx.lineWidth=1/state.camera.zoom;const size=Math.max(2,4/state.camera.zoom),cx=x+r*.8,cy=y-r*.8;ctx.beginPath();ctx.moveTo(cx,cy-size);ctx.lineTo(cx+size,cy);ctx.lineTo(cx,cy+size);ctx.lineTo(cx-size,cy);ctx.closePath();ctx.fill();ctx.stroke();ctx.restore();}}
  function passengerLayout(queue,stop){const radius=Math.max(5,10/state.camera.zoom),spacing=radius*2+2;return queue.map((p,i)=>{const row=Math.floor(i/4),columns=Math.min(4,queue.length-row*4);return {p,x:stop.x+((i%4)-(columns-1)/2)*spacing,y:stop.y-Math.max(11,22/state.camera.zoom)-radius-5-row*spacing,radius};});}
  let rejected=null,feedbackUntil=0;
  const toast=node('div',null,'coastal-route-feedback');toast.hidden=true;toast.setAttribute('role','status');toast.setAttribute('aria-live','polite');map.append(toast);
@@ -381,6 +384,7 @@ function createWorldGame(saved,onRestore){
    if(state.danger[stop.id]>0){ctx.beginPath();ctx.arc(stop.x,stop.y,32,0,Math.PI*2);ctx.lineWidth=5;ctx.strokeStyle=reducedMotion?'#d34e42':`rgba(211,78,66,${.55+.45*Math.sin(visualTime*Math.PI*2)})`;ctx.stroke();text(Math.ceil(stationStats(state,stop.id).alarm-state.danger[stop.id])+'s TO CLEAR',stop.x,stop.y-41-Math.max(0,Math.ceil(queue.length/4)-1)*14,14,'#b73832');}
    ctx.restore();
   }
+  drawAtlasAtmosphere(ctx,state,stops,visualTime,reducedMotion);
   // Moving vehicles and onboard destinations stay above station artwork and queues.
   for(const route of state.links){const geometry=routeGeometry(route,stops);
    for(const vehicle of lineVehicles(route)){const link=vehicle,a=stops[link.a],b=stops[link.b],closed=link.type==='ferry'&&state.ferryClosed;const t=link.direction===1?link.position:1-link.position,location=pointAlong(geometry[link.segment??0],t),{x,y}=location;
@@ -389,7 +393,8 @@ function createWorldGame(saved,onRestore){
     ctx.save();if(transit)ctx.globalAlpha=Math.min(1,transit.visible/24);
     for(let i=0;i<link.cargo.length;i++){const radius=Math.max(5,10/state.camera.zoom),spacing=radius*2+2,row=Math.floor(i/4),columns=Math.min(4,link.cargo.length-row*4);drawPassenger(state.passengers[link.cargo[i]],x+((i%4)-(columns-1)/2)*spacing,y-22-radius-row*spacing,radius);} ctx.restore();
    }}
-  }  if(state.ferryClosed){text('Ferries paused',stops[14].x+80,stops[14].y-40,18/state.camera.zoom,'#a44932');}
+  }
+  if(state.ferryClosed){text('Ferries paused',stops[14].x+80,stops[14].y-40,18/state.camera.zoom,'#a44932');}
   for(let i=effects.length-1;i>=0;i--){const e=effects[i],age=visualTime-e.born;if(age>1.4){effects.splice(i,1);continue;}const s=stops[e.id];ctx.save();ctx.globalAlpha=1-age/1.4;ctx.beginPath();ctx.arc(s.x,s.y,24+age*22,0,Math.PI*2);ctx.strokeStyle=e.colour;ctx.lineWidth=3;ctx.stroke();text(e.label,s.x,s.y-35-age*25,15,e.colour);ctx.restore();}
   expeditionUI?.draw(ctx);ctx.restore();
   shapeFilterUI?.refresh();
@@ -425,7 +430,7 @@ function createWorldGame(saved,onRestore){
  window.render_game_to_text=()=>JSON.stringify({destinationSystem:'city-landmarks',destinationArtwork:destinationArt.status(),coordinates:'Projected longitude/latitude; canvas 1000 × 600; north up; camera maps world to canvas',...state,stops:stops.map(s=>({...s,landmark:stationArt[s.id].landmark,destinationImage:destinationArt.url(s.id)})),offscreenWarnings:offscreenStationWarnings(state),visibleCountries:regions.filter(r=>r.round<=state.round).map(r=>({name:r.name,capital:r.capital})),waterways:waterwaysForText(state.round),landmarks:mapLandmarks.filter(l=>regions.find(r=>r.id===l.region).round<=state.round&&(!Number.isInteger(l.city)||stops[l.city].round<=state.round)).map(l=>({id:l.id,name:l.name,region:l.region}))});
  window.advanceTime=ms=>{manualStepping=true;if(!reducedMotion)visualTime+=ms/1000;advanceGame(state,ms/1000);refresh();};
  const key=e=>{if(!root.isConnected||root.querySelector('dialog[open]'))return;if(e.key==='Escape'&&dragStart!==null){e.preventDefault();pointers.clear();dragStart=null;pointer=null;feedback('Route cancelled.','No 💷 were spent.','warning');draw();}else if(e.key==='f'){toggleFullscreen();}else if(e.code==='Space'&&!['BUTTON','INPUT','TEXTAREA'].includes(e.target.tagName)){e.preventDefault();if(state.running)pause.click();else play.click();}};document.addEventListener('keydown',key);
- features=installNetworkFeatures({root,map,side,controls,celebration,state,node,refresh,draw,engine:{stops,lineStops,routeCost,buyLine,extendLine,passengerJourney,roundReview,stationStats,buyLineVehicle,lineVehicles,setDifficulty},openVehicle,openCards,fresh:!saved});
+ features=installNetworkFeatures({root,map,side,controls,celebration,state,node,refresh,draw,engine:{stops,lineStops,routeCost,buyLine,extendLine,passengerJourney,roundReview,stationStats,buyLineVehicle,lineVehicles,setDifficulty,setServicePattern,servesStop},openVehicle,openCards,fresh:!saved});
  shapeFilterUI=installDestinationFilter({side,state,stops,node,draw});
  lineDock=installLineDock({map,tools,state,node,refresh,inspect:index=>features.inspectLine(index),vehicleLabels,onSelect:()=>{removing=false;rejected=null;toast.hidden=true;message.textContent="Drag from a line end to extend, or choose a grey circle for a new line.";}});
  journal=installTravelJournal({root,side,state,node,mission,count,bar,task,wallet,pressure,message,routes,mapKey,runCards,learningUI,vehiclePicture,refresh,roundDuration,stationStats,draw});

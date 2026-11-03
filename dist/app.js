@@ -64,8 +64,9 @@ function renderLibrary(){
  document.body.classList.remove('style-browser');
  $('.sidebar>.eyebrow').textContent='SUBJECTS';
  $('#search').placeholder='Search your saved lessons';
+ $('#search').setAttribute('aria-label','Search your saved lessons');
  const activeGames=GAMES.filter(g=>!geoIsArchived(g)&&!LAB_GAMES[g.format]?.archived);
- $('#saved-count').textContent=saved.length;$('#lesson-total').textContent=activeGames.length;$('#format-total').textContent=Object.keys(FORMATS).length;
+ $('#saved-count').textContent=saved.length;$('#lesson-total').textContent=gameStyleGroups().length;$('#format-total').textContent=activeGames.length;
  $('#players').value=ui.players;
  $('#mode-description').textContent=Object.values(GAME_MODES).find(m=>m.key===ui.players)?.description||'Choose who owns the challenge: a student, a pair, a team, or the whole classroom.';
  document.querySelectorAll('.header .nav-link').forEach(b=>b.classList.toggle('active',b.dataset.action===(ui.collection==='saved'?'saved':'library')));
@@ -124,7 +125,7 @@ $('#games').addEventListener('click',e=>{
  openEditor(copy);notify('Copy saved. Change its title and questions, then save your lesson.');
 });
 function openEditor(lesson){
- if(FORMATS[lesson.format]?.standalone&&!FORMATS[lesson.format].editableStandalone){const target=new URL(FORMATS[lesson.format].standalone,location.href);if(lesson.format==='pathtrace')target.searchParams.set('level',lesson.grade);if(lesson.format==='space-cargo')target.searchParams.set('grade',lesson.grade);location.href=target.href;return;}
+ if(FORMATS[lesson.format]?.standalone&&!FORMATS[lesson.format].editableStandalone){const target=new URL(FORMATS[lesson.format].standalone,location.href);if(lesson.format==='pathtrace')target.searchParams.set('level',lesson.grade);if(['space-cargo','market-mayhem'].includes(lesson.format))target.searchParams.set('grade',lesson.grade);location.href=target.href;return;}
  lesson=gxUpgradeLesson(lesson);
  draft=clone(lesson);draft.settings ||= {teamOne:'Player 1',teamTwo:'Player 2',shuffle:false};dirty=false;
  $('#lesson-title').value=draft.title;$('#lesson-topic').value=draft.topic;
@@ -159,6 +160,13 @@ $('#bulk-add').onclick=()=>pasteQuestions();
 const replaceList=document.createElement('button');replaceList.id='bulk-replace';replaceList.className='button secondary';replaceList.textContent='Replace with my questions';replaceList.onclick=()=>pasteQuestions(true);$('#bulk-add').after(replaceList);
 function readDraft(){return validateLesson({...draft,title:$('#lesson-title').value,topic:$('#lesson-topic').value,grade:Number($('#lesson-grade').value),subject:$('#lesson-subject').value,settings:{...draft.settings,...readModeSettings(),teamOne:$('#team-one').value,teamTwo:$('#team-two').value,shuffle:$('#shuffle').checked}});}
 function validAction(action){try{const lesson=readDraft();action(lesson);}catch(error){notify(error.message);}}
+function launchShapeDetectiveLesson(lesson){
+ const defaults=prAnswers('shapezones',lesson.grade),prompt=PRIMARY.shapezones.rule.split('. ')[0]+'.';
+ const campaign=lesson.id==='math-'+lesson.grade+'-shapezones'&&lesson.items.length===defaults.length&&lesson.items.every((q,i)=>q.answer===defaults[i]&&q.prompt===prompt&&!q.explanation&&!q.hint);
+ try{sessionStorage.setItem('shape-detective-lesson',JSON.stringify({id:lesson.id,title:lesson.title,items:lesson.items,shuffle:lesson.settings.shuffle,campaign:campaign&&!lesson.settings.shuffle}));}
+ catch{notify('This browser could not open the garden casebook. Allow browser storage and try again.');return;}
+ dirty=false;window.ClassroomVoice?.cancel();location.href=new URL('./shape-detective/index.html?lesson=1',location.href).href;
+}
 $('#save-lesson').onclick=()=>validAction(lesson=>{
  const id=lesson.id.startsWith('custom-')?lesson.id:`custom-${crypto.randomUUID()}`;const copy={...lesson,id};const next=[copy,...saved.filter(s=>s.id!==id)];
  if(next.length>100)return notify('This browser has 100 lessons. Download a backup before saving more.');
@@ -167,7 +175,7 @@ $('#save-lesson').onclick=()=>validAction(lesson=>{
 $('#download-lesson').onclick=()=>validAction(lesson=>{const blob=new Blob([JSON.stringify({schemaVersion:1,lesson},null,2)],{type:'application/json'});const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=`oxford-${lesson.title.replace(/[^a-z0-9а-яёөңү-]/gi,'-').slice(0,70)}.json`;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);dirty=false;notify('Lesson file downloaded. Keep it as your backup.');});
 $('#import-file').onchange=async e=>{const file=e.target.files[0];if(!file)return;try{if(file.size>6000000)throw Error('Choose a lesson file smaller than 6 MB.');const data=JSON.parse(await file.text());if(data.schemaVersion!==1)throw Error('This is not a supported Oxford lesson file.');const lesson=validateLesson(data.lesson);lesson.id=`custom-${crypto.randomUUID()}`;openEditor(lesson);dirty=true;notify('Lesson opened. Review it, then play or save a copy.');}catch(error){notify(error instanceof SyntaxError?'The file is not valid JSON. Choose an Oxford lesson download.':error.message);}e.target.value='';};
 window.addEventListener('beforeunload',e=>{if(dirty){e.preventDefault();e.returnValue='';}});
-function startGame(skipBoozledSetup=false){if(draft?.format==='supermarket-word-quest'){validAction(launchSupermarketLesson);return;}if(draft?.format==='boozled'&&skipBoozledSetup!==true){openBoozledSurprises(true);return;}validAction(lesson=>{if(['tug','relay','board'].includes(lesson.format)&&lesson.items.some(q=>!q.options.length)){notify('Add at least one wrong choice to every question for this two-player game.');return;}draft=lesson;game={lesson:clone(lesson),items:lesson.settings.shuffle?shuffle(lesson.items):clone(lesson.items),index:0,score:lesson.format==='wager'?300:0,teams:[0,0],turn:0,rope:0,lives:3,streak:0,answered:false,revealed:false,hinted:false,wager:0,done:false,correct:0,attempts:0,history:[],used:[],selected:[],left:null,matched:[],feedback:'',feedbackGood:false};game.right=shuffle(game.items.map((_,i)=>i));if(['tug','relay','board'].includes(lesson.format))initTug();prepareRound();if(ACTIVITIES[lesson.format]||EXPANSION[lesson.format]||['kingdom','corners','earth','boozled'].includes(lesson.format))initModeGame();show('player');renderGame();});}
+function startGame(skipBoozledSetup=false){if(draft?.format==='shapezones'){validAction(launchShapeDetectiveLesson);return;}if(draft?.format==='supermarket-word-quest'){validAction(launchSupermarketLesson);return;}if(draft?.format==='boozled'&&skipBoozledSetup!==true){openBoozledSurprises(true);return;}validAction(lesson=>{if(['tug','relay','board'].includes(lesson.format)&&lesson.items.some(q=>!q.options.length)){notify('Add at least one wrong choice to every question for this two-player game.');return;}draft=lesson;game={lesson:clone(lesson),items:lesson.settings.shuffle?shuffle(lesson.items):clone(lesson.items),index:0,score:lesson.format==='wager'?300:0,teams:[0,0],turn:0,rope:0,lives:3,streak:0,answered:false,revealed:false,hinted:false,wager:0,done:false,correct:0,attempts:0,history:[],used:[],selected:[],left:null,matched:[],feedback:'',feedbackGood:false};game.right=shuffle(game.items.map((_,i)=>i));if(['tug','relay','board'].includes(lesson.format))initTug();prepareRound();if(ACTIVITIES[lesson.format]||EXPANSION[lesson.format]||['kingdom','corners','earth','boozled'].includes(lesson.format))initModeGame();show('player');renderGame();});}
 $('#start-game').onclick=startGame;
 const playBottom=document.createElement('button');playBottom.className='button primary';playBottom.id='play-bottom';playBottom.textContent='Play this lesson ▶';playBottom.onclick=startGame;$('#add-question').after(playBottom);
 $('#edit-again').onclick=()=>{const wasDirty=dirty;openEditor(draft);dirty=wasDirty;};

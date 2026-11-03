@@ -1,0 +1,20 @@
+// Small, local vector illustrations share the atlas palette and scale on phones.
+export function atlasArt(kind='map',paint='#168183'){
+ const ink='#234c50',paper='#fff5d9',gold='#e5b34f',coral='#cf795a';
+ const scenes={
+ map:`<path d="M18 25 56 15 91 26 129 15v65l-38 12-35-12-38 10Z" fill="${paper}"/><path d="M56 15v65m35-54v66" opacity=".3"/><path d="m32 65 21-27 30 27 29-33" stroke="${coral}" stroke-dasharray="5 5" fill="none"/><circle cx="32" cy="65" r="6" fill="${paint}"/><circle cx="112" cy="32" r="7" fill="${gold}"/>`,
+ ticket:`<path d="M18 24h112v17a11 11 0 0 0 0 22v17H18V63a11 11 0 0 0 0-22Z" fill="${paper}"/><path d="M49 26v52" stroke-dasharray="3 5"/><path d="m70 40 25 13-25 13Z" fill="${paint}"/><path d="M107 36v32m7-32v32" opacity=".3"/>`,
+ garage:`<path d="M12 41 75 9l63 32v51H12Z" fill="#b8d6cc"/><path d="M29 43h92v49H29Z" fill="${paper}"/><path d="M30 51h90m-90 8h90" opacity=".2"/><rect x="40" y="60" width="70" height="24" rx="7" fill="${paint}"/><path d="M49 64h43v10H49Zm49 0h6v10h-6Z" fill="#d9f3eb"/><circle cx="54" cy="86" r="6" fill="${ink}"/><circle cx="97" cy="86" r="6" fill="${ink}"/>`,
+ passport:`<rect x="38" y="12" width="76" height="80" rx="7" fill="${paint}"/><path d="M47 16v71" stroke="${paper}" opacity=".4"/><circle cx="80" cy="45" r="20" fill="none" stroke="${gold}"/><path d="M60 45h40m-20-20q-20 20 0 40 20-20 0-40" stroke="${gold}" fill="none"/><path d="M64 76h33" stroke="${gold}"/>`,
+ help:`<circle cx="75" cy="51" r="38" fill="${paper}"/><circle cx="75" cy="51" r="29" fill="#c6ded6"/><path d="m75 24 10 28-10 26-10-26Z" fill="${coral}"/><path d="m75 24 10 28H65Z" fill="${paint}"/>`,
+ settings:`<path d="M32 24h87M32 51h87M32 78h87" stroke-width="7"/><circle cx="57" cy="24" r="11" fill="${gold}"/><circle cx="98" cy="51" r="11" fill="${coral}"/><circle cx="66" cy="78" r="11" fill="${paper}"/>`,
+ trip:`<rect x="29" y="30" width="91" height="58" rx="10" fill="${coral}"/><path d="M57 30V17h35v13" fill="none" stroke-width="6"/><path d="M47 32v54m55-54v54" stroke="${paper}" opacity=".7"/><circle cx="75" cy="59" r="17" fill="${paper}"/><path d="m75 46 4 9 10 1-8 6 3 10-9-6-9 6 3-10-8-6 10-1Z" fill="${gold}" stroke="none"/>`,
+ postcard:`<rect x="14" y="17" width="122" height="75" rx="5" fill="${paper}"/><path d="M25 69 49 37 70 61 88 42 121 75H25Z" fill="#8db9a4"/><circle cx="103" cy="34" r="10" fill="${gold}"/><path d="M30 83h66" opacity=".3"/>`
+ };
+ return `<svg viewBox="0 0 150 105" aria-hidden="true" class="atlas-art"><g stroke="${ink}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">${scenes[kind]??scenes.map}</g></svg>`;
+}
+export function depotVehicle(type,paint,decoration=''){
+ const badge=decoration==='sightseer'?'<rect x="287" y="100" width="22" height="16" rx="3"/><circle cx="298" cy="108" r="4" fill="#fff5d9"/><path d="M291 100v-3h10v3"/>':decoration==='trail'?'<path d="M291 117V97m1 1h19l-6 7 6 7h-19"/>':decoration?'<path d="m298 97 4 7 8 1-6 5 2 8-8-5-7 5 2-8-6-5 8-1Z"/>':'';
+ const train=type==='train',wheel=x=>`<g class="depot-wheel" style="transform-origin:${x}px 123px"><circle cx="${x}" cy="123" r="13" fill="#234c50"/><circle cx="${x}" cy="123" r="7" fill="#c0cfc1"/><path d="m${x-6} 123h12m-6-6v12" stroke="#234c50" stroke-width="2"/></g>`;
+ return `<svg viewBox="0 0 440 170" role="img" aria-label="${type} preview"><ellipse cx="220" cy="143" rx="177" ry="10" fill="#234c5020"/><path d="M29 144h382" stroke="#658b80" stroke-width="3"/><g class="depot-body"><path d="M46 49h${train?299:285}q20 0 28 22l15 39q2 10-12 10H47q-12 0-12-12V66q0-17 11-17Z" fill="${paint}" stroke="#234c50" stroke-width="3"/><path d="M55 61h218v31H55Zm237 0h38q11 0 16 14l7 17h-61Z" fill="#e0f3ea"/><path d="M110 61v31m55-31v31m55-31v31" stroke="${paint}" stroke-width="8"/><path d="M46 100h309" stroke="#fff5d9" stroke-width="4"/><rect x="360" y="104" width="10" height="7" rx="3" fill="#ffe7a0" class="depot-lamp"/>${train?'<path d="m150 45 20-20h65l20 20" fill="none" stroke="#234c50" stroke-width="4"/>':''}<g fill="#e5b34f" stroke="#234c50" stroke-width="1.5">${badge}</g></g>${wheel(87)}${wheel(319)}${train?wheel(121)+wheel(285):''}</svg>`;
+}

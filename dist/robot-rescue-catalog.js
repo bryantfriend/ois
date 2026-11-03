@@ -1,0 +1,2 @@
+FORMATS['robot-rescue-lab']={name:'Robot Rescue: Code Lab',icon:'🤖',emoji:'🤖',color:'#164b57',accent:'#ffc66b',mode:'CLASS',standalone:'./robot-rescue/index.html',description:'Program an animated robot with loops, decisions, sensing, operators, variables and custom blocks. Nine rescue rooms.'};
+GAMES.push({id:'computing-robot-rescue-code-lab',format:'robot-rescue-lab',grade:3,subject:'computer-science',title:'Robot Rescue: Code Lab',topic:'Algorithms · loops · conditions · variables · debugging',minutes:'20–30',items:[]});

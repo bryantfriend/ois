@@ -14,8 +14,8 @@ function gameStyleCategory(g){
  const f=g.format,engine=LAB_GAMES[f]?.engine;
  if(g.subject==='ice-breakers'||f.startsWith('ice-'))return 'ice';
  if(g.subject==='board-games'||engine==='classics')return 'strategy';
- if(['physics','creative','mosaic'].includes(engine)||['factory-maths','projectile-duel','blocks'].includes(f))return 'create';
- if(g.subject==='geography'||['explorer-island','shape-detective'].includes(f))return 'explore';
+ if(['physics','creative','mosaic'].includes(engine)||['factory-maths','projectile-duel','blocks','bridge-battle','robot-rescue-lab'].includes(f))return 'create';
+ if(g.subject==='geography'||['explorer-island','shape-detective','treasure-radar'].includes(f))return 'explore';
  if(/supermarket|alphabet|letter|word|spelling|animal-post|sentence|phonics/i.test(f+' '+FORMATS[f].name)||['match','order','sort'].includes(f)||g.id==='english-7-quiz')return 'words';
  if(engine||Object.hasOwn(PRIMARY,f))return 'puzzles';
  return 'quiz';

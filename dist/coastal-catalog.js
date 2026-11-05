@@ -18,3 +18,6 @@ function landmarkLibraryArt(){
  });
 }
 document.addEventListener('DOMContentLoaded',()=>{const previous=renderLibrary;renderLibrary=function(){previous();landmarkLibraryArt();};landmarkLibraryArt();});
+
+FORMATS['landscape-detective']={name:'Landscape Detective',icon:'🔎',emoji:'🔎',color:'#216b58',accent:'#f5c46c',mode:'SOLO',standalone:'./landscape-detective/index.html',description:'Explore 20 illustrated geography scenes and identify 20 features in each.'};
+GAMES.push({id:'geography-7-landscape-detective',format:'landscape-detective',grade:7,subject:'geography',title:'Landscape Detective',topic:'7A Q2 · landscapes, industry and heritage',minutes:'10–20',items:[]});
